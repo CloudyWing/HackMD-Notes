@@ -1,5 +1,8 @@
 # 議 jQuery
 
+[![hackmd-github-sync-badge](https://hackmd.io/-PuXHc7GSkG816BBU3BW5w/badge)](https://hackmd.io/-PuXHc7GSkG816BBU3BW5w)
+
+
 ## 前言
 現今 .NET Web 的網路架構，大概可分為以下兩種：
 1. 使用 .NET 框架的 MVC 或 Razor Pages。
