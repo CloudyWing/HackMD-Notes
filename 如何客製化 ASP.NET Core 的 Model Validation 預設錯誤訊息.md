@@ -1,7 +1,10 @@
 # 如何客製化 ASP.NET Core 的 Model Validation 預設錯誤訊息
 
+[![hackmd-github-sync-badge](https://hackmd.io/J9R08FKfSyiD7yiIgPOfXA/badge)](https://hackmd.io/J9R08FKfSyiD7yiIgPOfXA)
+
+
 ## 前言
-ASP.NET Core 的 Model Validation 目前只提供英文訊息，所以像 RequiredAttribute 在後端所提供的錯誤訊息為 「The {Column Name} field is required.」，如果每個 「Required」 都要自己設定訊息其實有點麻煩，這部份這幾年也一直有人像 ++微軟++ 開發團隊 反映是否能提供多國語言包，但對方始終認為非必要功能，不過這部分 ++微軟++ 本身有提供客製化方法，詳細作法可以參閱此篇[文章](https://learn.microsoft.com/zh-tw/archive/blogs/mvpawardprogram/aspnetcore-mvc-error-message)
+ASP.NET Core 的 Model Validation 目前只提供英文訊息，所以像 RequiredAttribute 在後端所提供的錯誤訊息為 「The {Column Name} field is required.」，如果每個 「Required」 都要自己設定訊息其實有點麻煩，這部份這幾年也一直有人像 ++微軟++ 開發團隊 反映是否能提供多國語言包，但對方始終認為非必要功能，不過這部分 ++微軟++ 本身有提供客製化方法，詳細作法可以參閱此篇[文章](https://learn.microsoft.com/zh-tw/archive/blogs/mvpawardprogram/aspnetcore-mvc-error-message)。
 
 ## 實作
 Model Validation 的預設驗證有分為兩個部分，一個是 ModelBinding 驗證，主要和資料格式比較有關係；另一個是 ValidationMetadata 的驗證，則是與資料內容有關，這兩個功能要分別實作。
