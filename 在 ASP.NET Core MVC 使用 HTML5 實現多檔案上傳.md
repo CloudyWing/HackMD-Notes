@@ -1,5 +1,8 @@
 # 在 ASP.NET Core MVC 使用 HTML5 實現多檔案上傳
 
+[![hackmd-github-sync-badge](https://hackmd.io/dkm8rmnTQ_-st6DhboFJdg/badge)](https://hackmd.io/dkm8rmnTQ_-st6DhboFJdg)
+
+
 ## 使用版本
 .NET 6
 vue@2.7.10
