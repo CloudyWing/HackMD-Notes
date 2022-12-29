@@ -1,4 +1,7 @@
 # 使用 Windows Docker Desktop 建立 Oracle 環境
+
+[![hackmd-github-sync-badge](https://hackmd.io/6pfP2QBKSv6PByiZQDOtwg/badge)](https://hackmd.io/6pfP2QBKSv6PByiZQDOtwg)
+
 原先Oracle官方有在Docker Hub提供image，但目前已無提供下載，如果想要用Docker安裝Oracle，只能使用別人提供的版本，或是從[Oracle Github](https://github.com/oracle/docker-images)下載相關資源來建立image，本篇使用第二種方法。
 
 ## 安裝前的準備
