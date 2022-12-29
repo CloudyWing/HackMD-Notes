@@ -1,5 +1,8 @@
 # 在 Visual Studio 自定義 HTML IntelliSense
 
+[![hackmd-github-sync-badge](https://hackmd.io/b0dzF3wTTuGDohCulagPUA/badge)](https://hackmd.io/b0dzF3wTTuGDohCulagPUA)
+
+
 ## 用途
 當專案有自定義 HTML Attribute，且有 JavaScript 有針對這些特定自定義的 Attribute 進行處理時，為避免開發時忘記這些 Attribute 或是不小心打錯，可以擴充 Visual Studio 的HTML IntelliSense。
 
