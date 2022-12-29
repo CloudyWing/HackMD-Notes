@@ -1,5 +1,8 @@
 # Coding Style
 
+[![hackmd-github-sync-badge](https://hackmd.io/XvZqJY25SI-RGznt1yoirw/badge)](https://hackmd.io/XvZqJY25SI-RGznt1yoirw)
+
+
 幾年前有在網路上找一些 C# 的 Coding Style，但後續要找時常常找不到，原因可能是 Blog 關閉，或是微軟修訂版本，搞得一些不常用的要怎麼定義常不確定，乾脆就開始隨筆記錄在此篇文章，自身要翻閱比較方便。
 
 微軟有提供一個套件來做 Coding Style 檢查，檢查規則可以參考在 Github 上的文件 [StyleCopAnalyzers](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/tree/master/documentation)，但我本身只是大致照這規則走，有部分還是會依照早年寫程式的習慣，或是以前看到的規則為主。
@@ -92,10 +95,6 @@ public class ClassName {
         
     ~ClassName() { }
     
-    public static bool operator ==(ClassName left, ClassName right) {
-        return left == right;
-    }
-    
     // 我只會設計 Public Delegate
     public delegate int Delegate(int x);
     
@@ -137,6 +136,10 @@ public class ClassName {
     
     private void PrivateMethodName() { }
     #endregion
+    
+    public static bool operator ==(ClassName left, ClassName right) {
+        return left == right;
+    }
 }
 ```
 :::info
