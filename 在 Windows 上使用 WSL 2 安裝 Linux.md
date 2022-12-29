@@ -1,5 +1,8 @@
 # 在 Windows 上使用 WSL 2 安裝 Linux
 
+[![hackmd-github-sync-badge](https://hackmd.io/FyZWl2gvTN2Vvw8cdgU3eQ/badge)](https://hackmd.io/FyZWl2gvTN2Vvw8cdgU3eQ)
+
+
 ## 前言
 Docker Desktop 的 Linux Containers 大致有以下架構：
 1. Moby VM：Linux Containers 建立在 Moby VM 所建立的 Linux Container Host裡，完整內容請參考[Windows 10 上的 Linux 容器](https://learn.microsoft.com/zh-tw/virtualization/windowscontainers/deploy-containers/linux-containers)。
