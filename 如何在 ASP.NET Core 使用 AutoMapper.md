@@ -1,4 +1,7 @@
 # 如何在 ASP.NET Core 使用 AutoMapper
+
+[![hackmd-github-sync-badge](https://hackmd.io/DbtaXmo7S-GC3pHbF3wCXg/badge)](https://hackmd.io/DbtaXmo7S-GC3pHbF3wCXg)
+
 ## 前言
 一個應用程式在設計時通常會進行多層次分層，秉持著關注點分離的原則，一般不會將同一個DTO跨越多個分層進行傳輸，而是在每層間將傳入 DTO 轉換成另一個 DTO 後，傳入下個分層。
 舉例來可能會進行這樣的拆分，Entity←(Domain Layer)→Service DTO←(Application Layer)→ViewModel，當要進行資料更新時，Application Layer 將 ViewModel 轉換為 Service DTO 傳入至 Domain Layer 的 Service 當參數，Service 再將 Service DTO 轉換成 Entity 透過 Repository 寫入資料(Entity Framework 本身就是實作 Repository Pattern 的架構)，在處理這些 DTO 轉換的屬性/欄位設值是非常麻煩的，所以都會寫映射(Reflaction) API 來簡化操作，而 AutoMapper 是比較常用的一個映射套件，本身[文件](https://docs.automapper.org/en/latest/index.htm)撰寫非常詳細，相對好上手。
