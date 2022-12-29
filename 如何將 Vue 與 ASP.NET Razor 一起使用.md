@@ -1,5 +1,8 @@
 # 如何將 Vue 與 ASP.NET Razor 一起使用
 
+[![hackmd-github-sync-badge](https://hackmd.io/nsii7XJfTZiIi1ei2W1WwQ/badge)](https://hackmd.io/nsii7XJfTZiIi1ei2W1WwQ)
+
+
 ## 使用版本
 .NET 6
 vue@2.7.10
