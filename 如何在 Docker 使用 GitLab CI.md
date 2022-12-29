@@ -1,5 +1,8 @@
 # 如何在 Docker 使用 GitLab CI
 
+[![hackmd-github-sync-badge](https://hackmd.io/0Qij0TNHT6GQBVX4oBjwXQ/badge)](https://hackmd.io/0Qij0TNHT6GQBVX4oBjwXQ)
+
+
 ## 在 Docker 上安裝 GitLab
 參考[官方文檔](https://docs.gitlab.com/ee/install/docker.html)，撰寫Docker Compose。
 ```yaml
