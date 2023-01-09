@@ -1,5 +1,8 @@
 # MemoryCache 在 ASP.NET Framework MVC 上的應用
 
+[![hackmd-github-sync-badge](https://hackmd.io/18kOSQfqQhS0KVi4uTAzXw/badge)](https://hackmd.io/18kOSQfqQhS0KVi4uTAzXw)
+
+
 ## 使用 ActionFilter 來快取 Action 內容
 [`OutputCacheAttribute`](https://learn.microsoft.com/zh-tw/dotnet/api/system.web.mvc.outputcacheattribute?view=aspnet-mvc-5.2&WT.mc_id=DOP-MVP-37580) 為 MVC 所提供的一個 `ActionFilter`，用來將 Action Method 標註要使用快取，如果未特別設定 `OutputCache`， `OutputCacheAttribute` 的 Server 端的快取是使用 `MemoryCache` 來實作。
 
