@@ -1,5 +1,8 @@
 # 在 ASP.NET 中設定 SameSite Cookies
 
+[![hackmd-github-sync-badge](https://hackmd.io/Cnym-CQkRw6sPhwZCKksPw/badge)](https://hackmd.io/Cnym-CQkRw6sPhwZCKksPw)
+
+
 ## SameSite Cookies
 [SameSite Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) 為 IETF 在 2016 年訂立的草案標準，目的在針對第三方 Cookies 的進行限制，以避免 Web 應用程式遭到跨網站要求偽造 (CSRF) 攻擊，於2019 年進行更新。
 
