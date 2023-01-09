@@ -1,5 +1,8 @@
 # ASP.NET Framework 裡，有關 Web.config (App.config) 的應用
 
+[![hackmd-github-sync-badge](https://hackmd.io/K0ALoDQWSSKmWy5jMWEjPA/badge)](https://hackmd.io/K0ALoDQWSSKmWy5jMWEjPA)
+
+
 ## 依不同組建組態發佈不同的設定檔
 正常來說，本機開發、測試環境以及正式環境的 Web.config (App.config) 設定都會不一樣，如果每次更新程式時，都要將設定改為對應環境的設定值，過於麻煩；如果選擇更新程式不更新 Web.config (App.config)，又有可能會造成有新增或調整設定時，忘記調整測試/開發環境上的設定檔內容。
 有一種作法是每次更新程式都覆蓋設定檔，但是在發佈更新程式時，會直接產製對應環境的設定檔。
