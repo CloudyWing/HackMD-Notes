@@ -1,5 +1,8 @@
 # 在 ASP.NET 使用 Redis 實作分散式快取
 
+[![hackmd-github-sync-badge](https://hackmd.io/Zz7YuJA6SoS7y3B0zXbEVA/badge)](https://hackmd.io/Zz7YuJA6SoS7y3B0zXbEVA)
+
+
 ## 如何在 Windows 上安裝 Redis
 Redis 是 In-Memory 的 NoSQL 資料庫，最初是在 Linux 上發展起來，後續也並無移植 Windows 上面，所以目前在官方網站並無 Windows 版本的安裝檔，如果要在 Windows 上使用，目前有以下方法：
 
