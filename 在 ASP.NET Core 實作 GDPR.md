@@ -1,5 +1,8 @@
 # 在 ASP.NET Core 實作 GDPR
 
+[![hackmd-github-sync-badge](https://hackmd.io/lgTbitomQQeHqUDqsagmpw/badge)](https://hackmd.io/lgTbitomQQeHqUDqsagmpw)
+
+
 ## General Data Protection Regulation
 當你在網頁上瀏覽，如果有看到類似「此網站有使用到 Cookie，請問是否接受？」之類的訊息，這是源於歐盟在 2016年4月27日通過的法規「一般資料保護規則(General Data Protection Regulation，簡稱GDPR」，並於2018年5月25日起強制執行，目的在於針對歐盟個人的資料及隱私進行規範，完整內容可參考 [Wiki GDPR](https://zh.wikipedia.org/wiki/%E6%AD%90%E7%9B%9F%E4%B8%80%E8%88%AC%E8%B3%87%E6%96%99%E4%BF%9D%E8%AD%B7%E8%A6%8F%E7%AF%84#cite_note-4)。
 
