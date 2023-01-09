@@ -1,5 +1,8 @@
 # 在 APS.NET Framework 使用 Autofac 實作 DI
 
+[![hackmd-github-sync-badge](https://hackmd.io/ijTUhSmARH-LYdTYXxoSZA/badge)](https://hackmd.io/ijTUhSmARH-LYdTYXxoSZA)
+
+
 ## Autofac
 [Autofac](https://autofac.readthedocs.io/en/latest/index.html) 是 ASP.NET 比較有名的 DI 套件，早期還有其他的套件，但後續因與 ASP.NET Core 相容問題，很多都淘汰掉了(雖然 ASP.NET Core 有内建 DI 工具，但因為功能相對較為陽春，所以很多人還是會裝其他套件來擴充使用)。
 最初選擇 Autofac 的原因是因為它的型別註冊功能很強大，且官方文件也滿詳細的，又有提供多個框架的支援，結果剛好這套套件也順利活到 ASP.NET Core 時代。
