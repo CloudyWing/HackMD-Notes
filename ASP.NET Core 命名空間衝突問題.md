@@ -33,10 +33,23 @@ global using global::System.Threading.Tasks;
 ```
 
 ## 問題解決了嗎？
-將隱含全域 Using 關掉後，會發現仍然無法編譯成功，後續將 Framework 版本改為不支援「Global Using Directives」的 .NET 5 後發現仍然無法編譯完成，代表 Razor 檔案的全域 Using 設定來自別的地方，最後開啟「obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs」，內容如下圖，可以發現除了「_ViewStart.cshtml」設定的 Using 外，預設還有 Using 其他 Namespace，而且和 Global Using 裡的內容不同，目前推測有可能是寫死的。  
+將隱含全域 Using 關掉後，會發現仍然無法編譯成功，後續將 Framework 版本改為不支援「Global Using Directives」的 .NET 5 後發現仍然無法編譯完成，代表 Razor 檔案的全域 Using 設定來自別的地方，最後開啟「obj\Debug\net5.0\Razor\Pages\Index.cshtml.g.cs」，內容如下圖，可以發現除了「\_ViewStart.cshtml」設定的 Using 外，預設還有 Using 其他 Namespace，而且和 Global Using 裡的內容不同，目前推測有可能是寫死的。  
 ![](https://i.imgur.com/I9EP4bk.png)
 
+從上圖可以得知，每個 Razor 檔案的 Root Namespace 是在「\_ViewStart.cshtml」中定義的。預設情況下，會使用專案名稱作為 Root Namespace。因此，可以參考以下程式碼，將定義的 Namespace 改為所需的 Namespace。不過，請注意「\_ViewStart.cshtml」設定的 Namespace 必須與「{Page}.cshtml.cs」中的 Namespace 相同。如果您將與 Razor 相關的所有檔案的 Namespace 都更改，但與專案其他檔案的 Namespace 不同，這也很奇怪。即使通常情況下「專案名稱」、「組件」和「Root Namespace」不需要保持一致，但在這個案例中，最好還是一開始就避免使用關鍵字。
+
+```csharp
+@using TestNamespace.Sys.Web
+@*這邊把 System 改為 Sys，這樣 Razor 檔案都會套用到此 Namespace*@
+@namespace TestNamespace.Sys.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+```
+
+:::info
+上述路徑是 .NET 5 才有找到，目前我沒找到 .NET 6 是將編譯過程中產生的「\Razor\Pages\{Page Name}.cshtml.g.cs」的檔案放在哪邊。
+:::
+
 ## 結論
-如果 ASP.NET Core 開啟有使用 Razor 檔案的專案時，建議名稱不要包含「System」或是「Microsoft」。
+如果 ASP.NET Core 建立有使用 Razor 檔案的專案時，建議專案名稱不要包含「System」或是「Microsoft」。
 
 ###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET Core`
