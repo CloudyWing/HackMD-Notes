@@ -211,8 +211,30 @@ public class HomeController : Controller
 ```
 
 :::warning
+* 為啟用資料監聽，需要在資料庫中啟用 Service Broker 功能。
 * 用來監聽資料的 SQL 語法，必須要指定到具體要監聽的欄位，且資料表名稱必須要涵蓋 Schema(e.g. `dbo`)，否則無法正確建立快取資料。
 * `SqlDependency` 設定 `SqlCommand` 後，必需執行一次 `SqlCommand` 才可生效。
 :::
+
+#### 啟用 Service Broker
+如果尚未啟用 Service Broker，可以使用以下語法啟用：
+```sql
+ALTER DATABASE {資料庫名稱} SET ENABLE_BROKER;
+```
+
+如果將已經啟用了 Service Broker 的資料庫卸載再重新掛載，執行此語法，則可能會遇到以下錯誤訊息：
+```
+無法在資料庫 "<DBName>" 中啟用 Service Broker，因為資料庫 (<GUID>) 中的 Service Broker GUID 與 sys.databases (<GUID>) 中的不相符。
+```
+
+此時，需要使用以下語法重新設定 Service Broker：
+```sql
+ALTER DATABASE {資料庫名稱} SET NEW_BROKER;
+```
+
+由於啟用 Service Broker 必須要在其他使用者連線的情況下進行，因此如果是運行中的資料庫，需要在執行上述語法時加上 WITH ROLLBACK IMMEDIATE，以回復未完成的交易並中斷其他使用者對資料庫的連線。因此，完整的語法如下所示：
+```sql
+ALTER DATABASE {資料庫名稱} SET NEW_BROKER WITH ROLLBACK IMMEDIATE;
+```
 
 ###### tags: `.NET` `.NET Framework` `ASP.NET` `MemoryCache`
