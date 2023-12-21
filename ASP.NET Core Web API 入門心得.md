@@ -389,7 +389,7 @@ builder.Services.AddSwaggerGen(opt =>
 ```
 
 在 Swagger UI 中將顯示新增的 Token 輸入欄位：  
-![](https://i.imgur.com/2wmTpBK.png)
+![](https://i.imgur.com/I0zLUMc.png)
 
 ### API 資訊與描述
 #### 設定 API 作者、授權和描述
