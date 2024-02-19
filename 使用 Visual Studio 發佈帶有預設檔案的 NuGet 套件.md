@@ -209,4 +209,4 @@ $buildAction.Value = 2
 也許有方法可以讓「.NET Framework」搭配「PackageReference」可以正常使用，但 NuGet 上有多少套件可以搭配這樣使用是存疑的，我有測試過大家常用的「NLog.Config」套件，一樣也沒有複製「NLog.Config」檔案到專案底下。
 :::
 
-###### tags: `.NET` `NuGet` `NuGet Package`
+###### tags: `.NET` `NuGet`
