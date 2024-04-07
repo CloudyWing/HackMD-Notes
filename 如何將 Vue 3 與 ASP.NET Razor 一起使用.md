@@ -469,4 +469,9 @@ axios.interceptors.request.use(
 ## 結語
 其實原本很不想使用 Vue Components，不過實在沒找到其他適合的前端驗證輸入欄位的套件以前，只好將就著使用，目前這個架構還在測試中，如果有其他問題會再上來調整內容。
 
+:::warning
+此篇文章於 2023/01/30 撰寫，最近在 2024/04/06 測試專案時發現，`VeeValidateFormTagHelper` 產生的 `<v-form></v-form>` 會導致 `asp-page-handler` 無法正常運作。此外，錯誤訊息無法正確顯示 `DisplayName` 等 Attribute 所設定的欄位名稱。  
+目前暫時不打算解決這些問題，而是決定放棄這個架構。未來在撰寫 Web 時，可能會繼續選擇使用 Vue 2 搭配 vee-validate 2，或者等待 ASP.NET Core 放棄使用 jQuery 的前端驗證後再考慮使用 Vue 3。或著，也考慮到 Vue 2 已經停止維護，而且我也有點受夠前端框架或套件改版造成不相容的情況，乾脆投入 ASP.NET Core Blazor 的懷抱 =.=a。
+:::
+
 ###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET Core` `Razor Pages` `Vue` `Vue 3`
