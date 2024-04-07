@@ -25,14 +25,14 @@ ModelBindingMessage 內容如下：
 | ---------------------------------- | ------------------------ |
 | AttemptedValueIsInvalid            | 值 {0} 對 {1} 無效。     |
 | MissingBindRequiredValue           | 未提供 {0} 屬性的值。    |
-| MissingKeyOrValue                  | 值 {0} 對 {1} 無效。     |
-| MissingRequestBodyRequiredValue    | 需要一個值。             |
-| NonPropertyAttemptedValueIsInvalid | 需要一個非空的請求正文。 |
+| MissingKeyOrValue                  | 需要一個值。             |
+| MissingRequestBodyRequiredValue    | 需要一個非空的請求正文。 |
+| NonPropertyAttemptedValueIsInvalid | 值 {0} 無效。            |
 | NonPropertyUnknownValueIsInvalid   | 提供的值無效。           |
-| AttemptedValueIsInvalid            | 值 {0} 對 {1} 無效。     |
 | NonPropertyValueMustBeANumber      | 該字串必須為數字。       |
 | UnknownValueIsInvalid              | 提供的值對於 {0} 無效。  |
 | ValueIsInvalid                     | 值 {0} 無效。            |
+| ValueMustBeANumber                 | 值 {0} 必需為數字。      |
 | ValueMustNotBeNull                 | 值 {0} 必需不為空值。    |
 
 ValidationMetadataMessage 內容如下：
