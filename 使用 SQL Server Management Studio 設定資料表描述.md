@@ -16,6 +16,11 @@
 畫面旁邊的三個點的按鈕，點擊會跳出可多行編輯的 UI 視窗。若使用 Entity Framework 反向工程，請避免使用多行描述，以免導致生成無法編譯的程式碼。。
 :::
 
+### 2024-08-23
+突然發現在資料表設計模式的屬性視窗就可以直接編輯資料表描述了，如下圖。難怪我一直記得早期設定資料表描述沒那麻煩...  
+![](https://i.imgur.com/kvYDD3w.png)
+
+
 ## 使用 SQL 語法編輯
 可以透過以下 SQL 語法來設定或修改資料表描述：
 
@@ -28,5 +33,9 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'{資料表�
 ```sql
 EXECUTE sp_updateextendedproperty @name = N'MS_Description', @value = N'{資料表描述}', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'{資料表名稱}';
 ```
+
+## 異動歷程
+* 2024-07-24 新增。
+* 2024-08-23 增加 SSMS 第二種設定方式。
 
 ###### tags: `Database` `Microsoft SQL Server`
