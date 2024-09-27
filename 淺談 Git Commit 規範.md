@@ -188,14 +188,25 @@ git config --global commit.cleanup strip
 	cleanup = strip
 	template = {指定路徑}/.gitmessage.txt
 ```
-:::info
-除了 Global 外，還有一個 System 的 gitconfig 位在 「C:\Program Files\Git\etc\gitconfig」，但這個設定檔優先度最低，一般不會用到，其中 「C:\Program Files\Git」 為 Git 的安裝位置。
-:::
-
 如果輸入指定未包含 `--global`，此內容則會產生在該儲存庫的 「./.git/config」檔案裡。
 
 :::info
-除了 Global 的檔名是「.gitconfig」外，System 和 Local 的檔名開頭都沒有「.」，且三個檔案檔名都不同 XD。
+如果 `template` 設定為 `./.gitmessage.txt`，Git 會使用儲存庫根目錄下的 `.gitmessage.txt` 檔案作為 Commit Template。
+:::
+
+Git 一共有三個 config 設定：
+* System 設定：
+  * 位置：`C:\Program Files\Git\etc\gitconfig`。
+  * 優先度最低。此設定影響整個系統中的所有使用者和專案，通常是系統管理員設置的全局配置，適合全系統共用的 Git 行為規範。
+* Global 設定
+  * `C:\Users\{Windows 帳號}\.gitconfig`：
+  * 次高優先度。此設定適用於單一使用者，但會被 Local 設定覆蓋。常用來設定個人使用的 Git 選項，對於所有儲存庫都有影響，除非被 Local 設定所取代。
+* Local 設定：
+  * `.git\config`
+  * 優先度最高。此設定僅對當前專案有效，覆蓋 Global 和 System 的設定。由於它的影響範圍僅限特定儲存庫，因此對於需要針對專案做特殊設定的情況特別有用。
+
+:::info
+三個檔名都不一樣 XD
 :::
 
 ### 實際使用
@@ -225,10 +236,22 @@ git config --global commit.cleanup strip
 * Git Extensions：
   當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行（感謝同事友情測試）。
 * Sourcetree：
-    * Mac 版的 4.2.8 有支援（感謝同事友情測試)；Windows 版的 3.4.18 尚未支援。當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行。
+    * Mac 版的 4.2.8 有支援（感謝同事友情測試)；Windows 版的 3.4.20 開始支援。
+    * 當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行。
 
 :::info
 Sourcetree 3.4.18 版尚未支援 Git Template，但我看在 2024/6/27，官方在把大家喊好幾年的 Jira 單全關閉了，說在 [Commit template message](https://jira.atlassian.com/browse/SRCTREEWIN-3817) 已解決，所以也許後續某個版本有可能會支援了。
+
+Sourcetree 3.4.20 已新增支援，詳見 [Sourcetree release notes](https://product-downloads.atlassian.com/software/sourcetree/windows/ga/ReleaseNotes_3.4.20.html)。
+> SourceTree 3.4.20 [17 September 2024]
+> * Changes: Supporting git commit template feature
+> * Changes: Upgrade to Git 2.46.0 and Git LFS to 3.5.1
+> * Fixed: 'Push changes immediately' checkbox is disabled in No Staging View
+> * Fixed: Arbitrary code execution vulnerability
+> * Fixed: Interactive rebase always aborting when a merge is necessary
+> * Fixed: Silent crash when creating a hotfix
+> * Fixed: Sourcetree diff treats large .sql files as binary
+> * Fixed: Windows Line breaks are replaced with Unix breaks on "Discard Hunk" click
 :::
 
 ### 還原設定
@@ -241,5 +264,11 @@ git config --unset --global commit.template
 ```git
 git config --global commit.cleanup whitespace
 ```
+
+## 異動歷程
+* 2024-07-23 新增。
+* 2024-09-20：
+  * 更新 Windows 版 Sourcetree 3.4.20 支援 Git Commit Template 功能。
+  * 修正設定檔位置的說明。
 
 ###### tags: `Git`
