@@ -1,8 +1,5 @@
 # 在 Windows 上使用 WSL 2 安裝 Linux
 
-[![hackmd-github-sync-badge](https://hackmd.io/FyZWl2gvTN2Vvw8cdgU3eQ/badge)](https://hackmd.io/FyZWl2gvTN2Vvw8cdgU3eQ)
-
-
 ## 前言
 Docker Desktop 的 Linux Containers 大致有以下架構：
 1. Moby VM：Linux Containers 建立在 Moby VM 所建立的 Linux Container Host裡，完整內容請參考[Windows 10 上的 Linux 容器](https://learn.microsoft.com/zh-tw/virtualization/windowscontainers/deploy-containers/linux-containers)。
@@ -19,35 +16,46 @@ Docker Desktop 的 Linux Containers 大致有以下架構：
 * 看到 **<DistributionName>**，則替換成要安裝的 Linux 套件。
 
 1. 安裝 WSL 2
-```
+```bash
 wsl --install
 # or
 wsl --install -d <DistributionName>
 ```
 :::    info
-* 未指定 Linux 發行版時，預設為**Ubuntu**。
-* 只有未安裝 WSL 時，才可不指定 Linux 發行版。
-* 可用 `wsl -l -o` 查詢可安裝的 Linux 發行版名稱。
+* 未指定 Linux 發行版時，預設為 **Ubuntu**。
+* 只有尚未安裝任何 Linux 發行版時，才可不指定 Linux 發行版。
+* 可用 `wsl --list --online` 或 `wsl -l -o` 查詢可安裝的 Linux 發行版名稱。
 :::
 
 2. 將 WSL 2 設定為預設版本
-```
+```bash
 wsl --set-default-version 2
 ```
  
 3. 設定剛安裝的 Linux 發行版的 WSL 版本設定為 2。
-```
+```bash
 wsl --set-version <DistributionName> 2
 ```
-6. 設定預設 Linux 發行版。
-```
+4. 設定預設 Linux 發行版。
+```bash
+wsl --set-default-version <DistributionName>
+# or
 wsl -s <DistributionName>
 ```
 :::    info
-* 可用 `wsl -l -v` 查詢目前已安裝和正在使用的套件為何。
+* 可用 `wsl --list --verbose` 或 `wsl -l -v` 查詢目前已安裝和正在使用的套件為何。
 * 安裝 Docker Desktop 時，如果有勾選「Install required components for WSL 2」，會安裝以下兩個 Linux 發行版：
     * docker-desktop：用於運行 Docker Engine(dockerd)。
     * docker-desktop-data：用於存儲 Containers 和 Images。
+:::
+    
+5. 移除 Linux 發行版。
+```bash
+wsl --unregister <DistributionName>
+```
+
+:::warning
+請注意，移除 Linux 發行版將會刪除相應的資料夾及所有資料，無法復原。
 :::
 
 ### 官方相關文件
@@ -97,5 +105,16 @@ docker: Got permission denied while trying to connect to the Docker daemon socke
 ## 未解決問題
 1. 當切換至 Windows Container 時，重開機 WSL 2 裡的 Docker 不會自動啟動。
 2. 網路上有些提到安裝 WSL 2的方式是此篇「[舊版 WSL 的手動安裝步驟](https://learn.microsoft.com/zh-tw/windows/wsl/install-manual)」提到的舊安裝方法，根據此篇[文章](https://github.com/microsoft/WSL/issues/5718)提到有可能會造成 Windows 的「檔案總管」無法透過「網路芳鄰」異動 Linux 上面的檔案，但我用新版方式安裝後發現，除了用戶資料夾(/home/{使用者帳號}/)以外的檔案，重開機仍有此問題，所以對於不習慣 Linux 介面的人來說，可能要評估是否要將資料集中存放在用戶資料夾底下。
+    
+以上問題可能可以在 [WSL 中的進階設定組態](https://learn.microsoft.com/zh-tw/windows/wsl/wsl-config#wslconf) 找到解決方案，但我尚未親自測試。  
+有關 Docker 重啟的問題，或許可以透過 `boot` 設定來執行 Docker 自動重啟指令。  
+至於檔案權限問題，可以通過設定 `umask`、`fmask` 和 `dmask` 來解決，但我不熟悉 Linux 權限設定，具體怎設定並不清楚。不過，如果不在乎安全性風險，也可以考慮直接在 `user` 設定 `default = root`（但這不建議）。
+    
+## 異動歷程
+* 2022-12-30 新增。
+* 2024-10-30：
+  * 將簡寫指令改為完整指令。
+  * 補充解除安裝 WSL 的指令。
+  * 嘗試提供之前問題的解決方案。
 
 ###### tags: `Docker` `WSL` `WSL 2`
