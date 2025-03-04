@@ -170,6 +170,11 @@ public class EnumSchemaFilter : ISchemaFilter {
             return;
         }
 
+        // 避免重複加入描述
+        if (schema.Description?.Contains("<p>Possible values:</p>") == true) {
+            return;
+        }
+
         StringBuilder sb = new(schema.Description);
 
         sb.AppendLine("<p>Possible values:</p>");
@@ -221,5 +226,9 @@ Swagger Input 的預設值，是顯示 `schema.Enum` 裡的第一個 `OpenApiStr
 ## 其他相關文章
 * [ASP.NET Core Web API 入門心得](https://hackmd.io/@CloudyWing/HJ-KKurHp)
 * [ASP.NET Core Web API 入門心得 - Middleware 順序](https://hackmd.io/@CloudyWing/H19VeBll0)
+
+## 異動歷程
+* 2024-04-13 新增。
+* 2025-01-16 修正 EnumSchemaFilter 會重複加入 enum 項目描述的錯誤。
 
 ###### tags: `.NET` `.NET Core & .NET 5+` `Web API` `Swagger`
