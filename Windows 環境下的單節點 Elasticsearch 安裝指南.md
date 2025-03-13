@@ -2,7 +2,7 @@
 
 ## 下載與安裝
 1. 前往官方網站下載 Windows 版本的 Elasticsearch。
-  * 網址：https://www.elastic.co/downloads/elasticsearch。
+  * 網址：[https://www.elastic.co/downloads/elasticsearch](https://www.elastic.co/downloads/elasticsearch)。
   * 下載 Windows 的 .zip 檔案。
 
 2. 目錄結構說明：
