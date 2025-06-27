@@ -9,6 +9,7 @@
 最近我發現了一個更好的解決方案：如果在 Web 專案根目錄預先放置一個 web.config 檔案，發佈後的 web.config 就會以此為基礎產生。這讓自動化部署變得更加簡單。
 
 以下是正常發佈後的 web.config：
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -24,11 +25,13 @@
 ```
 
 如果在專案的發布設定檔 (.pubxml) 中加上以下程式碼，可以設定應用程式的執行環境：（具體用途請參考我之前寫的「[淺談 ASP.NET Core 中的環境名稱設定與應用](./rkcveOtDC#使用-Visual-Studio-發佈)」文章）：
+
 ```xml
 <EnvironmentName>Staging</EnvironmentName>
 ```
 
 產生的 web.config 會自動加入環境變數設定：
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -49,6 +52,7 @@
 ```
 
 現在，若我在 ASP.NET Core Web 專案根目錄預先建立一個包含 Shadow Copying 設定的 web.config 檔案：
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -71,6 +75,7 @@
 ```
 
 最終產生出來的 web.config 將會合併兩者的設定，同時包含 Shadow Copying 功能和環境變數：
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -85,7 +90,7 @@
           <handlerSetting name="shadowCopyDirectory" value="../ShadowCopy/" />
         </handlerSettings>
         <environmentVariables>
-          <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Testing" />
+          <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Staging" />
         </environmentVariables>
       </aspNetCore>
     </system.webServer>
@@ -94,12 +99,28 @@
 ```
 
 這樣一來，在 CI/CD 流程中只需使用以下指令即可發佈帶有完整設定的應用程式：
+
 ```bash
-dotnet publish -c Release -p:EnvironmentName=Testing
+dotnet publish -c Release -p:EnvironmentName=Staging
 ```
 
 需注意，web.config 中的 Shadow Copying 設定會因 ASP.NET Core 版本而異。在 .NET 6 時期，這項功能還處於實驗階段，所以設定的參數名稱與後續版本不同。這個設定與 Web 專案本身的 .NET 版本無關，主要取決於伺服器上安裝的 Hosting Bundle 版本。以下是不同版本的使用方式：
- * 使用 ASP.NET Core Hosting Bundle 7.0.0 以上版本：使用 `enableShadowCopy` 參數。
- * 使用 ASP.NET Core Hosting Bundle 6.0.0 版本：使用 `experimentalEnableShadowCopy` 參數。
+
+* 使用 ASP.NET Core Hosting Bundle 7.0.0 以上版本：使用 `enableShadowCopy` 參數。
+* 使用 ASP.NET Core Hosting Bundle 6.0.0 版本：使用 `experimentalEnableShadowCopy` 參數。
+
+:::warning
+升級 .NET 版本後，必須刪除 Shadow Copying 資料夾，否則 IIS 會出現 500.30 錯誤。此時事件檢視器會顯示以下錯誤訊息：
+
+```
+Application '/LM/W3SVC/1/ROOT/{應用程式集區}' with physical root '{網站路徑}' failed to load coreclr. Exception message:
+Unexpected exception: directory_iterator::directory_iterator: The system cannot find the path specified.
+```
+:::
+
+## 異動歷程
+
+* 2025-03-20：新增。
+* 2025-04-08：補充升級 .NET 版本造成 Shadow Copying 異常。
 
 ###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET Core`
