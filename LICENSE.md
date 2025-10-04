@@ -1,22 +1,35 @@
+# Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
-The MIT License (MIT)
+本專案採用 [創用 CC 姓名標示-相同方式分享 4.0 國際](https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW) (CC BY-SA 4.0) 授權條款。
 
-Copyright (c) 2022 周尚緯
+This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+---
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+## Attribution / 標註方式
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+若您使用本專案或其衍生作品,請以下列方式標註:
+
+```
+本文基於周尚緯的作品改編,原作採用 CC BY-SA 4.0 授權。
+原始專案連結: https://github.com/CloudyWing/HackMD-Notes
+授權條款: https://creativecommons.org/licenses/by-sa/4.0/
+```
+
+```
+Based on the work by 周尚緯, licensed under CC BY-SA 4.0.
+Original repository: https://github.com/CloudyWing/HackMD-Notes
+License: https://creativecommons.org/licenses/by-sa/4.0/
+```
+
+---
+
+## Copyright
+
+Copyright (c) 2022–2025 周尚緯
+
+---
+
+**注意**: 本授權條款不適用於專案中引用的第三方內容,該內容仍受其原始授權條款約束。
+
+**Note**: This license does not apply to third-party content cited in the project, which remains subject to its original license terms.
