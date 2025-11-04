@@ -68,6 +68,7 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     container_name: elasticsearch
+    restart: always
     environment:
       - node.name=elasticsearch
       - cluster.name=${CLUSTER_NAME}
@@ -101,6 +102,7 @@ services:
         condition: service_healthy
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
     container_name: kibana
+    restart: always
     environment:
       - SERVER_NAME=kibana
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
@@ -157,5 +159,11 @@ services:
 * **權限問題**：
   * 確認 `volumes/elasticsearch/data` 權限為 UID 1000:1000。
   * 若仍遇到錯誤，可 `sudo chmod -R 777 volumes/elasticsearch/data` 測試（僅限開發環境）。
+
+
+## 異動歷程
+
+* 2025-09-24 初版文件建立。
+* 2025-11-04 修正 YAML 檔遺漏 restart 設定導致重開機會自動啟動之問題。
 
 ###### tags: `Docker` `ELK` `Elasticsearch` `Kibana`
