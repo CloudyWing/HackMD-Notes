@@ -18,9 +18,9 @@ Class Library 有分以下三種目標平台可以選擇：
 有關「.NET Standard」的版本支援選擇請參考 [.NET Standard](https://learn.microsoft.com/zh-tw/dotnet/standard/net-standard?tabs=net-standard-1-0)
 
 比較新版的 Visual Studio，「.NET Core」和「.NET Standard」合併成同一個選項，應該是「.NET Core」後來被改名成「.NET」的關係，後續選擇版本才提供選擇，如下圖所示。  
-![](https://i.imgur.com/98Rtqgk.png)  
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/dotnet-new-project-dialog.png?raw=true)  
 
-![](https://i.imgur.com/5B2O5Rj.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/dotnet-version-selection.png?raw=true)
 
 :::info
 有關目標平台的選擇，如果是開發專案用的 Class Library，請選擇與專案一致的平台及版本，如果是要開發 NuGet 套件則建議選擇「.NET Standard」，如有需支援較舊版的「.NET Framework」，再調整專案檔改成支援多版本即可。
@@ -30,7 +30,7 @@ Class Library 有分以下三種目標平台可以選擇：
 以下內容僅針對「.NET Standard」，畢竟現今不太會有特意開發套件給「.NET Framework」使用的情況，而專案裡的 Class Library 也不需要發佈成套件，再加上 Visual Studio 有針對「.NET Standard」開發簡化，例如可以在專案檔(csproj)編輯套件資訊，不需要額外準備「nuspec」檔案。
 
 對著專案點右鍵，可以開啟專案檔的 XML，其實就是修改專案檔(csproj)內容。  
-![](https://i.imgur.com/m5xLTyy.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/edit-csproj-menu.png?raw=true)
 
 有關套件 XML 的資訊請參考[Pack Target Inputs](https://learn.microsoft.com/zh-tw/nuget/reference/msbuild-targets#pack-target-inputs)，這邊僅針對幾項必要設定作說明。
 
@@ -125,7 +125,7 @@ $buildAction.Value = 2
 
 ### 發佈套件
 1. 對著專案點右鍵後，選擇「套件」(如果發佈正式套件，建議將組態檔改成 Release)。  
-![](https://i.imgur.com/LPpSRpx.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/pack-nuget-menu.png?raw=true)
 
 2. 中繼資料夾「\obj\\{組態設定}」底下會有「nuspec」檔案，後面操作不會使用到此檔案，只是說明一下內容，這邊可以看到「Config.json」被輸出到多個目標資料夾，這是為了相容不同版本的 NuGet 和相容兩種套件管理格式造成，這邊節錄 MSDN [文件](https://learn.microsoft.com/zh-tw/nuget/reference/nuspec#including-assembly-files)。
 >使用 NuGet 2.x 及更舊版本，並規劃使用 packages.config；在安裝套件時，也會使用 `<files>` 項目包含不可變的內容檔。
@@ -163,10 +163,10 @@ $buildAction.Value = 2
 3. 上傳至 NuGet Server
 「bin\\{組態設定}」底下會有一個「nupkg」的檔案，將之上傳到 NuGet Server上。
 如果 Server 是 [NuGet.org](https://nuget.org)，可直接選擇檔案上傳。  
-![](https://i.imgur.com/yjHc2xq.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/nuget-org-upload.png?raw=true)
 
     如果 Server 是自己搭建的 NuGet Server，有些上面會有上傳指令，請先切換至正確路徑，再把「package.nupkg」替換成實際檔案名稱執行。
-    ![](https://i.imgur.com/iYALevs.png)
+    ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/nuget-package-push-command.png?raw=true)
 
 :::info
 雖然我自己也很常寫一些只有我自己在用的垃圾套件，將之上傳到 NuGet 上，但建議這種測試用的套件還是上傳到自己建的環境比較好。
@@ -176,34 +176,34 @@ $buildAction.Value = 2
 #### .NET Framework 搭配 package.config
 
 安裝套件時，會自動執行「tools\install.ps1」。  
-![](https://i.imgur.com/IAKlL4b.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/nuget-install-ps1-execution.png?raw=true)
 
 專案底下有 Config.json 檔案。  
-![](https://i.imgur.com/F96lswI.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/config-json-in-project.png?raw=true)
 
 檔案屬性如「install.ps1」設置的一樣建置動作為「內容」和複製到輸出目錄為「有更新才複製」。  
-![](https://i.imgur.com/AkBKr31.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/file-properties-copy-to-output.png?raw=true)
 
 「packages\{套件}」底下的資料夾會和前述提到的「nuspec」檔案內容一致，
 「content」和「contentFiles」存放靜態檔案，「lib」存放「DLL」。  
-![](https://i.imgur.com/YzPsHiF.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/nuget-package-explorer-structure.png?raw=true)
 
 #### ASP.NET Core
 與前面使用「package.config」的輸出比較，可以發現使用「PackageReference」並不會執行「tools\install.ps1」。  
-![](https://i.imgur.com/xNa9CWt.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/package-reference-no-install-ps1.png?raw=true)
 
 專案底下有 Config.json 檔案。  
-![](https://i.imgur.com/dixb4Sv.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/config-json-present.png?raw=true)
 
 檔案屬性的複製到輸出目錄為「有更新才複製」(這邊不知道是吃哪邊設定，但「install.ps1」並無執行，所以應該無關)。  
-![](https://i.imgur.com/AkBKr31.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/file-properties-copy-to-output.png?raw=true)
 
 #### .NET Framework 搭配 PackageReference
 無執行「tools\install.ps1」。  
-![](https://i.imgur.com/m5sVhhn.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/no-install-ps1-execution.png?raw=true)
 
 連檔案都沒複製到專案底下。  
-![](https://i.imgur.com/m5sVhhn.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Visual%20Studio%20%E7%99%BC%E4%BD%88%E5%B8%B6%E6%9C%89%E9%A0%90%E8%A8%AD%E6%AA%94%E6%A1%88%E7%9A%84%20NuGet%20%E5%A5%97%E4%BB%B6/no-install-ps1-execution.png?raw=true)
 
 :::warning
 也許有方法可以讓「.NET Framework」搭配「PackageReference」可以正常使用，但 NuGet 上有多少套件可以搭配這樣使用是存疑的，我有測試過大家常用的「NLog.Config」套件，一樣也沒有複製「NLog.Config」檔案到專案底下。

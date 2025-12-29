@@ -21,7 +21,7 @@ pdf.Save("document.pdf");
 ```
 
 第一步就出現問題...，發生了以下 Exception：  
-![](https://i.imgur.com/vYGzap7.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E3%80%8CTheArtOfDev.HtmlRenderer.PdfSharp%E3%80%8D%E7%9A%84%E8%B8%A9%E9%9B%B7%E6%AD%B7%E7%A8%8B/exception-error-message.png?raw=true)
 
 感覺是版本問題，嘗試降低嘗試降低「TheArtOfDev.HtmlRenderer.PdfSharp」版本，但問題依然存在。由於原始碼中找不到問題，只好下載下來，以 Debug 的方式尋找原因。但在重新設定引用後，卻發現無法正常編譯。查看專案檔(csproj)後發現，相較於一般套件，多了以下設定：
 ```xml
@@ -44,7 +44,7 @@ PdfDocument pdf = PdfGenerator.GeneratePdf("<p>中文</p>", PageSize.A4);
 pdf.Save("document.pdf");
 ```
 
-![](https://i.imgur.com/81r8LgE.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E3%80%8CTheArtOfDev.HtmlRenderer.PdfSharp%E3%80%8D%E7%9A%84%E8%B8%A9%E9%9B%B7%E6%AD%B7%E7%A8%8B/pdf-generation-issue-1.png?raw=true)
 
 解決方法是在 HTML 中加入 CSS `font-family`，將其設為`標楷體`，即可正常顯示：
 ```csharp
@@ -60,7 +60,7 @@ PdfDocument pdf = PdfGenerator.GeneratePdf(html, PageSize.A4);
 pdf.Save("document.pdf");
 ```
 
-![](https://i.imgur.com/gdxTm0p.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E3%80%8CTheArtOfDev.HtmlRenderer.PdfSharp%E3%80%8D%E7%9A%84%E8%B8%A9%E9%9B%B7%E6%AD%B7%E7%A8%8B/pdf-generation-issue-2.png?raw=true)
 
 :::info
 * 目前預設字型中，僅有「標楷體」和「Malgun Gothic」能夠正確顯示中文。
@@ -110,7 +110,7 @@ PdfDocument pdf = PdfGenerator.GeneratePdf(html, PageSize.A4);
 pdf.Save("document.pdf");
 ```
 
-![](https://i.imgur.com/opEdFiZ.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E3%80%8CTheArtOfDev.HtmlRenderer.PdfSharp%E3%80%8D%E7%9A%84%E8%B8%A9%E9%9B%B7%E6%AD%B7%E7%A8%8B/pdf-generation-issue-3.png?raw=true)
 
 我猜測問題可能在於計算元素高度時，外部 `<td>` 的高度計算錯誤，導致內部 `<table>` 超出外部 `<td>` 的範圍，目前尚未找到適當的解決方案，只能在最後增加一個額外的 `<tr>`，並將底下 `<td>` 的 `height` 屬性先設為 `0px`。此時仍然有框線被截斷的問題，則逐步以 `0.5px` 為單位增加 `height` 屬性的值，找到一個既能正常顯示又不會多顯示其他框線高度的值。但此時有一定機率變成內部 `<table>`上方框線被截掉，如果上方框線被截掉，同樣在前面增加一個額外的 `<tr>`，並以相同方式處理。以下是一個範例：
 
@@ -154,7 +154,7 @@ PdfDocument pdf = PdfGenerator.GeneratePdf(html, PageSize.A4);
 pdf.Save("document.pdf");
 ```
 
-![](https://i.imgur.com/ZgeCigO.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E3%80%8CTheArtOfDev.HtmlRenderer.PdfSharp%E3%80%8D%E7%9A%84%E8%B8%A9%E9%9B%B7%E6%AD%B7%E7%A8%8B/pdf-generation-issue-4.png?raw=true)
 
 ## 使用感想
 單就將 HTML 轉成 PDF 這項功能而言，「TheArtOfDev.HtmlRenderer.PdfSharp」的樣式會比「iTextSharp」更為完整，在更換套件的過程中，我多次發現樣式表現不如預期，原因是由於一些 CSS 樣式在「iTextSharp」沒能發揮效果，而在「TheArtOfDev.HtmlRenderer.PdfSharp」生效了，進而影響到我當前處理的部分。

@@ -312,11 +312,11 @@ build
 ### 執行結果
 #### CI/CD > Jobs
 如果 State 有上傳檔案至 `artifacts` 裡，會出現可下載圖示，藍框可以下載異動清單，紅框可下載編譯後檔案。
-![](https://i.imgur.com/mvyz1Ew.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%A6%82%E4%BD%95%E5%9C%A8%20Docker%20%E4%BD%BF%E7%94%A8%20GitLab%20CI/gitlab-artifact-download-ui.png?raw=true)
 
 #### Deployments > Environments
 會顯示一個可用環境，點擊「開啟」後，會開啟網址為 `http://127.0.0.1:9080` 的網頁，不從這邊開啟，直接輸入網址也可以。
-![](https://i.imgur.com/QhrF9j3.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%A6%82%E4%BD%95%E5%9C%A8%20Docker%20%E4%BD%BF%E7%94%A8%20GitLab%20CI/gitlab-environment-ui.png?raw=true)
 
 :::warning
 1. 網路有些做法是用 `Docker in Docker(DIND)`，使用的Docker Image Tag會是 dind 結尾，不過此法建立的 Container 我不知要如何讓外部使用，所以選擇在 Runner 的「config.toml」裡，將 volumes 增加 `docker.sock` 的對應，此法會讓建立的 Image 和 Container 都掛載在外部的 Docker 底下。

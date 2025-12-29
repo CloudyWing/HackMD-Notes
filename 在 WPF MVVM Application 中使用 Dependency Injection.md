@@ -86,10 +86,10 @@ public partial class ViewModel : ObservableObject
 看以上範例，可能會覺得很奇怪，明明宣告的是全小寫的 `input`，為什麼 `Submit()` 裡是使用字首大寫的 `Input`，如果把滑鼠移至 Attribute 上可以看到它的註解有說明會額外幫忙產生其他程式碼，這也是 class 要使用使用 `partial` 修飾詞的原因。
 
 ObservableProperty 的註解說明。  
-![](https://i.imgur.com/hkEQZqN.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20WPF%20MVVM%20Application%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20Dependency%20Injection/observable-property-attribute.png?raw=true)
 
 RelayCommand 的註解說明。 
-![](https://i.imgur.com/cn3zrqL.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20WPF%20MVVM%20Application%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20Dependency%20Injection/relay-command-attribute.png?raw=true)
 
 ### MainWindow.xaml
 在建構函數設定 `DataContext` 為 ViewModel，如果有使用 DI，ViewModel 可從參數傳入。
@@ -125,12 +125,12 @@ public partial class MainWindow : Window
 
 ## 執行結果
 在 TextBox 填上「測試」後，點擊「送出」。  
-![](https://i.imgur.com/hMTTDw4.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20WPF%20MVVM%20Application%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20Dependency%20Injection/wpf-di-demo-input.png?raw=true)
 
 `Submit()` 有執行成功，且 `Input` 的值是我們在 TextBox 輸入的值。  
-![](https://i.imgur.com/h8OKTMA.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20WPF%20MVVM%20Application%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20Dependency%20Injection/wpf-di-demo-success.png?raw=true)
 
 `Submit()` 裡更改 `Input` 的值，畫面上 TextBox 的內容也跟著變動。  
-![](https://i.imgur.com/ynb77vR.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20WPF%20MVVM%20Application%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20Dependency%20Injection/wpf-di-demo-update.png?raw=true)
 
 ###### tags: `.NET` `.NET Core & .NET 5+` `WPF` `Dependency Injection`

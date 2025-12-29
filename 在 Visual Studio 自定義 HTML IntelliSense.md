@@ -215,10 +215,10 @@
 
 使用結果如下：
 * 輸入「data-」列出相關屬性。
-![](https://i.imgur.com/QPcQxVE.png) 
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E8%87%AA%E5%AE%9A%E7%BE%A9%20HTML%20IntelliSense/html-intellisense-data-attribute.png?raw=true) 
 
 * 選擇「data-format」後列出可選擇的屬性值。
-![](https://i.imgur.com/dWMiAEp.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E8%87%AA%E5%AE%9A%E7%BE%A9%20HTML%20IntelliSense/html-intellisense-data-format.png?raw=true)
 
 :::info
 Unobtrusive JavaScript 可以理解就像是 Bootstrap 或是「jquery.validate.unobtrusive.js」那樣，藉由定義大量的自定義屬性，及針對這些屬性綁定事件或拿屬性值來作為事件會用到的變數值，來達到只要在 HTML 裡設定該些屬性就可以觸發 JavaScript 事件，算是在前端 Framework 流行前的一種主流寫法。

@@ -555,40 +555,40 @@ public class TestController : ControllerBase {
 
 ### FromBody 結果
 如果未傳入任何屬性。  
-![](https://i.imgur.com/vezEzbO.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-no-input.png?raw=true)
 
 驗證可以通過，但是得到的會是 `OptionalValue<T>.Empty`。  
-![](https://i.imgur.com/REivsjX.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-empty-result.png?raw=true)
 
 如果有傳入屬性，但值無效。  
-![](https://i.imgur.com/CpEyrfH.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-invalid-input.png?raw=true)
 
 則會進行驗證。  
-![](https://i.imgur.com/9qF64gA.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-validation.png?raw=true)
 
 如果傳入有效值。  
-![](https://i.imgur.com/bEU2cU7.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-valid-input.png?raw=true)
 
 則可以得到有值的 `OptionalValue<T>`。  
-![](https://i.imgur.com/REivsjX.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-empty-result.png?raw=true)
 
 ### FromForm 結果
 如果未輸入任何值。  
-![](https://i.imgur.com/5cLwUWb.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-null-input.png?raw=true)
 
 驗證可以通過，但是得到的會是 `OptionalValue<T>.Empty`。  
-![](https://i.imgur.com/N3DSXUp.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-success-empty.png?raw=true)
 
 如果輸入空值或無效值。  
-![](https://i.imgur.com/UX9obup.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-null-validation.png?raw=true)
 
 則會進行驗證。  
-![](https://i.imgur.com/i6E315F.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-string-validation.png?raw=true)
 
 如果傳入有效值。  
-![](https://i.imgur.com/RP2LqLE.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-string-valid.png?raw=true)
 
 則可以得到有值的 `OptionalValue<T>`。  
-![](https://i.imgur.com/Kp8OTgC.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-string-success.png?raw=true)
 
 ###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET Core` `C#`

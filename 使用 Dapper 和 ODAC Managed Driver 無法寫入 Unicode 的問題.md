@@ -16,10 +16,10 @@
 * `OracleDbType.NVarchar2`：119
 * `OracleDbType.Varchar2`：126
  
-![](https://i.imgur.com/FCK6zqs.png) ![](https://i.imgur.com/mQKcWl6.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Dapper%20%E5%92%8C%20ODAC%20Managed%20Driver%20%E7%84%A1%E6%B3%95%E5%AF%AB%E5%85%A5%20Unicode%20%E7%9A%84%E5%95%8F%E9%A1%8C/oracle-unicode-insert-issue-1.png?raw=true) ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Dapper%20%E5%92%8C%20ODAC%20Managed%20Driver%20%E7%84%A1%E6%B3%95%E5%AF%AB%E5%85%A5%20Unicode%20%E7%9A%84%E5%95%8F%E9%A1%8C/oracle-unicode-insert-issue-2.png?raw=true)
 
 然而，根據目前最新版本（3.21.100）的「Oracle.ManagedDataAccess.Core」程式碼來看，依然是將 `DbType.String`對應到 `OracleDbType.Varchar2`...。
-![](https://i.imgur.com/LZJJmII.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20Dapper%20%E5%92%8C%20ODAC%20Managed%20Driver%20%E7%84%A1%E6%B3%95%E5%AF%AB%E5%85%A5%20Unicode%20%E7%9A%84%E5%95%8F%E9%A1%8C/oracle-parameter-type-code.png?raw=true)
 
 ## 自訂 `DynamicParameters`
 由於 Dapper 不直接支援使用 `IDbDataParameter` 作為參數，所以無法直接建立具有正確 `OracleDbType` 的 `OracleParameter`。所以，我只好自訂一個 `DynamicParameters` 的類別來處理這個問題。

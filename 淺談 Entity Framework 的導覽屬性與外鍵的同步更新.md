@@ -69,7 +69,7 @@ main.Subs.Add(sub);
 ```
 
 結果：  
-![](https://i.imgur.com/88rpC3c.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-1.png?raw=true)
 
 EntityState：
 ```
@@ -88,7 +88,7 @@ context.Mains.Add(main);
 ```
 
 結果：  
-![](https://i.imgur.com/2wHxaw2.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-2.png?raw=true)
 
 EntityState：
 ```
@@ -107,7 +107,7 @@ context.Subs.Add(sub);
 ```
 
 結果：  
-![](https://i.imgur.com/OU0B8ho.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-3.png?raw=true)
 
 EntityState：
 ```
@@ -128,10 +128,10 @@ context.SaveChanges();
 ```
 
 呼叫 `SaveChanges()` 前的結果。  
-![](https://i.imgur.com/vlMRf1E.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-before-save-1.png?raw=true)
 
 呼叫 `SaveChanges()` 後的結果。  
-![](https://i.imgur.com/wTmv9ZS.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-after-save-1.png?raw=true)
 
 EntityState：
 ```
@@ -161,7 +161,7 @@ sub.Main = main;
 ```
 
 結果：  
-![](https://i.imgur.com/eblqheg.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-4.png?raw=true)
 
 EntityState：
 ```
@@ -180,7 +180,7 @@ context.Mains.Add(main);
 ```
 
 結果： 
-![](https://i.imgur.com/8PRXC8o.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-5.png?raw=true)
 
 EntityState：
 ```
@@ -199,7 +199,7 @@ context.Subs.Add(sub);
 ```
 
 結果：  
-![](https://i.imgur.com/ps2TdwF.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-6.png?raw=true)
 
 EntityState：
 ```
@@ -224,7 +224,7 @@ context.Subs.Add(sub);
 ```
 
 結果：  
-![](https://i.imgur.com/QR5ULIC.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-7.png?raw=true)
 
 EntityState：
 ```
@@ -248,7 +248,7 @@ context.Subs.Add(sub);
 ```
 
 結果：  
-![](https://i.imgur.com/vlZZGm5.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-8.png?raw=true)
 
 EntityState：
 ```
@@ -275,11 +275,11 @@ context.SaveChanges();
 ```
 
 呼叫 `SaveChanges()` 前的結果。  
-![](https://i.imgur.com/0FooG1D.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-before-save-2.png?raw=true)
 
 
 呼叫 `SaveChanges()` 後的結果。  
-![](https://i.imgur.com/8ZlEL1F.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-after-save-2.png?raw=true)
 
 EntityState：
 ```
@@ -306,7 +306,7 @@ Main main = context.Mains.Find(1L);
 ```
 
 結果：  
-![](https://i.imgur.com/xkhvTds.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-9.png?raw=true)
 
 EntityState：
 ```
@@ -333,7 +333,7 @@ Main main1 = context.Mains.Find(1L);
 ```
 
 結果：  
-![](https://i.imgur.com/QURHCbZ.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-10.png?raw=true)
 
 EntityState：
 ```
@@ -366,7 +366,7 @@ Console.ReadLine();
 ```
 
 結果：  
-![](https://i.imgur.com/RvgRjWL.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-11.png?raw=true)
 
 EntityState：
 ```
@@ -399,7 +399,7 @@ context.Entry(sub);
 ```
 
 結果：  
-![](https://i.imgur.com/IECnI0Y.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20Entity%20Framework%20%E7%9A%84%E5%B0%8E%E8%A6%BD%E5%B1%AC%E6%80%A7%E8%88%87%E5%A4%96%E9%8D%B5%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9B%B4%E6%96%B0/ef-sync-result-12.png?raw=true)
 
 ## 結論
 1. 追蹤與導覽屬性同步：  

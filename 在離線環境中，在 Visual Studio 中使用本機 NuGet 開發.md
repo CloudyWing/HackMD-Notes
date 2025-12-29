@@ -9,16 +9,16 @@
 
 ## NuGet 離線套件設定
 在 Visual Studio 的「套件來源」設定中，可以看到預設已經有離線套件的相關設定。  
-![](https://i.imgur.com/4jegvU7.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%E9%9B%A2%E7%B7%9A%E7%92%B0%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%AC%E6%A9%9F%20NuGet%20%E9%96%8B%E7%99%BC/vs-nuget-offline-package-source.png?raw=true)
 
 在設定的資料夾底下，預設存在一些套件。  
-![](https://i.imgur.com/B9BuVhd.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%E9%9B%A2%E7%B7%9A%E7%92%B0%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%AC%E6%A9%9F%20NuGet%20%E9%96%8B%E7%99%BC/offline-nuget-files.png?raw=true)
 
 也可以點擊右上角的「+」按鈕自行擴充來源。  
-![](https://i.imgur.com/7MBfU6m.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%E9%9B%A2%E7%B7%9A%E7%92%B0%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%AC%E6%A9%9F%20NuGet%20%E9%96%8B%E7%99%BC/add-local-nuget-source.png?raw=true)
 
 在使用 NuGet 安裝套件時，可以在中右上角選擇套件來源。  
-![](https://i.imgur.com/BiyiRVW.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%E9%9B%A2%E7%B7%9A%E7%92%B0%E5%A2%83%E4%B8%AD%EF%BC%8C%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%AC%E6%A9%9F%20NuGet%20%E9%96%8B%E7%99%BC/select-local-nuget-source.png?raw=true)
 
 ## 擴充本機套件
 有關將 Class Library 發佈成套件的方式，請參考 [使用 Visual Studio 發佈帶有預設檔案的 NuGet 套件](/W1EoK2qRSMSXF6Ja410jrA)，這邊不多做說明。

@@ -85,7 +85,7 @@ public enum Week {
 }
 ```
 可以看到 `Input` 的 `name` 屬性有註解，但 `week` 屬性卻沒有 Enum 的註解，也沒有屬性的註解。  
-![](https://i.imgur.com/O5jTTTj.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97%20-%20%E6%94%B9%E5%96%84%20Enum%20%E8%A8%BB%E8%A7%A3/enum-property-missing-comments.png?raw=true)
 
 有些人會選擇用 Enum 名稱 來取代 Enum 值，藉由使用 `JsonStringEnumConverter` 來讓 Enum 支援字串輸入與輸出，將程式碼調整如下：
 ```csharp
@@ -137,7 +137,7 @@ builder.Services.AddControllers()
 ```
 
 這樣的調整，輸入和輸出結果與在屬性設定的結果一致，但是 Swagger 說明從 `int` 陣列，變成 `string` 陣列，如下圖所示：  
-![](https://i.imgur.com/7sLwwNv.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97%20-%20%E6%94%B9%E5%96%84%20Enum%20%E8%A8%BB%E8%A7%A3/swagger-string-array-display.png?raw=true)
 
 雖然這樣的作法讓輸入增加彈性，變成 Enum 值和 Enum 名稱都支援，但回傳值變成 Enum 名稱有好有壞，好處是至少比數值更容易知道意思，但是字串有增加使用端打錯的可能，至少以我個人想法，更傾向用 Enum 值傳遞，因此還是要想辦法讓 Swagger 說明能顯示 Enum 註解。
 
@@ -215,13 +215,13 @@ builder.Services.AddSwaggerGen(options => {
 ```
 
 顯示結果如下圖，成功顯示 Enum 的註解。  
-![](https://i.imgur.com/YbE5wH3.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97%20-%20%E6%94%B9%E5%96%84%20Enum%20%E8%A8%BB%E8%A7%A3/swagger-enum-comments-success.png?raw=true)
 
 網路上還有另一篇是在 [替 swagger 加上具有可讀性的 enum 文件](https://dotblogs.azurewebsites.net/AceLee/2023/12/07/170518) `ISchemaFilter` 的 `Apply` 方法裡針對 `schema.Enum` 處理，但這會影響 Swagger 輸入的預設值。此作法結果如下：  
-![](https://i.imgur.com/XDHajBT.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97%20-%20%E6%94%B9%E5%96%84%20Enum%20%E8%A8%BB%E8%A7%A3/swagger-schema-filter-result.png?raw=true)
 
 Swagger Input 的預設值，是顯示 `schema.Enum` 裡的第一個 `OpenApiString`。  
-![](https://i.imgur.com/wmbNIbf.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97%20-%20%E6%94%B9%E5%96%84%20Enum%20%E8%A8%BB%E8%A7%A3/swagger-input-default-value.png?raw=true)
 
 ## 其他相關文章
 * [ASP.NET Core Web API 入門心得](https://hackmd.io/@CloudyWing/HJ-KKurHp)

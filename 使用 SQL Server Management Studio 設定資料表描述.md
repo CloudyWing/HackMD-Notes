@@ -10,7 +10,7 @@
 ## 使用 SSMS 設定
 1. 在 SQL Server Management Studio (SSMS) 中，右鍵點擊目標資料表，選擇「屬性」。
 2. 在「屬性」視窗中，進入「擴展屬性」頁面，新增屬性 `MS_Description`，輸入資料表的描述。   
-![](https://i.imgur.com/nXBAOzO.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20SQL%20Server%20Management%20Studio%20%E8%A8%AD%E5%AE%9A%E8%B3%87%E6%96%99%E8%A1%A8%E6%8F%8F%E8%BF%B0/extended-properties-dialog.png?raw=true)
 
 :::warning
 畫面旁邊的三個點的按鈕，點擊會跳出可多行編輯的 UI 視窗。若使用 Entity Framework 反向工程，請避免使用多行描述，以免導致生成無法編譯的程式碼。。
@@ -18,7 +18,7 @@
 
 ### 2024-08-23
 突然發現在資料表設計模式的屬性視窗就可以直接編輯資料表描述了，如下圖。難怪我一直記得早期設定資料表描述沒那麻煩...  
-![](https://i.imgur.com/kvYDD3w.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20SQL%20Server%20Management%20Studio%20%E8%A8%AD%E5%AE%9A%E8%B3%87%E6%96%99%E8%A1%A8%E6%8F%8F%E8%BF%B0/table-designer-description-property.png?raw=true)
 
 
 ## 使用 SQL 語法編輯

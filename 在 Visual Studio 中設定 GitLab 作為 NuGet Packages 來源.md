@@ -75,7 +75,7 @@ publish:
 ```
 
 Pipeline 執行完，可以在群組或專案的「Deploy」→「Package Registry」中看到該套件，如下圖所示：  
-![](https://i.imgur.com/aIGb1tu.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E8%A8%AD%E5%AE%9A%20GitLab%20%E4%BD%9C%E7%82%BA%20NuGet%20Packages%20%E4%BE%86%E6%BA%90/gitlab-package-registry.png?raw=true)
 
 ### 設定 Job Token 權限
 
@@ -84,7 +84,7 @@ Pipeline 執行完，可以在群組或專案的「Deploy」→「Package Regist
 擴展 Token 權限步驟如下：
 1. 前往 「Settings」→「CI/CD」。
 2. 在 Job token permissions 區塊，點擊「Add group or project」。  
-   ![](https://i.imgur.com/NEONTIN.png)
+   ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E8%A8%AD%E5%AE%9A%20GitLab%20%E4%BD%9C%E7%82%BA%20NuGet%20Packages%20%E4%BE%86%E6%BA%90/gitlab-job-token-permissions.png?raw=true)
 3. 新增所需的群組或專案，讓這些群組或專案能夠存取目前專案的 Packages。
 
 :::info
@@ -102,7 +102,7 @@ Pipeline 執行完，可以在群組或專案的「Deploy」→「Package Regist
 2. 選擇「Preferences」。
 3. 點選「Access Tokens」。
 4. 點擊「Add new token」。  
-![](https://i.imgur.com/uizoNgg.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E8%A8%AD%E5%AE%9A%20GitLab%20%E4%BD%9C%E7%82%BA%20NuGet%20Packages%20%E4%BE%86%E6%BA%90/gitlab-add-new-token.png?raw=true)
 
 在 Token 設定頁面需要完成以下三個部分：
 * 設定一個易於識別的名稱，可依個人喜好命名。
@@ -110,10 +110,10 @@ Pipeline 執行完，可以在群組或專案的「Deploy」→「Package Regist
 * 勾選 API 權限。由於發佈工作是透過 CI/CD 進行，Visual Studio 僅需讀取套件，故只需勾選 `read_api` 權限即可。
 
 設定完成後，點擊「Create personal access token」按鈕產生 Token。  
-![](https://i.imgur.com/Db6yA76.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E8%A8%AD%E5%AE%9A%20GitLab%20%E4%BD%9C%E7%82%BA%20NuGet%20Packages%20%E4%BE%86%E6%BA%90/gitlab-create-personal-access-token.png?raw=true)
 
 請注意，Token 只會在此頁面顯示一次，請立即點擊複製按鈕並妥善保存。  
-![](https://i.imgur.com/2ci1ZeA.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E8%A8%AD%E5%AE%9A%20GitLab%20%E4%BD%9C%E7%82%BA%20NuGet%20Packages%20%E4%BE%86%E6%BA%90/gitlab-copy-token.png?raw=true)
 
 ### 在 Visual Studio 中新增套件來源
 
@@ -125,14 +125,14 @@ Pipeline 執行完，可以在群組或專案的「Deploy」→「Package Regist
 5. 加入 `https://{GitLab Domain}/api/v4/groups/{Group 流水號}/-/packages/nuget/index.json` 。
 
 在本例中，我為新套件來源設定的名稱是「GitLabTest」，因此在清單中選擇「GitLabTest」。  
-![](https://i.imgur.com/HWt1zoH.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E8%A8%AD%E5%AE%9A%20GitLab%20%E4%BD%9C%E7%82%BA%20NuGet%20Packages%20%E4%BE%86%E6%BA%90/vs-nuget-package-source-selection.png?raw=true)
 
 系統會彈出一個要求輸入帳號密碼的視窗。因為我先前已經輸入過，所以這裡沒有截圖。
 
 請在帳號欄位輸入 GitLab 帳號，密碼則輸入剛才產生的 Token。
 
 完成上述設定後，就能看到已發佈的套件了。  
-![](https://i.imgur.com/lCI6U18.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20Visual%20Studio%20%E4%B8%AD%E8%A8%AD%E5%AE%9A%20GitLab%20%E4%BD%9C%E7%82%BA%20NuGet%20Packages%20%E4%BE%86%E6%BA%90/vs-browse-gitlab-packages.png?raw=true)
 
 若重新開啟 Visual Studio 後仍跳出 NuGet 憑證輸入視窗，請依照以下步驟檢查設定：
 

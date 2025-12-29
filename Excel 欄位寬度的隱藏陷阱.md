@@ -16,7 +16,7 @@ font.FontHeightInPoints = 12;
 
 ## Excel 預設字型
 以 Excel 2019 為例，在「檔案 => 選項 => 一般」的設定中可以看到以下內容：  
-![](https://i.imgur.com/bFndsj4.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/Excel%20%E6%AC%84%E4%BD%8D%E5%AF%AC%E5%BA%A6%E7%9A%84%E9%9A%B1%E8%97%8F%E9%99%B7%E9%98%B1/excel-options-general.png?raw=true)
 
 不同版本的 Office Excel 預設字型可能會有所不同。由於我手邊沒有舊版的 Office，無法進行測試。雖然我詢問了 ChatGPT，其回答是預設字型一致，但經常使用 ChatGPT 的人都知道它很常亂講。
 
@@ -25,24 +25,24 @@ NPOI 2.7.1 的版本預設字型為 `Calibri`，字型大小是 `11`。
 :::
 
 如果將字體大小改為 `20`。  
-![](https://i.imgur.com/5BBdt9I.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/Excel%20%E6%AC%84%E4%BD%8D%E5%AF%AC%E5%BA%A6%E7%9A%84%E9%9A%B1%E8%97%8F%E9%99%B7%E9%98%B1/excel-font-size-20.png?raw=true)
 
 
 會出現以下警告，要求關閉 Excel 才能生效  
-![](https://i.imgur.com/hYxKnAd.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/Excel%20%E6%AC%84%E4%BD%8D%E5%AF%AC%E5%BA%A6%E7%9A%84%E9%9A%B1%E8%97%8F%E9%99%B7%E9%98%B1/excel-restart-warning.png?raw=true)
 
 :::warning
 變更預設字體大小後，必須關閉所有 Excel 文件，並建立新的 Excel 文件，才能套用新的設定。
 :::
 
 在相同欄寬值 `8.04` 的情況下，字型大小為 `20` 的欄寬明顯比字型大小為 `12` 的欄寬更寬。  
-![](https://i.imgur.com/eHKpNxz.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/Excel%20%E6%AC%84%E4%BD%8D%E5%AF%AC%E5%BA%A6%E7%9A%84%E9%9A%B1%E8%97%8F%E9%99%B7%E9%98%B1/column-width-comparison.png?raw=true)
 
 但是，列高是另一種規則。如下圖所示，列高會隨字型大小的變化而直接增大至 `28.2`。  
-![](https://i.imgur.com/nLLwjzy.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/Excel%20%E6%AC%84%E4%BD%8D%E5%AF%AC%E5%BA%A6%E7%9A%84%E9%9A%B1%E8%97%8F%E9%99%B7%E9%98%B1/row-height-auto-adjust.png?raw=true)
 
 如果將列高調整為相同的 `16.2`，則顯示效果會一致。  
-![](https://i.imgur.com/x2c5ltR.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/Excel%20%E6%AC%84%E4%BD%8D%E5%AF%AC%E5%BA%A6%E7%9A%84%E9%9A%B1%E8%97%8F%E9%99%B7%E9%98%B1/row-height-manual-adjust.png?raw=true)
 
 ## 使用 NPOI 設定預設字型
 
@@ -76,7 +76,7 @@ Console 顯示。
 ```
 
 產生出來的 Excel 欄寬值為 `7.84`，但欄寬比原本欄寬值為 `8.04` 還寬，字型大小也變為 `20`，但字型沒套用到。  
-![](https://i.imgur.com/3RjpoEq.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/Excel%20%E6%AC%84%E4%BD%8D%E5%AF%AC%E5%BA%A6%E7%9A%84%E9%9A%B1%E8%97%8F%E9%99%B7%E9%98%B1/npoi-generated-width-issue.png?raw=true)
 
 ## 使用 EPPlus 設定預設字型
 程式碼範例如下：
@@ -107,6 +107,6 @@ Console 顯示。
 ```
 
 產生出來的欄寬值為 `8.23`，但欄寬比原本欄寬值為 `8.04` 的兩倍還寬，字型大小也變為 `20`，且字型有套用到。  
-![](https://i.imgur.com/RhdlgGc.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/Excel%20%E6%AC%84%E4%BD%8D%E5%AF%AC%E5%BA%A6%E7%9A%84%E9%9A%B1%E8%97%8F%E9%99%B7%E9%98%B1/epplus-generated-width-correct.png?raw=true)
 
 ###### tags: `Excel` `NPOI` `EPPlus`

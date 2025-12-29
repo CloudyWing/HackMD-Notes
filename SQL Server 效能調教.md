@@ -24,24 +24,24 @@ SQL Server Management Studio (SSMS) 提供了執行計畫工具，可用於分�
 下面是使用 SSMS 執行計畫工具的操作範例：
 ### 包括實際評估計畫
 1. 包括實際評估計畫」使之反白。  
-![](https://i.imgur.com/IDk2Otm.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99/include-actual-execution-plan.png?raw=true)
 
 2. 點擊「執行」來執行查詢語法。  
-![](https://i.imgur.com/U2pFq2R.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99/execute-query-button.png?raw=true)
 
 3. 查詢完畢後，可以發現額外增加一個「執行計畫」的頁籤，裡面會顯示執行計畫內容，如果有缺漏索引，會有相應的提醒。  
-![](https://i.imgur.com/QBwwWn4.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99/execution-plan-tab.png?raw=true)
 
 ### 顯示估計執行計畫
 如果點擊「顯示估計執行計畫」，不需要點擊「執行」，會直接顯示「執行計畫」，由於沒有真正執行查詢，所以不會有「結果」頁籤顯示。。  
-![](https://i.imgur.com/XiclHJl.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99/display-estimated-execution-plan.png?raw=true)
 
 ### 補上遺漏的索引
 1. 對「執行計畫」按右鍵，選擇「遺漏索引詳細資訊」。  
-![](https://i.imgur.com/K3f5L7O.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99/missing-index-details-menu.png?raw=true)
 
 2. 產生包含建立索引語法的視窗，可以使用該語法來補上遺漏的索引。  
-![](https://i.imgur.com/cINv2zb.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99/create-index-script.png?raw=true)
 
 如果想從 [Dynamic Management Views](https://learn.microsoft.com/zh-tw/sql/relational-databases/system-dynamic-management-views/system-dynamic-management-views?view=sql-server-ver16) 裡儲存的執行計劃來找出遺漏的索引，可使用以下語法查詢，並組合建立索引的語法：
 ```sql

@@ -6,9 +6,9 @@
 
 ## 下載與安裝
 1. 從 GitHub 儲存庫首頁右側邊欄的 "Releases" 區域點擊最新版本，目前版本是 **Version 1.12**。
-   ![](https://i.imgur.com/htQUpSZ.png)
+   ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E7%B0%A1%E5%96%AE%E6%B8%AC%E8%A9%A6%E4%BD%BF%E7%94%A8%20WhisperDesktop%20%E5%B0%87%E8%AA%9E%E9%9F%B3%E8%BD%89%E6%88%90%E6%96%87%E5%AD%97/whisper-desktop-github-release.png?raw=true)
 2. 在 Release 頁面的 "Assets" 區域下方，點擊紅框標示的 **WhisperDesktop.zip** 進行下載。
-   ![](https://i.imgur.com/iWH55hI.png)
+   ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E7%B0%A1%E5%96%AE%E6%B8%AC%E8%A9%A6%E4%BD%BF%E7%94%A8%20WhisperDesktop%20%E5%B0%87%E8%AA%9E%E9%9F%B3%E8%BD%89%E6%88%90%E6%96%87%E5%AD%97/whisper-desktop-assets-zip.png?raw=true)
 3. 解壓縮後，會看到以下三個檔案：
    * WhisperDesktop.exe：實際執行檔案。
    * Whisper.dll：函式庫檔案。
@@ -34,7 +34,7 @@
 2. 在 Model Path 欄位指定已下載的模型位置。
 3. Model Implementation 選擇 `GPU`（其他選項我不知道用途，這邊就不說明了）。
    * 如果沒有正確偵測到顯卡，可以點擊 `advanced...` 進行細節設定。
-   ![](https://i.imgur.com/LS8XbWW.png)
+   ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E7%B0%A1%E5%96%AE%E6%B8%AC%E8%A9%A6%E4%BD%BF%E7%94%A8%20WhisperDesktop%20%E5%B0%87%E8%AA%9E%E9%9F%B3%E8%BD%89%E6%88%90%E6%96%87%E5%AD%97/whisper-desktop-advanced-settings.png?raw=true)
 4. 點擊 `ok`。
 5. Language 選擇影片主要語言（中文只有 Chinese 選項，程式會自動判斷繁簡體，不過我也不知道他的判斷依據）。
 6. 若要翻譯成英文，請勾選 Translate，不過我測試音樂常翻失敗。
@@ -46,7 +46,7 @@
    * SubRip subtitles (.srt)：常見的字幕格式，包含時間碼和文字。
    * WebVTT subtitles (.vtt)：網頁影片字幕格式。
 9. 指定輸出的檔案位置及檔名。
-   ![](https://i.imgur.com/P5au6Rb.png)
+   ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E7%B0%A1%E5%96%AE%E6%B8%AC%E8%A9%A6%E4%BD%BF%E7%94%A8%20WhisperDesktop%20%E5%B0%87%E8%AA%9E%E9%9F%B3%E8%BD%89%E6%88%90%E6%96%87%E5%AD%97/whisper-desktop-output-location.png?raw=true)
 10. 如果不想特別指定檔案輸出位置，可以勾選 `Place that file to the input folder`。
     * 這樣會將輸出檔案儲存在與輸入檔案相同的位置。
     * 檔名會是原檔案名稱加上輸出格式對應的副檔名。

@@ -6,7 +6,7 @@
 網路上已有許多相關文章，為了避免未來這些網站消失，所以還是自己寫一篇筆記做紀錄。
 
 在 SSMS 中，資料表設計預設顯示的欄位如下，僅包括「資料行名稱」、「資料類型」和「允許 Null」：  
-![](https://i.imgur.com/C2hzNbi.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E8%87%AA%E8%A8%82%20SQL%20Server%20Management%20Studio%20%E8%B3%87%E6%96%99%E8%A1%A8%E8%A8%AD%E8%A8%88%E7%9A%84%E9%A1%AF%E7%A4%BA%E6%AC%84%E4%BD%8D/ssms-table-design-default.png)
 
 實際上，常用的欄位不僅限於這些。不幸的是，在現今 SSMS 20.2 及更早的版本中都並未提供編輯顯示欄位的 UI，必須通過修改註冊表來客製化欄位。
 
@@ -52,10 +52,10 @@ HKEY_CURRENT_USER\SOFTWARE\Microsoft\SQL Server Management Studio\20.0_IsoShell\
 * 其餘大部分的欄位並不常用。
 
 設定結果如下：  
-![](https://i.imgur.com/1Jc5Ice.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E8%87%AA%E8%A8%82%20SQL%20Server%20Management%20Studio%20%E8%B3%87%E6%96%99%E8%A1%A8%E8%A8%AD%E8%A8%88%E7%9A%84%E9%A1%AF%E7%A4%BA%E6%AC%84%E4%BD%8D/ssms-registry-settings.png)
 
 修改後顯示結果如下：  
-![](https://i.imgur.com/BLl61KK.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E8%87%AA%E8%A8%82%20SQL%20Server%20Management%20Studio%20%E8%B3%87%E6%96%99%E8%A1%A8%E8%A8%AD%E8%A8%88%E7%9A%84%E9%A1%AF%E7%A4%BA%E6%AC%84%E4%BD%8D/ssms-table-design-customized.png)
 
 除了 `SSVPropViewColumnsSQL80`，還有另一個 `SSVPropViewColumnsSQL70`，這主要是為了相容 SQL Server 7.0 的版本，一般情況下不需修改。
 

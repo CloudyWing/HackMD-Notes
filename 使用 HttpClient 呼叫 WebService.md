@@ -73,10 +73,10 @@ public class InvokeWebService {
 但是在 .NET Core 之後，因為沒有「System.Web.Services」這個相關的 Library，所以我參考了這篇文章「[.Net core 调用WebService](https://www.cnblogs.com/hnwl0507/p/16886108.html)」，使用 HttpClient 以 SOAP 訊息格式來呼叫 WebService。
 
 有關 WebService SOAP 訊息格式內容，可以找一個 C# 寫的 WebService，在網址「{httpUrl}?op={method}」查看此 Method 的 Request 和 Response 格式，一般會有提供「SOAP 1.1」、「SOAP 1.2」和「HTTP POST」三種格式，以下是本次使用的「SOAP 1.2」格式範例。  
-![](https://i.imgur.com/jISt57b.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20HttpClient%20%E5%91%BC%E5%8F%AB%20WebService/soap-1.2-format-example.png?raw=true)
 
 放大顯示。  
-![](https://i.imgur.com/L3wVOTB.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20HttpClient%20%E5%91%BC%E5%8F%AB%20WebService/soap-envelope-details.png?raw=true)
 
 當然，我對文章中的解法並不太滿意，因為實際輸入和輸出的型別不一定是簡單型別，所以我使用 `XmlSerializer` 來進行 Object 與 XML 相互轉換，最終的代碼如下：
 
@@ -257,9 +257,9 @@ Response response = await WebServiceUtils.ExecuteAsync<Response>(uri, method, ar
 ```
 
 從監看式看 WebService 有正確接收參數。  
-![](https://i.imgur.com/DiBK7ro.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20HttpClient%20%E5%91%BC%E5%8F%AB%20WebService/webservice-received-request.png?raw=true)
 
 從監看式看執行結果和 WebService 回傳的一致。  
-![](https://i.imgur.com/3WXIbni.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20HttpClient%20%E5%91%BC%E5%8F%AB%20WebService/client-received-response.png?raw=true)
 
 ###### tags: `.NET`

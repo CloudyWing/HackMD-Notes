@@ -14,7 +14,7 @@
 * LINQ 的 `Distinct()` 方法：使用 `GetHashCode()` 來去除重複的元素。
 
 如果覆寫了 `Equals()` 卻未覆寫 `GetHashCode()`，即使物件在 `Equals()` 下相等，這些類別仍可能認為它們不相等，導致錯誤行為。實際上，當只覆寫 `Equals()`，Visual Studio 會出現以下警告。
-![](https://i.imgur.com/xRVafn6.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20C%20Sharp%20%E7%9A%84%20GetHashCode%28%29/gethashcode-overwrite-warning.png?raw=true)
 
 使用以下程式碼測試：
 ```csharp
@@ -61,10 +61,10 @@ public class Test {
 }
 ```
 點擊 `Test` 類別，按 ALT + Enter 開啟重構選項，並選擇「產生 Equals 和 GetHashCode...」。  
-![](https://i.imgur.com/5dSjQKd.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20C%20Sharp%20%E7%9A%84%20GetHashCode%28%29/vs-generate-equals-menu.png?raw=true)
 
 選擇要作為 `Equals()` 判斷的成員，也可以選擇一同實作 `IEquatable<T>` 和 運算子（`＝=` 和 `！=`），這邊先不勾選這些額外項目：  
-![](https://i.imgur.com/ImOlr7l.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E6%B7%BA%E8%AB%87%20C%20Sharp%20%E7%9A%84%20GetHashCode%28%29/vs-generate-equals-dialog.png?raw=true)
 
 產生程式碼如下：
 ```csharp

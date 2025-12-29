@@ -60,31 +60,31 @@
 ### 基本設置與未標記情況
 
 首先建立一個類別庫，並從 NuGet 上安裝 MinVer 套件。如果尚未設定任何版本標籤，MinVer 會使用預設版本：
-![](https://i.imgur.com/ilHYhdk.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20MinVer%20%E8%87%AA%E5%8B%95%E5%8C%96%20.NET%20%E9%A1%9E%E5%88%A5%E5%BA%AB%E7%9A%84%E7%89%88%E6%9C%AC%E8%99%9F%E7%AE%A1%E7%90%86/minver-default-version.png?raw=true)
 
 產生的 DLL 資訊如下：
-![](https://i.imgur.com/dqGMe49.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20MinVer%20%E8%87%AA%E5%8B%95%E5%8C%96%20.NET%20%E9%A1%9E%E5%88%A5%E5%BA%AB%E7%9A%84%E7%89%88%E6%9C%AC%E8%99%9F%E7%AE%A1%E7%90%86/minver-dll-info-default.png?raw=true)
 
 套件指令產生的檔案為：`MinVerTest.0.0.0-alpha.0.1.nupkg`
 
 ### 在前一個 Commit 加入正式版本標籤
 
 如果在前一個 Commit 加入正式標籤 0.1.0：
-![](https://i.imgur.com/ZgyJu7B.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20MinVer%20%E8%87%AA%E5%8B%95%E5%8C%96%20.NET%20%E9%A1%9E%E5%88%A5%E5%BA%AB%E7%9A%84%E7%89%88%E6%9C%AC%E8%99%9F%E7%AE%A1%E7%90%86/git-tag-v0.1.0.png?raw=true)
 
 產生的 DLL 資訊如下（注意 patch 版本自動增加）：
 
-![](https://i.imgur.com/jQalEqo.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20MinVer%20%E8%87%AA%E5%8B%95%E5%8C%96%20.NET%20%E9%A1%9E%E5%88%A5%E5%BA%AB%E7%9A%84%E7%89%88%E6%9C%AC%E8%99%9F%E7%AE%A1%E7%90%86/minver-package-alpha-version.png?raw=true)
 套件指令產生的檔案為：`MinVerTest.0.1.1-alpha.0.1.nupkg`
 
 ### 在前一個 Commit 加入預發布版本標籤
 
 如果在前一個 Commit 加入非正式標籤 0.0.1-alpha.0：
 
-![](https://i.imgur.com/FwZ9K9g.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20MinVer%20%E8%87%AA%E5%8B%95%E5%8C%96%20.NET%20%E9%A1%9E%E5%88%A5%E5%BA%AB%E7%9A%84%E7%89%88%E6%9C%AC%E8%99%9F%E7%AE%A1%E7%90%86/minver-build-log.png?raw=true)
 
 產生的 DLL 資訊如下：
-![](https://i.imgur.com/jg4yZbj.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20MinVer%20%E8%87%AA%E5%8B%95%E5%8C%96%20.NET%20%E9%A1%9E%E5%88%A5%E5%BA%AB%E7%9A%84%E7%89%88%E6%9C%AC%E8%99%9F%E7%AE%A1%E7%90%86/minver-dll-info-v0.1.1.png?raw=true)
 
 套件指令產生的檔案為：`MinVerTest.0.0.1-alpha.0.1.nupkg`
 
@@ -96,11 +96,11 @@
 
 如果在最新 Commit 加入正式標籤 0.1.2：
 
-![](https://i.imgur.com/UD5dNUP.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20MinVer%20%E8%87%AA%E5%8B%95%E5%8C%96%20.NET%20%E9%A1%9E%E5%88%A5%E5%BA%AB%E7%9A%84%E7%89%88%E6%9C%AC%E8%99%9F%E7%AE%A1%E7%90%86/minver-console-output-1.png?raw=true)
 
 產生的 DLL 資訊如下（直接採用標籤版本）：
 
-![](https://i.imgur.com/o19LVE8.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20MinVer%20%E8%87%AA%E5%8B%95%E5%8C%96%20.NET%20%E9%A1%9E%E5%88%A5%E5%BA%AB%E7%9A%84%E7%89%88%E6%9C%AC%E8%99%9F%E7%AE%A1%E7%90%86/minver-console-output-2.png?raw=true)
 
 套件指令產生的檔案為：`MinVerTest.0.1.2.nupkg`
 

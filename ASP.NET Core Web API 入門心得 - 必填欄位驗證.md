@@ -157,9 +157,9 @@ public class RequiredForTypeSchemaFilter : ISchemaFilter {
 ```
 
 以下是顯示結果：
-![](https://i.imgur.com/i2sepLt.png)  
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97%20-%20%E5%BF%85%E5%A1%AB%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/validation-result-display.png?raw=true)  
 
-![](https://i.imgur.com/AADV0AC.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97%20-%20%E5%BF%85%E5%A1%AB%E6%AC%84%E4%BD%8D%E9%A9%97%E8%AD%89/validation-error-response.png?raw=true)
 
 ## 其他相關文章
 * [ASP.NET Core Web API 入門心得](https://hackmd.io/@CloudyWing/HJ-KKurHp)

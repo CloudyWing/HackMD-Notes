@@ -11,34 +11,34 @@
 ## 建立專案
 我通常不會直接建立專案，而是先建立一個「空白方案」。如果在 Visual Studio 中找不到「空白方案」選項，可以檢查 Visual Studio Installer，看與範本相關的項目是否已經選中，例如「其他專案範本(舊版)」或「.NET Framework 專案與項目範本」。我印象中，應該是前者，但有點不太確定。
 
-![](https://i.imgur.com/NQ6SmLf.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/aspnet-core-webapi-project-template.png?raw=true)
 
 建立 Web API 專案時，選擇「ASP.NET Core Web API」。  
-![](https://i.imgur.com/bKwbUhz.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/select-webapi-template.png?raw=true)
 
 習慣上，我會將專案路徑放到「src」資料夾底下。  
-![](https://i.imgur.com/wKjDjjK.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/project-path-setup.png?raw=true)
 
 這邊針對下圖「其他資訊」的幾個設定進行說明：  
-![](https://i.imgur.com/tJTkbxX.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/additional-information-settings.png?raw=true)
 
 1. 啟用 OpenAPI 支援：
     勾選這個會預設安裝「Swashbuckle.AspNetCore」，且會在「Program.cs」增加 Swagger 相關程式碼。  
-![](https://i.imgur.com/ZjDdOoy.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/enable-openapi-support.png?raw=true)
 2. 不要使用最上層陳述式：
     上層陳述式是 C# 9.0 中加入的功能。簡單來說，一般的程式通常使用 Main 方法作為進入點，但當採用最上層陳述式時，位於「Program.cs」檔案中的程式碼將不再需要 Program 類別和 Main 方法。這樣的設計旨在簡化程式碼結構。更詳細的資訊可以參考 [最上層語句 - 沒有 Main 方法的程式](https://learn.microsoft.com/zh-tw/dotnet/csharp/fundamentals/program-structure/top-level-statements)。
 3. 使用控制器：
     如果沒有勾選，最使用最小 API 的方式來建立，詳情可參考 [最小 API 概觀](https://learn.microsoft.com/zh-tw/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-6.0)。
 
 建立方案資料夾以利分類專案：  
-![](https://i.imgur.com/C6kPk4R.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/solution-folder-structure.png?raw=true)
 
 將專案移至「src」方案資料夾底下：  
-![](https://i.imgur.com/sGZTzzR.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/move-project-to-src.png?raw=true)
 
 ## 程式碼說明
 建立 Web API 專案時，預設生成以下範例程式碼，接下來針對這部分進行解說。  
-![](https://i.imgur.com/NjPXa9C.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/default-generated-code.png?raw=true)
 
 ### ControllerBase
 ASP.NET Core 與 ASP.NET Framework 不同，其 MVC 和 Web API 的 Controller 並非來自不同的組件，而是均源自相同的基礎組件。在 ASP.NET Core 中，MVC 預設繼承 `Controller`，而 Web API 則預設繼承更上層的 `ControllerBase`。`Controller` 額外提供一些與 View 相關的 API，以及三個 Filter 相關的事件：`OnActionExecuting`、`OnActionExecuted` 和 `OnActionExecutionAsync`。
@@ -333,7 +333,7 @@ if (app.Environment.IsDevelopment())
 * `AddSwaggerGen()`：用於向 DI 容器中注入 Swagger 的相關服務。通常在這個方法中配置 Swagger 生成器，從應用程式的組件、Controller 和註釋中擷取 API 相關的資訊。
 * `UseSwagger()`：啟用 Swagger Middleware，使其在應用程式運行時提供Swagger文件。可透過「https\://\{Your Domain\}/swagger/v1/swagger\.json」查看生成的JSON檔案。
 * `UseSwaggerUI()`：啟用Swagger UI Middleware，生成一個交互式的網頁介面。預設的網址是「https\://\{Your Domain\}/swagger/index.html」，頁面示例如下：  
-    ![](https://i.imgur.com/eqKPNJC.png)
+    ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/swagger-ui-example.png?raw=true)
     
     Swagger UI 必須依附於「swagger.json」，如果未使用 `UseSwagger()`，將無法正常運作。可使用下列程式碼更換網址中「swagger」的部分：
     
@@ -389,7 +389,7 @@ builder.Services.AddSwaggerGen(opt =>
 ```
 
 在 Swagger UI 中將顯示新增的 Token 輸入欄位：  
-![](https://i.imgur.com/I0zLUMc.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/swagger-authorize-input.png?raw=true)
 
 ### API 資訊與描述
 #### 設定 API 作者、授權和描述
@@ -418,7 +418,7 @@ builder.Services.AddSwaggerGen(opt =>
 ```
 
 在 Swagger 中呈現的資訊如下：  
-![](https://i.imgur.com/N9pfuWC.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/swagger-api-info-display.png?raw=true)
 
 相應的 swagger.json 內容如下：
 ```json
@@ -485,7 +485,7 @@ public ActionResult<string> GetById(int? id)
 ```
 
 Swagger UI 將顯示相對應的註解：
-![](https://i.imgur.com/7TUVOGW.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/swagger-xml-comments-display.png?raw=true)
 
 swagger.json 也會新增 `summary`、`description` 和 `400` 的內容：
 ```json
@@ -550,7 +550,7 @@ public class MyModel
 ```
 
 Swagger UI 將顯示相應的註解：  
-![](https://i.imgur.com/xRzQZ0d.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/swagger-response-types.png?raw=true)
 
 swagger.json 也會新增 `description` 的內容：
 ```json

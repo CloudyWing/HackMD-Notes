@@ -29,15 +29,15 @@ Redis 是 In-Memory 的 NoSQL 資料庫，最初是在 Linux 上發展起來，�
 
 安裝步驟如下：
 1. 至[官網](https://www.memurai.com/get-memurai)下載連結，這邊點擊 Developer Edition 的 「Download」。
-![](https://i.imgur.com/uqniNLY.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20%E4%BD%BF%E7%94%A8%20Redis%20%E5%AF%A6%E4%BD%9C%E5%88%86%E6%95%A3%E5%BC%8F%E5%BF%AB%E5%8F%96/memurai-download-page.png?raw=true)
 
 2. 需填寫資料才能下載
-![](https://i.imgur.com/X8R8sEW.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20%E4%BD%BF%E7%94%A8%20Redis%20%E5%AF%A6%E4%BD%9C%E5%88%86%E6%95%A3%E5%BC%8F%E5%BF%AB%E5%8F%96/memurai-download-form.png?raw=true)
 
 3. 點擊下載下來的安裝檔「Memurai-Developer-v{Version}.msi」，開始點下一步安裝。
 
 4. 安裝時，有個步驟需要注意下，這邊會設定 Port 和加入防火牆例外，需注意 Port 是否已被使用。
-![](https://i.imgur.com/CEonEhV.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20%E4%BD%BF%E7%94%A8%20Redis%20%E5%AF%A6%E4%BD%9C%E5%88%86%E6%95%A3%E5%BC%8F%E5%BF%AB%E5%8F%96/memurai-install-port-setting.png?raw=true)
 
 一些額外的安裝設定可參閱 [官網安裝教學](https://docs.memurai.com/en/installation)。
 
@@ -139,13 +139,13 @@ public class IndexModel : PageModel
 
 ### 執行結果
 第一次瀏覽，目前時間和快取時間一樣
-![](https://i.imgur.com/EPLr9TX.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20%E4%BD%BF%E7%94%A8%20Redis%20%E5%AF%A6%E4%BD%9C%E5%88%86%E6%95%A3%E5%BC%8F%E5%BF%AB%E5%8F%96/cache-test-first-visit.png?raw=true)
 
 第二次瀏覽，目前時間更新，快取時間沒更新
-![](https://i.imgur.com/Jpw2sqN.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20%E4%BD%BF%E7%94%A8%20Redis%20%E5%AF%A6%E4%BD%9C%E5%88%86%E6%95%A3%E5%BC%8F%E5%BF%AB%E5%8F%96/cache-test-second-visit.png?raw=true)
 
 隔一分鐘後第三次瀏覽，目前時間和快取時間都更新為現在時間
-![](https://i.imgur.com/iDE84vk.png)
+![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20%E4%BD%BF%E7%94%A8%20Redis%20%E5%AF%A6%E4%BD%9C%E5%88%86%E6%95%A3%E5%BC%8F%E5%BF%AB%E5%8F%96/cache-test-third-visit.png?raw=true)
 
 ### Absolute 和 Sliding
 微軟的 MemoryCache 提供兩個快取到期的時間策略，比較如下：
