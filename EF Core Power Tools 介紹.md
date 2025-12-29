@@ -7,6 +7,7 @@
 在過往，Entity Framework 有提供 Database First 的開發方式。但是在 Entity Framework Core 中只剩下 Code First。
 
 雖然可以使用反向工程從資料庫產生 EF 程式碼來模擬 Database First 的效果，但此時會遇到兩個主要問題：
+
 * **指令複雜**：反向工程的指令不同，產生的程式碼會不太一樣，增加因操作錯誤造成程式碼差異的風險。
 * **客製化限制**：針對產生的程式碼能進行的客製化很有限。
 
@@ -42,8 +43,9 @@ EF Core Power Tools 也不是沒有缺點：
     延伸模組版本與 Entity Framework Core 版本嚴重相依，而 Entity Framework Core 又和 .NET 版本相依。
 
     不同的專案可能需要使用不同版本的 EF Core Power Tools：
-    * EF Core Power Tools 2.5.1429：最後支援 Entity Framework Core 3.1 的版本，且不支援 Entity Framework Core 8。
-    * EF Core Power Tools 2.6.698：最後支援 Entity Framework Core 7 的版本。  
+
+  * EF Core Power Tools 2.5.1429：最後支援 Entity Framework Core 3.1 的版本，且不支援 Entity Framework Core 8。
+  * EF Core Power Tools 2.6.698：最後支援 Entity Framework Core 7 的版本。
 
     因此，如果同時維護橫跨 .NET Core 3.1 到 .NET 8 的多個專案，就可能需要安裝多個版本的 Visual Studio（例如 Visual Studio 正式版和 Visual Studio Preview），以便搭配不同版本的延伸模組。
 
@@ -58,13 +60,21 @@ EF Core Power Tools 也不是沒有缺點：
 ### 安裝與設定
 
 安裝 EF Core Power Pack 後，系統會額外安裝以下擴充套件：
+
 * VisualStudio.Data.Sqlite
 * Npgsql PostgreSQL Integration
 
 ### 使用方式
 
 安裝完成後，在「新增資料庫連線」時：
+
 1. 點擊資料連線旁邊的「變更(C)」按鈕。
 2. 選擇清單中新增的「PostgreSQL」或「SQLite」資料庫類型。
 
-###### tags: `Visual Studio` `Entity Framework`
+## 異動歷程
+
+* 2025-07-07 初版文件建立。
+
+---
+
+###### tags: `.NET` `Database` `Visual Studio` `Entity Framework`

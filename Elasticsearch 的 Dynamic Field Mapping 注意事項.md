@@ -20,11 +20,14 @@
 
 不是全部的型別都能透過動態對應自動處理。例如：
 
-* **地理位置欄位**：如果想要使用 `geo_point` 或 `geo_shape` 相關的地理查詢 API，必須預先在 mapping 中定義。即使你存入了符合地理位置結構的 JSON 資料(如 `{"lat": 25.03, "lon": 121.56}`)，如果沒有預先定義為 `geo_point` 型別，Elasticsearch 只會將其視為普通的 `object`，無法使用 `geo_distance` 之類的地理查詢功能。
+* **地理位置欄位**：
+    如果想要使用 `geo_point` 或 `geo_shape` 相關的地理查詢 API，必須預先在 mapping 中定義。即使你存入了符合地理位置結構的 JSON 資料(如 `{"lat": 25.03, "lon": 121.56}`)，如果沒有預先定義為 `geo_point` 型別，Elasticsearch 只會將其視為普通的 `object`，無法使用 `geo_distance` 之類的地理查詢功能。
 
-* **巢狀物件(Nested)**：如果需要對陣列中的物件進行獨立查詢，必須使用 `nested` 型別。動態對應只會將其建立為 `object` 型別，導致陣列中的物件欄位會被扁平化，無法正確查詢。
+* **巢狀物件(Nested)**：
+    如果需要對陣列中的物件進行獨立查詢，必須使用 `nested` 型別。動態對應只會將其建立為 `object` 型別，導致陣列中的物件欄位會被扁平化，無法正確查詢。
 
-* **自訂分析器**：如果需要特定的文字分析方式(如中文分詞、同義詞處理等)，必須在 mapping 中明確指定 analyzer，動態對應只會使用預設的 standard analyzer。
+* **自訂分析器**：
+    如果需要特定的文字分析方式(如中文分詞、同義詞處理等)，必須在 mapping 中明確指定 analyzer，動態對應只會使用預設的 standard analyzer。
 
 相關資訊可參考 [Field data types](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)。
 
@@ -61,16 +64,20 @@ Elasticsearch 官方文件建議使用明確對應(Explicit mapping)來為每個
 
 `dynamic` 參數控制是否動態新增欄位，接受以下參數：
 
-**`true`** (預設值)  
+**`true`** (預設值)
+
 新欄位會自動加入到 mapping 中。適合開發階段快速測試，但不建議用於正式環境。
 
-**`runtime`**  
+**`runtime`**
+
 新欄位會以 runtime fields 的形式加入 mapping。這些欄位不會被索引，而是在查詢時從 `_source` 載入並即時計算。優點是不佔用索引空間，缺點是查詢效能較差，適合不常查詢但偶爾需要的欄位。
 
-**`false`**  
+**`false`**
+
 新欄位會被忽略。這些欄位不會被索引或可搜尋，但仍會出現在回傳結果的 `_source` 欄位中。這些欄位不會被加入 mapping，必須手動明確新增。這個設定可以避免 mapping explosion，同時保留原始資料的完整性。
 
-**`strict`**  
+**`strict`**
+
 如果偵測到新欄位，會拋出例外並拒絕該文件。新欄位必須明確加入 mapping 才能使用。這是最嚴格的設定，適合需要嚴格控制資料結構的場景。
 
 更詳細的說明可參考 [Dynamic mapping](https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic-mapping.html)。
@@ -79,4 +86,10 @@ Elasticsearch 官方文件建議使用明確對應(Explicit mapping)來為每個
 
 雖然 Elasticsearch 的動態對應功能看似方便，但在正式環境中，建議還是事先規劃好 Schema，明確定義各個欄位的型別。這能讓你在儲存空間、查詢效能和功能需求之間做出最適合的權衡，避免日後需要重新索引的麻煩。
 
-###### tags: `ELK` `Elasticsearch`
+## 異動歷程
+
+* 2025-10-04 初版文件建立。
+
+---
+
+###### tags: `Database` `ELK` `Elasticsearch`

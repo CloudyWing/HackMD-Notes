@@ -1,17 +1,17 @@
 # 在 ASP.NET Core MVC 使用 HTML5 實現多檔案上傳
 
-[![hackmd-github-sync-badge](https://hackmd.io/dkm8rmnTQ_-st6DhboFJdg/badge)](https://hackmd.io/dkm8rmnTQ_-st6DhboFJdg)
-
-
 ## 使用版本
-.NET 6
-vue@2.7.10
-axios@0.27.2
-bootstrap@5.2.1
-popper.js@2.11.6
+
+* .NET 6
+* vue@2.7.10
+* axios@0.27.2
+* bootstrap@5.2.1
+* popper.js@2.11.6
 
 ## 實作前需了解內容
+
 ### HTML
+
 * [FormData](https://docs.w3cub.com/dom/formdata/using_formdata_objects)
 使用 XMLHttpRequest 時，可以用 FormData 設定 Key/Value 的資料傳送. 它主要用於發送表單數據。
 
@@ -20,22 +20,27 @@ popper.js@2.11.6
 
 * [HTML <input> multiple Attribute](https://www.w3schools.com/tags/att_input_multiple.asp)
 簡單屬性，使用 multiple 屬性可以讓 input file 選擇多個檔案，簡單屬性標準寫法以 multiple 為例，`multiple="multiple"`，但實際寫`multiple`或`multiple="{任意值}"`皆是同樣效果。
+
 ```htmlmixed
 <input type="file" id="files" name="files" multiple="multiple" />
 ```
 
 * [Progress Event Handler](https://docs.w3cub.com/dom/xmlhttprequest/progress_event)
-XMLHttpRequest 會在接收到更多資料時，定時觸發的事件，其中 Event Args 有兩個[屬性](https://www.w3schools.com/jsref/obj_progressevent.asp)可用於繪製 Progress Bar。
-    * loaded：已加載的資料量。
-    * tota：需加載的總資料量。
+XMLHttpRequest 會在接收到更多資料時，定時觸發的事件，其中 Event Args 有兩個[屬性](https://www.w3schools.com/JSref/obj_progressevent.asp)可用於繪製 Progress Bar。
+
+  * loaded：已加載的資料量。
+  * tota：需加載的總資料量。
 
 ### .NET
+
 * [IFormFile](https://learn.microsoft.com/zh-tw/dotnet/api/microsoft.aspnetcore.http.iformfile?view=aspnetcore-6.0)
 過往在 MVC 5 時，檔案上傳一直無法與模型繫結屬性整合在一起，必須在 Action 使用「HttpPostedFileBase」型別的參數，或是使用「Request.Files」來取得上傳檔案資料。
 ASP.NET Core 增加了「IFormFile」型別可來做為檔案上傳時的繫結屬性型別，多檔案上傳則使用「IFormFileCollection 」。
 
 ## 實際範例
+
 HTML
+
 ```htmlmixed
 <div id="app">
     <input type="file" multiple="multiple" asp-for="Files" v-on:change="handleFileChange" />
@@ -45,7 +50,9 @@ HTML
     <button class="btn-primary" type="button" v-on:click="handleSubmit">送出</button>
 </div>
 ```
+
 JavaScript
+
 ```javascript
 new Vue({
     el: '#app',
@@ -79,9 +86,9 @@ new Vue({
 ```
 
 ViewModel
-```
-public class IndexViewModel
-{
+
+```csharp
+public class IndexViewModel {
     [DisplayName("上傳檔案")]
     [Required]
     public IFormFileCollection Files { get; set; }
@@ -89,22 +96,19 @@ public class IndexViewModel
 ```
 
 Controller
+
 ```csharp
 [HttpPost]
-public async Task<IActionResult> Index3(IndexViewModel viewModel)
-{
+public async Task<IActionResult> Index3(IndexViewModel viewModel) {
 
-    if (!ModelState.IsValid)
-    {
+    if (!ModelState.IsValid) {
         string message = ModelState.First(x => x.Value.Errors.Count > 0)
             .Value?.Errors.FirstOrDefault()?.ErrorMessage;
         return Ok(new { Message = message });
     }
 
-    foreach (var formFile in viewModel.Files)
-    {
-        if (formFile.Length > 0)
-        {
+    foreach (var formFile in viewModel.Files) {
+        if (formFile.Length > 0) {
             // 請替換實際存放位置
             var filePath = Path.GetTempFileName();
 
@@ -118,32 +122,33 @@ public async Task<IActionResult> Index3(IndexViewModel viewModel)
 ```
 
 ## 檔案上傳大小限制
+
 因為資安因素，Request 和 Response 等都會有大小限制，而檔案上傳時，會牽涉到的兩個屬性主要為 MultipartBodyLengthLimit 和 MaxRequestBodySize，如果要從程式端調整限制有以下作法：
+
 * Global設定
+
 ```csharp
 // Program.cs
-builder.Services.Configure<FormOptions>(x =>
-{
+builder.Services.Configure<FormOptions>(x => {
     // multipart body的最大長度限制，預設約128MB
     x.MultipartBodyLengthLimit = long.MaxValue;
 });
 
-// 利用Kestrel部署的應用配置Request的大小限制
-builder.WebHost.ConfigureKestrel(opt =>
-{
+// 利用Kestrel部署的應用設定Request的大小限制
+builder.WebHost.ConfigureKestrel(opt => {
     opt.Limits.MaxRequestBodySize = long.MaxValue;
 
 });
 
-// 利用IIS部署的應用配置Request的大小限制
-builder.Services.Configure<IISServerOptions>(options =>
-{
+// 利用IIS部署的應用設定Request的大小限制
+builder.Services.Configure<IISServerOptions>(options => {
     options.MaxRequestBodySize = long.MaxValue;
 });
 ```
 
 * 從Attribute限制
-```
+
+```csharp
 [HttpPost]
 [DisableRequestSizeLimit]
 [RequestSizeLimit(long.MinValue)] // 與DisableRequestSizeLimitAttrubute二擇一使用
@@ -152,11 +157,19 @@ public async Task<IActionResult> Index(IndexViewModel viewModel) {
 //...
 }
 ```
+
 :::    danger
 注意事項
+
 * 設定 `long.MaxValue` 只是舉例用，請依照實際需求設置限制大小。
 * 上述設定單位皆為 byte。
 * Attribute 優先度會高於 Global 設定。
 :::
 
-###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET Core` `axios`
+## 異動歷程
+
+* 2022-10-24 初版文件建立。
+
+---
+
+###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET` `ASP.NET Core` `axios`

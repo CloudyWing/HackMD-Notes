@@ -1,41 +1,44 @@
 # 如何將 Vue 3 與 ASP.NET Razor 一起使用
 
-[![hackmd-github-sync-badge](https://hackmd.io/sTrU1wjuRLa4mPl9avbzIQ/badge)](https://hackmd.io/sTrU1wjuRLa4mPl9avbzIQ)
-
-
 ## 使用版本
-* .NET 6  
-* vue@3.2.45  
-* vee-validate@4.7.3  
-* vee-validate/rules@4.5.11  
-* vee-validate/i18n@4.7.3  
-* axios@1.2.2  
-* bootstrap@5.2.3  
-* popper.js@2.11.6  
+
+* .NET 6
+* vue@3.2.45
+* vee-validate@4.7.3
+* vee-validate/rules@4.5.11
+* vee-validate/i18n@4.7.3
+* axios@1.2.2
+* bootstrap@5.2.3
+* popper.js@2.11.6
 
 ## 前言
+
 Vue 3 有提供「Composition API」和「Options API」兩種寫法，本篇文章還是採用「Options API」處理，原因在於 Vue 官網有提到「Composition API」的許多好處只體現在大型專案中，如果是引用 JS 檔案的輕前端寫法還是建議使用「Options API」，~~絕對不是我看不懂「Composition API」的寫法又不想學~~，以下引用官網文章。
 
-[Which to Choose?](https://vuejs.org/guide/introduction.html#api-styles)
+[Which to Choose?](https://vueJS.org/guide/introduction.html#api-styles)
 > For production use:
 > 
 > Go with Options API if you are not using build tools, or plan to use Vue primarily in low-complexity scenarios, e.g. progressive enhancement.
 > 
 > Go with Composition API + Single-File Components if you plan to build full applications with Vue.
 
-[Will Options API be deprecated?#](https://vuejs.org/guide/extras/composition-api-faq.html#will-options-api-be-deprecated)
+[Will Options API be deprecated?#](https://vueJS.org/guide/extras/composition-api-faq.html#will-options-api-be-deprecated)
 > No, we do not have any plan to do so. Options API is an integral part of Vue and the reason many developers love it. We also realize that many of the benefits of Composition API only manifest in larger-scale projects, and Options API remains a solid choice for many low-to-medium-complexity scenarios.
 
 ## 架構大致說明
-架構上大致以「[如何將 Vue 與 ASP.NET Razor 一起使用](/nsii7XJfTZiIi1ei2W1WwQ)」這篇文章內容的架構為基礎調整而成，本篇文章僅提供新的程式碼，不再重新說明一次。
+
+架構上大致以「[如何將 Vue 與 ASP.NET Razor 一起使用](https://github.com/CloudyWing/HackMD-Notes/blob/main/%E5%A6%82%E4%BD%95%E5%B0%87%20Vue%20%E8%88%87%20ASP.NET%20Razor%20%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8.md)」這篇文章內容的架構為基礎調整而成，本篇文章僅提供新的程式碼，不再重新說明一次。
 
 ## 程式碼
 
 ### _Layout.cshtml
-在這裡，我們會創建 Vue 物件，並設定其他套件的使用。注意以下幾點：
+
+在這裡，我們會建立 Vue 物件，並設定其他套件的使用。注意以下幾點：
+
 * Vue 組件的名稱必須與 TagHelper 的 Tag 名稱相同，例如 `VForm` 對應到 `VeeValidateFormTagHelper` 產生的 `<v-form></v-form>`。
 * `VeeValidateFormTagHelper` 會產生 Attribute `:initial-errors="initialErrors()"`，這是為了呼叫 `initialErrors` 來初始化錯誤訊息。
 * 請將 `{組件名稱}` 替換成實際的 DLL 組件名稱，這會動態產生一個專組件名稱的樣式檔，樣式檔內容為 `_Layout.cshtml.css` 的內容。
+
 ```htmlmixed
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
@@ -112,6 +115,7 @@ Vue 3 有提供「Composition API」和「Options API」兩種寫法，本篇文
 ```
 
 ### vee-validate-rules-extension.js
+
 這邊是為了補上 `jquery.validate.js` 有，但 `vee-validate-rules.js` 沒有的驗證。
 
 ```javascript
@@ -201,6 +205,7 @@ Vue 3 有提供「Composition API」和「Options API」兩種寫法，本篇文
 ```
 
 ### site.css
+
 在組件編譯完畢前隱藏原始模板。
 
 ```css
@@ -210,6 +215,7 @@ Vue 3 有提供「Composition API」和「Options API」兩種寫法，本篇文
 ```
 
 ### site.js
+
 ajax 在 headers 增加傳遞 `RequestVerificationToken`，用來進行`ValidateAntiForgeryToken` 的驗證。
 
 ```javascript
@@ -227,22 +233,20 @@ axios.interceptors.request.use(
 ```
 
 ### VeeValidateFormTagHelper
+
 用來產生 `<v-form></v-form>`。
 
 ```csharp
     [HtmlTargetElement("v-form", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class VeeValidateFormTagHelper : FormTagHelper
-    {
+    public class VeeValidateFormTagHelper : FormTagHelper {
         private const string VueSlotAttributeName = "v-slot";
 
         public VeeValidateFormTagHelper(IHtmlGenerator generator) : base(generator) { }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
+        public override void Process(TagHelperContext context, TagHelperOutput output) {
             output.Attributes.Add(":initial-errors", "initialErrors()");
 
-            if (!context.AllAttributes.ContainsName(VueSlotAttributeName))
-            {
+            if (!context.AllAttributes.ContainsName(VueSlotAttributeName)) {
                 output.Attributes.Add(VueSlotAttributeName, "{ isSubmitting }");
             }
 
@@ -252,185 +256,165 @@ axios.interceptors.request.use(
 ```
 
 ### VeeValidateInputTagHelper
+
 用來產生 `<v-field></v-field>`，並將 `Required` 之類的 DataAnnotations 輸出成 `rules="required"`，以提供給 `vee-validate-rules.js` 解析，會選用 `vee-validate.js` 作為前端驗證套件，也是因為它有支援解析 Attribute 的方式來進行前端驗證。
 
 ```csharp
-    [HtmlTargetElement("v-field", Attributes = ForAttributeName, TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class VeeValidateInputTagHelper : InputTagHelper
-    {
-        private const string ForAttributeName = "asp-for";
-        private const string RulesAttributeName = "rules";
-        private const string VueModelAttributeName = "v-model";
+[HtmlTargetElement("v-field", Attributes = ForAttributeName, TagStructure = TagStructure.NormalOrSelfClosing)]
+public class VeeValidateInputTagHelper : InputTagHelper {
+    private const string ForAttributeName = "asp-for";
+    private const string RulesAttributeName = "rules";
+    private const string VueModelAttributeName = "v-model";
 
-        public VeeValidateInputTagHelper(IHtmlGenerator generator) : base(generator) { }
+    public VeeValidateInputTagHelper(IHtmlGenerator generator) : base(generator) { }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            if (context is null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
+    public override void Process(TagHelperContext context, TagHelperOutput output) {
+        if (context is null) {
+            throw new ArgumentNullException(nameof(context));
+        }
 
-            if (output is null)
-            {
-                throw new ArgumentNullException(nameof(output));
-            }
+        if (output is null) {
+            throw new ArgumentNullException(nameof(output));
+        }
 
-            if (For is null)
-            {
-                return;
-            }
+        if (For is null) {
+            return;
+        }
 
-            if (!context.AllAttributes.ContainsName(RulesAttributeName))
-            {
-                string? rules = GetRules();
-                if (rules != null)
-                {
-                    output.Attributes.Add(RulesAttributeName, GetRules());
-                }
-            }
-
-            base.Process(context, output);
-
-            string[] excludeTypes = new string[] { "radio", "checkbox" };
-
-            if (context.AllAttributes.ContainsName(VueModelAttributeName) && !excludeTypes.Contains(context.AllAttributes["type"].Value))
-            {
-                output.Attributes.RemoveAt(output.Attributes.IndexOfName("value"));
+        if (!context.AllAttributes.ContainsName(RulesAttributeName)) {
+            string? rules = GetRules();
+            if (rules != null) {
+                output.Attributes.Add(RulesAttributeName, GetRules());
             }
         }
 
-        private string? GetRules()
-        {
-            List<string> items = new List<string>();
+        base.Process(context, output);
 
-            if (For is not null)
-            {
-                foreach (var validationAttribute in For.Metadata.ValidatorMetadata)
-                {
-                    switch (validationAttribute)
-                    {
-                        case CompareAttribute attr:
-                            // HACK 不確定能正確抓到
-                            string[] forNameParts = For.Name.Split('.');
-                            forNameParts[^1] = attr.OtherProperty;
-                            items.Add($"confirmed:@{string.Join(".", forNameParts)}");
-                            break;
-                        case CreditCardAttribute _:
-                            items.Add("credit_card");
-                            break;
-                        case EmailAddressAttribute _:
-                            items.Add("email");
-                            break;
-                        case FileExtensionsAttribute attr:
-                            items.Add($"ext:{attr.Extensions}");
-                            break;
-                        case StringLengthAttribute attr:
-                            if (attr.MaximumLength > 0)
-                            {
-                                items.Add($"max:{attr.MaximumLength}");
-                            }
-                            if (attr.MinimumLength > 0)
-                            {
-                                items.Add($"min:{attr.MinimumLength}");
-                            }
-                            break;
-                        case MaxLengthAttribute attr:
-                            if (attr.Length > 0)
-                            {
-                                items.Add($"max:{attr.Length}");
-                            }
-                            break;
-                        case MinLengthAttribute attr:
-                            if (attr.Length > 0)
-                            {
-                                items.Add($"min:{attr.Length}");
-                            }
-                            break;
-                        case RangeAttribute attr:
-                            items.Add($"between:{attr.Minimum},{attr.Maximum}");
-                            break;
-                        case RequiredAttribute _:
-                            items.Add("required");
-                            break;
-                        case UrlAttribute _:
-                            items.Add("url");
-                            break;
-                    }
-                }
-            }
+        string[] excludeTypes = new string[] { "radio", "checkbox" };
 
-            if (items.Any())
-            {
-                return $"{string.Join("|", items)}";
-            }
-
-            return null;
+        if (context.AllAttributes.ContainsName(VueModelAttributeName) && !excludeTypes.Contains(context.AllAttributes["type"].Value)) {
+            output.Attributes.RemoveAt(output.Attributes.IndexOfName("value"));
         }
     }
+
+    private string? GetRules() {
+        List<string> items = new List<string>();
+
+        if (For is not null) {
+            foreach (var validationAttribute in For.Metadata.ValidatorMetadata) {
+                switch (validationAttribute) {
+                    case CompareAttribute attr:
+                        // HACK 不確定能正確抓到
+                        string[] forNameParts = For.Name.Split('.');
+                        forNameParts[^1] = attr.OtherProperty;
+                        items.Add($"confirmed:@{string.Join(".", forNameParts)}");
+                        break;
+                    case CreditCardAttribute _:
+                        items.Add("credit_card");
+                        break;
+                    case EmailAddressAttribute _:
+                        items.Add("email");
+                        break;
+                    case FileExtensionsAttribute attr:
+                        items.Add($"ext:{attr.Extensions}");
+                        break;
+                    case StringLengthAttribute attr:
+                        if (attr.MaximumLength > 0) {
+                            items.Add($"max:{attr.MaximumLength}");
+                        }
+                        if (attr.MinimumLength > 0) {
+                            items.Add($"min:{attr.MinimumLength}");
+                        }
+                        break;
+                    case MaxLengthAttribute attr:
+                        if (attr.Length > 0) {
+                            items.Add($"max:{attr.Length}");
+                        }
+                        break;
+                    case MinLengthAttribute attr:
+                        if (attr.Length > 0) {
+                            items.Add($"min:{attr.Length}");
+                        }
+                        break;
+                    case RangeAttribute attr:
+                        items.Add($"between:{attr.Minimum},{attr.Maximum}");
+                        break;
+                    case RequiredAttribute _:
+                        items.Add("required");
+                        break;
+                    case UrlAttribute _:
+                        items.Add("url");
+                        break;
+                }
+            }
+        }
+
+        if (items.Any()) {
+            return $"{string.Join("|", items)}";
+        }
+
+        return null;
+    }
+}
 ```
+
 :::warning
 `vee-validate` 在產出 `<select></select>` 也是用 `<v-field></v-field>`，但我還沒做相關測試。
 :::
 
 ### VeeValidateMessageTagHelper
+
 `text-danger` 是配合 Bootstrap 的樣式，實際上請自行調整。
 
 ```csharp
-    [HtmlTargetElement("v-message", Attributes = ForAttributeName, TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class VeeValidateMessageTagHelper : TagHelper
-    {
-        private const string ForAttributeName = "asp-validation-for";
+[HtmlTargetElement("v-message", Attributes = ForAttributeName, TagStructure = TagStructure.NormalOrSelfClosing)]
+public class VeeValidateMessageTagHelper : TagHelper {
+    private const string ForAttributeName = "asp-validation-for";
 
-        [HtmlAttributeName(ForAttributeName)]
-        public ModelExpression? For { get; set; }
+    [HtmlAttributeName(ForAttributeName)]
+    public ModelExpression? For { get; set; }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            if (context is null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            if (output is null)
-            {
-                throw new ArgumentNullException(nameof(output));
-            }
-
-            if (For is null)
-            {
-                return;
-            }
-
-            output.Attributes.Add("name", For.Name);
-            output.AddClass("text-danger", HtmlEncoder.Default);
+    public override void Process(TagHelperContext context, TagHelperOutput output) {
+        if (context is null) {
+            throw new ArgumentNullException(nameof(context));
         }
+
+        if (output is null) {
+            throw new ArgumentNullException(nameof(output));
+        }
+
+        if (For is null) {
+            return;
+        }
+
+        output.Attributes.Add("name", For.Name);
+        output.AddClass("text-danger", HtmlEncoder.Default);
     }
+}
 ```
 
 ### VueInputTagHelper
+
 主要產生 `<input />` 還是原生的 `InputTagHelper`，這裡目的只是當有設定 `v-model` 時，則將 Attribute `value` 給移除掉，避免被 Vue 警告。
 
 ```csharp
-    [HtmlTargetElement("input", Attributes = ForAttributeName, TagStructure = TagStructure.WithoutEndTag)]
-    public class VueInputTagHelper : TagHelper
-    {
-        private const string ForAttributeName = "asp-for";
-        private const string VueModelAttributeName = "v-model";
+[HtmlTargetElement("input", Attributes = ForAttributeName, TagStructure = TagStructure.WithoutEndTag)]
+public class VueInputTagHelper : TagHelper {
+    private const string ForAttributeName = "asp-for";
+    private const string VueModelAttributeName = "v-model";
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            string[] excludeTypes = new string[] { "radio", "checkbox" };
+    public override void Process(TagHelperContext context, TagHelperOutput output) {
+        string[] excludeTypes = new string[] { "radio", "checkbox" };
 
-            if (context.AllAttributes.ContainsName(VueModelAttributeName) && !excludeTypes.Contains(context.AllAttributes["type"].Value))
-            {
-                output.Attributes.RemoveAt(output.Attributes.IndexOfName("value"));
-            }
+        if (context.AllAttributes.ContainsName(VueModelAttributeName) && !excludeTypes.Contains(context.AllAttributes["type"].Value)) {
+            output.Attributes.RemoveAt(output.Attributes.IndexOfName("value"));
         }
     }
+}
 ```
 
 ### _ViewImports.cshtml
+
 請將 `{ProjectNamespace}` 替換成專案的 Namespace，`{TagHelperNamespace}` 替換成自定義的 TagHelper 的 Namespace，需注意由於自定義 TagHelper 是相依原生地 TagHelper，所以順序不能對調。
 
 ```csharp
@@ -441,6 +425,7 @@ axios.interceptors.request.use(
 ```
 
 ### Page.cshtml
+
 * 如果有需要使用前端欄位驗證才需要使用 `<v-form></v-form>` 和 `<v-field></v-field>`，否則使用一般的 `<form></form>` 和 `<input />` 就好。
 * `isSubmitting` 定義在 `VeeValidateFormTagHelper` 裡面，目的在當 Submit 後，將按鈕給 Disabled，避免重覆點擊。
 
@@ -467,11 +452,20 @@ axios.interceptors.request.use(
 ```
 
 ## 結語
+
 其實原本很不想使用 Vue Components，不過實在沒找到其他適合的前端驗證輸入欄位的套件以前，只好將就著使用，目前這個架構還在測試中，如果有其他問題會再上來調整內容。
 
 :::warning
-此篇文章於 2023/01/30 撰寫，最近在 2024/04/06 測試專案時發現，`VeeValidateFormTagHelper` 產生的 `<v-form></v-form>` 會導致 `asp-page-handler` 無法正常運作。此外，錯誤訊息無法正確顯示 `DisplayName` 等 Attribute 所設定的欄位名稱。  
+此篇文章於 2023/01/30 撰寫，最近在 2024/04/06 測試專案時發現，`VeeValidateFormTagHelper` 產生的 `<v-form></v-form>` 會導致 `asp-page-handler` 無法正常運作。此外，錯誤訊息無法正確顯示 `DisplayName` 等 Attribute 所設定的欄位名稱。
+
 目前暫時不打算解決這些問題，而是決定放棄這個架構。未來在撰寫 Web 時，可能會繼續選擇使用 Vue 2 搭配 vee-validate 2，或者等待 ASP.NET Core 放棄使用 jQuery 的前端驗證後再考慮使用 Vue 3。或著，也考慮到 Vue 2 已經停止維護，而且我也有點受夠前端框架或套件改版造成不相容的情況，乾脆投入 ASP.NET Core Blazor 的懷抱 =.=a。
 :::
 
-###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET Core` `Razor Pages` `Vue` `Vue 3`
+## 異動歷程
+
+* 2023-01-30 初版文件建立。
+* 2024-04-07 補充了文章架構未處理的問題。
+
+---
+
+###### tags: `.NET` `Vue` `.NET Core & .NET 5+` `ASP.NET` `ASP.NET Core` `Razor Pages` `Vue 3`

@@ -7,6 +7,7 @@
 我的想法是由後端來處理這個註記，而前端則依據是否傳遞指定屬性來判斷是否進行更新。這樣不論是需要可選更新還是必須傳入的屬性，都不會影響到資料結構。
 
 要完成我的想法，需要針對以下幾個方面進行處理：
+
 1. 代表可選屬性的 struct 型別。
 2. 如果資料來源是 `[FromBody]`，則需撰寫該型別的 `JsonConverter`。
 3. 如果資料來源是 `[FromForm]`，則需撰寫該型別的 `ModelBinder`。
@@ -16,6 +17,7 @@
 以下將分別說明。
 
 ## 可選屬性型別
+
 建立該型別的 struct。這邊使用 struct，而非 class，是因為不需要 `null` 值。此外，當未設置值時，屬性的預設值會是 `OptionalValue<T>()`
 ，而不是 `null`，這樣能簡化需要處理的判斷邏輯。
 
@@ -54,6 +56,7 @@ public readonly record struct OptionalValue<T> {
 ```
 
 Input DTO 的範例如下：
+
 ```csharp
 public class Input {
     [Required]
@@ -73,7 +76,9 @@ public class Input {
 ```
 
 ## FromBody 的 JsonConverter
+
 針對 `OptionalValue<T>` 的 JSON 序列化處理，將序列化的結果從：
+
 ```json
 {
   "string1": {
@@ -88,6 +93,7 @@ public class Input {
 ```
 
 變更為：
+
 ```json
 {
   "string1": "Value"
@@ -95,7 +101,9 @@ public class Input {
 ```
 
 ### 自定義 JsonConverter
+
 以下是自定義的 `JsonConverter` 實作：
+
 ```csharp
 public class OptionalValueConverter<T> : JsonConverter<OptionalValue<T>> {
     public override OptionalValue<T> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {
@@ -121,7 +129,9 @@ public class OptionalValueConverter<T> : JsonConverter<OptionalValue<T>> {
 ```
 
 ### JsonConverterFactory
+
 因為自定義的 `JsonConverter` 是泛型型別，所以需要再寫 `JsonConverterFactory`：
+
 ```csharp
 public class OptionalValueJsonConverterFactory : JsonConverterFactory {
     public override bool CanConvert(Type typeToConvert) {
@@ -137,7 +147,9 @@ public class OptionalValueJsonConverterFactory : JsonConverterFactory {
 ```
 
 ### 註冊 JsonConverterFactory
+
 在 `Program.cs` 中加入 `OptionalValueJsonConverterFactory` 的註冊：
+
 ```csharp
 builder.Services.AddControllers()
     .AddJsonOptions(opts => {
@@ -146,20 +158,26 @@ builder.Services.AddControllers()
 ```
 
 ## FromForm 的 ModelBinder
+
 針對 `OptionalValue<T>` 的資料繫結處理，將接收到的格式從以下形式：
-```
+
+```text
 string1.hasValue=true
 string1.value=Value
 string2.hasValue=false
 string2.value=
 ```
+
 簡化成：
-```
+
+```text
 string1=Value
 ```
 
 ### 自定義 ModelBinder
+
 以下是 `OptionalValueModelBinder` 的實作：
+
 ```csharp
 public class OptionalValueModelBinder<T> : IModelBinder {
     public Task BindModelAsync(ModelBindingContext bindingContext) {
@@ -208,7 +226,9 @@ public class OptionalValueModelBinder<T> : IModelBinder {
 ```
 
 ### ModelBinderProvider
+
 為了能夠將 `OptionalValue<T>` 類型與相對應的 ModelBinder 綁定，實作了 `OptionalValueModelBinderProvider`：
+
 ```csharp
 public class OptionalValueModelBinderProvider : IModelBinderProvider {
     public IModelBinder? GetBinder(ModelBinderProviderContext context) {
@@ -227,7 +247,9 @@ public class OptionalValueModelBinderProvider : IModelBinderProvider {
 ```
 
 ### 註冊 ModelBinderProvider
+
 在 `Program.cs` 中註冊 `OptionalValueModelBinderProvider`，以便 ASP.NET Core 在處理來自表單的請求時能正確使用此綁定器：
+
 ```csharp
 builder.Services.AddControllers(options => {
     options.ModelBinderProviders.Insert(0, new OptionalValueModelBinderProvider());
@@ -235,12 +257,16 @@ builder.Services.AddControllers(options => {
 ```
 
 ## 處理資料驗證
+
 為了讓 `OptionalValue<T>` 上設定的 `ValidationAttribute` 能夠使用 `Value` 屬性進行驗證，我們需要自定義一個實現 `IModelValidator` 的驗證器。這個驗證器的邏輯如下：
+
 * 當 `HasValue` 屬性為 `false` 時，將忽略驗證。
 * 當 `HasValue` 為 `true` 時，則使用 `Value` 屬性進行相應的驗證。
 
 ### 自定義 OptionalValueValidator
+
 以下是 `OptionalValueValidator<T>` 的實作範例：
+
 ```csharp
 public class OptionalValueValidator<T> : IModelValidator {
     private readonly ValidatorItem validatorItem;
@@ -273,8 +299,11 @@ public class OptionalValueValidator<T> : IModelValidator {
     }
 }
 ```
+
 ### OptionalValueModelValidatorProvider
+
 以下是 `OptionalValueModelValidatorProvider` 的實作，負責為 `OptionalValue<T>` 型別建立驗證器：
+
 ```csharp
 public class OptionalValueModelValidatorProvider : IModelValidatorProvider {
     public void CreateValidators(ModelValidatorProviderContext context) {
@@ -298,7 +327,8 @@ public class OptionalValueModelValidatorProvider : IModelValidatorProvider {
 
 ### 註冊 OptionalValueModelValidatorProvider
 
-最後，在 `Program.cs` 中註冊 `OptionalValueModelValidatorProvider` 以使驗證器能夠被 ASP.NET Core 應用程序使用：
+最後，在 `Program.cs` 中註冊 `OptionalValueModelValidatorProvider` 以使驗證器能夠被 ASP.NET Core 應用程式使用：
+
 ```csharp
 builder.Services.AddControllers(opts => {
     opts.ModelValidatorProviders.Insert(0, new OptionalValueModelValidatorProvider());
@@ -306,10 +336,13 @@ builder.Services.AddControllers(opts => {
 ```
 
 ## 處理 Swagger Schema
-因為有客製化 `JsonConverter` 和 `ModelBidner`，為了在 Swagger 文件中正確顯示調整後的結果，需要實作兩個 Filter：`OptionalValueSchemaFilter` 和 `OptionalValueOperationFilter`。這些 Filter 負責修改產出的 `swagger.json` 的型別和參數，使其能夠符合 OptionalValue 的設計。
+
+因為有客製化 `JsonConverter` 和 `ModelBinder`，為了在 Swagger 文件中正確顯示調整後的結果，需要實作兩個 Filter：`OptionalValueSchemaFilter` 和 `OptionalValueOperationFilter`。這些 Filter 負責修改產出的 `swagger.json` 的型別和參數，使其能夠符合 OptionalValue 的設計。
 
 ### OptionalValueSchemaFilter
+
 `OptionalValueSchemaFilter` 主要用於在 Swagger 的 Schema 中，在 `[FromBody]` 的情況下，將 `OptionalValue<T>` 型別的顯示方式調整為只顯示其 `Value` 屬性。以下是實作範例：
+
 ```csharp
 public class OptionalValueSchemaFilter : ISchemaFilter {
     public void Apply(OpenApiSchema schema, SchemaFilterContext context) {
@@ -322,7 +355,9 @@ public class OptionalValueSchemaFilter : ISchemaFilter {
 ```
 
 ### OptionalValueOperationFilter
+
 OptionalValueOperationFilter 用於調整 `[FromForm]` 的請求的參數。以下是該類別的實作範例：
+
 ```csharp
 public class OptionalValueOperationFilter : IOperationFilter {
     public void Apply(OpenApiOperation operation, OperationFilterContext context) {
@@ -385,6 +420,7 @@ public class OptionalValueOperationFilter : IOperationFilter {
 :::
 
 ### 註冊 Swagger Filter
+
 將這兩個 Filter 註冊到 Swagger 的服務中，以確保它們在產生 `swagger.json` 時生效：
 
 ```csharp
@@ -395,6 +431,7 @@ builder.Services.AddSwaggerGen(opts => {
 ```
 
 產生出來 `swagger.json` 相關內容如下：
+
 ```json
 {
   "paths": {
@@ -525,7 +562,9 @@ builder.Services.AddSwaggerGen(opts => {
 ```
 
 ## 執行結果
+
 使用以下程式碼進行測試：
+
 ```csharp
 [ApiController]
 [Route("[controller]/[action]")]
@@ -554,41 +593,61 @@ public class TestController : ControllerBase {
 ```
 
 ### FromBody 結果
-如果未傳入任何屬性。  
+
+如果未傳入任何屬性。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-no-input.png?raw=true)
 
-驗證可以通過，但是得到的會是 `OptionalValue<T>.Empty`。  
+驗證可以通過，但是得到的會是 `OptionalValue<T>.Empty`。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-empty-result.png?raw=true)
 
-如果有傳入屬性，但值無效。  
+如果有傳入屬性，但值無效。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-invalid-input.png?raw=true)
 
-則會進行驗證。  
+則會進行驗證。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-validation.png?raw=true)
 
-如果傳入有效值。  
+如果傳入有效值。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-valid-input.png?raw=true)
 
-則可以得到有值的 `OptionalValue<T>`。  
+則可以得到有值的 `OptionalValue<T>`。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-empty-result.png?raw=true)
 
 ### FromForm 結果
-如果未輸入任何值。  
+
+如果未輸入任何值。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-null-input.png?raw=true)
 
-驗證可以通過，但是得到的會是 `OptionalValue<T>.Empty`。  
+驗證可以通過，但是得到的會是 `OptionalValue<T>.Empty`。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-success-empty.png?raw=true)
 
-如果輸入空值或無效值。  
+如果輸入空值或無效值。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-null-validation.png?raw=true)
 
-則會進行驗證。  
+則會進行驗證。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-string-validation.png?raw=true)
 
-如果傳入有效值。  
+如果傳入有效值。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-string-valid.png?raw=true)
 
-則可以得到有值的 `OptionalValue<T>`。  
+則可以得到有值的 `OptionalValue<T>`。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E5%9C%A8%20ASP.NET%20Core%20Web%20API%20%E4%B8%AD%E5%AF%A6%E7%8F%BE%E5%8F%AF%E9%81%B8%E6%9B%B4%E6%96%B0%E5%8A%9F%E8%83%BD/optional-update-string-success.png?raw=true)
 
-###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET Core` `C#`
+## 異動歷程
+
+* 2024-10-21 初版文件建立。
+
+---
+
+###### tags: `.NET` `C#` `.NET Core & .NET 5+` `ASP.NET` `ASP.NET Core`

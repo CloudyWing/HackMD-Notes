@@ -1,8 +1,5 @@
 # ASP.NET Core Web API 入門心得 - 淺談 non-RESTful 的 Route 覆寫
 
-[![hackmd-github-sync-badge](https://hackmd.io/r3-9-Jr6TeO_fFpxp-KRMQ/badge)](https://hackmd.io/r3-9-Jr6TeO_fFpxp-KRMQ)
-
-
 在使用 non-RESTful 風格的 Web API 中，通常會使用 Controller/Action 的格式來定義大部分的 URL。為了避免在每個 Controller 或 Action 中都重複設定路由，可以建立一個 BasicController 來統一設定路由，如下所示：
 
 ```csharp
@@ -20,9 +17,10 @@ public class TestRouteController : BasicController {
 }
 ```
 
-透過這種方式，就不需要在每個 Controller 或 Action 中再次指定路由。但如果遇到像我這種白目、第一次參與前後端分離的專案、對公司專案架構不熟，最後開發出來的 API URL 與現有架構差異過大，導致被前端拿刀來砍的情況下，雖然可以使用 `[JsonPropertyName]` 來處理輸入和輸出的屬性名稱，但對於路由定義在 `BasicController` 上的情況，如果不想要走回每個 Action 個別設定，就只能透過覆寫不同路由來解決這個問題(~~當然像我這種幾乎都不一樣就另一回事~~)。
+透過這種方式，就不需要在每個 Controller 或 Action 中再次指定路由。但如果遇到像我這種白目、第一次參與前後端分離的專案、對公司專案架構不熟，最後開發出來的 API URL 與現有架構差異過大，導致被前端拿刀來砍的情況下，雖然可以使用 `[jsonPropertyName]` 來處理輸入和輸出的屬性名稱，但對於路由定義在 `BasicController` 上的情況，如果不想要走回每個 Action 個別設定，就只能透過覆寫不同路由來解決這個問題(~~當然像我這種幾乎都不一樣就另一回事~~)。
 
 在 ASP.NET Core 中，`[Route]` 屬性在 Controller 和 Action 上的處理效果有所不同。若加在 Controller 上，將覆寫 `BasicController` 的路由設定；若加在 Action 上，則會與 Controller 的設定進行串接。以下提供了幾種使用情境的範例：
+
 ```csharp
 [ApiController]
 [Route("[controller]/[action]")]
@@ -67,10 +65,10 @@ public class TestRouteController : BasicController {
 }
 ```
 
-## 其他相關文章
-* [ASP.NET Core Web API 入門心得](https://hackmd.io/@CloudyWing/HJ-KKurHp)
-* [ASP.NET Core Web API 入門心得 - Middleware 順序](https://hackmd.io/@CloudyWing/H19VeBll0)
-* [ASP.NET Core Web API 入門心得 - 改善 Enum 註解](https://hackmd.io/@CloudyWing/rkUOPLxeC)
-* [ASP.NET Core Web API 入門心得 - 必填欄位驗證](https://hackmd.io/@CloudyWing/S15OCXEeC)
+## 異動歷程
 
-###### tags: `.NET` `.NET Core & .NET 5+` `Web API`
+* 2024-04-16 初版文件建立。
+
+---
+
+###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET` `ASP.NET Core` `Web API`

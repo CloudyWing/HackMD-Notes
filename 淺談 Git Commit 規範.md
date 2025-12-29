@@ -1,12 +1,12 @@
 # 淺談 Git Commit 規範
 
-[![hackmd-github-sync-badge](https://hackmd.io/DsNF8_GOQWqGekjfMe3Omg/badge)](https://hackmd.io/DsNF8_GOQWqGekjfMe3Omg)
-
 目前網路上的 Git Commit 規範多數來自於 Angular 團隊的格式，隨著時間延伸出許多版本。雖然這些資訊在網上隨處可見，為了防止遺失，我還是決定寫一篇文章紀錄，畢竟我五年前看到的文章現在也找不到了。目前的「[Angular Commit Format]」是這樣的。(https://github.com/angular/angular/blob/main/CONTRIBUTING.md)。
 
 ## Commit Format
+
 Angular Commit Format 規範分為 header、body 和 footer 三個部分，各部分用空行隔開。其中 header 是必填的，body 視 header 的 type 而定（若 type 為 docs，則必填），footer 是選填的。
-```
+
+```xml
 <header>
 <BLANK LINE>
 <body>
@@ -15,8 +15,10 @@ Angular Commit Format 規範分為 header、body 和 footer 三個部分，各�
 ```
 
 ### Header
+
 Header 格式如下（節錄自 Angular Commit Format 的內容)：
-```
+
+```xml
 <type>(<scope>): <short summary>
   │       │             │
   │       │             └─⫸ Summary in present tense. Not capitalized. No period at the end.
@@ -31,6 +33,7 @@ Header 格式如下（節錄自 Angular Commit Format 的內容)：
 ```
 
 #### Type
+
 Type 用於給 Commit 分類，不同時期的分類有所不同，目前整理如下表，主要差異在於`style` 和 `chore` 被移除了，而 CI/CD 從 `build` 中獨立出來：
 | Type | 描述 | 新描述 |
 | --- | --- | --- |
@@ -41,16 +44,18 @@ Type 用於給 Commit 分類，不同時期的分類有所不同，目前整理�
 | refactor | 既不修復錯誤也不增加功能的程式碼變更 | 既不修復錯誤也不增加功能的程式碼變更 |
 | test | 補測試或更正現有測試 | 補測試或更正現有測試 |
 | perf | 提升效能的程式碼變更 | 提升效能的程式碼變更 |
-| build | 影響打包機制，CI配置或外部依賴關係的更改 (example scopes: gulp, broccoli, npm) | 影響打包機制或外部依賴關係的更改 (example scopes: gulp, broccoli, npm) |
+| build | 影響打包機制，CI設定或外部依賴關係的更改 (example scopes: gulp, broccoli, npm) | 影響打包機制或外部依賴關係的更改 (example scopes: gulp, broccoli, npm) |
 | chore | 其他不修改 src 或測試文件的更改 | |
-| ci | | 變更 CI 配置文件和腳本（example：CircleCI, SauceLabs） |
-
+| ci | | 變更 CI 設定文件和腳本（example：CircleCI, SauceLabs） |
 
 #### Scope
+
 Scope 表示受影響的 npm 套件的名稱，這是針對 Angular 定義的，其他程式語言可能不適用。對於我來說，大部分情況下會選擇省略，或標註變更的專案名稱。
 
 #### Short Summary（Subject）
+
 Short Summary 是對變更的簡潔描述，Angular 規範如下：
+
 * use the imperative, present tense: "change" not "changed" nor "changes"
 * don't capitalize the first letter
 * no dot (.) at the end
@@ -58,6 +63,7 @@ Short Summary 是對變更的簡潔描述，Angular 規範如下：
 但是我都用中文，所以就句尾不用句號而已。
 
 ### Body
+
 Angular 團隊原文如下：
 > Just as in the summary, use the imperative, present tense: "fix" not "fixed" nor "fixes".
 > 
@@ -66,9 +72,10 @@ Angular 團隊原文如下：
 因為我是用中文寫，所以沒有時態問題。實際上，除非修改內容複雜或需特別描述變更原因，否則我會省略 Body。但最近有朋友提到可以使用 Visual Studio 的 Copilot 來幫忙生成 Commit 訊息（若有訂閱 Copilot），我可能會改用其生成的訊息作為 Body 的基底。
 
 ### Footer
-Footer 可以包含破壞性變更和棄用信息，也可用於引用 GitHub issue、Jira ticket 和其他 PR。例如：
 
-```
+Footer 可以包含破壞性變更和棄用資訊，也可用於引用 GitHub issue、Jira ticket 和其他 PR。例如：
+
+```text
 BREAKING CHANGE: <breaking change summary>
 <BLANK LINE>
 <breaking change description + migration instructions>
@@ -76,10 +83,10 @@ BREAKING CHANGE: <breaking change summary>
 <BLANK LINE>
 Fixes #<issue number>
 ```
-    
+
 或著
-    
-```
+
+```sql
 DEPRECATED: <what is deprecated>
 <BLANK LINE>
 <deprecation description + recommended update path>
@@ -92,7 +99,8 @@ Closes #<pr number>
 
 大部分情況下，Footer 僅用於關聯需求單號，具體關聯方式取決於所使用的 Issue Tracker。
 
-舉例來說，在 GitHub 中可以使用以下關鍵字將 PR 關聯並關閉 Issue，詳見 GitHub 文檔「[Linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue)」。
+舉例來說，在 GitHub 中可以使用以下關鍵字將 PR 關聯並關閉 Issue，詳見 GitHub 文件「[Linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue)」。
+
 * close
 * closes
 * closed
@@ -104,12 +112,13 @@ Closes #<pr number>
 * resolved
 
 在 GitLab 中，可以用以下方式做連結，其中 `123` 替換成相應 ID：
+
 * 關聯 Issue：#123
 * 關聯 MR：!123
 * 關聯 Snippet：$123
-    
-GitLab 同樣可以使用 `Closes #123` 或 `Fixes #123`，在合併所屬分支時，關閉相應的 Issue。詳見 GitLab 文檔 Gitlab 文檔「[Tutorial: It's all connected in GitLab](https://about.gitlab.com/blog/2016/03/08/gitlab-tutorial-its-all-connected/)」。
-    
+
+GitLab 同樣可以使用 `Closes #123` 或 `Fixes #123`，在合併所屬分支時，關閉相應的 Issue。詳見 GitLab 文件 GitLab 文件「[Tutorial: It's all connected in GitLab](https://about.gitlab.com/blog/2016/03/08/gitlab-tutorial-its-all-connected/)」。
+
 就我個人在實務上來說，由於 PR 或 MR 可能未與 Issue Tracker 關聯，或著希望手動控制關聯，我會用 `issue` 開頭，讓人從語意上就能了解 `#123` 是與 Issue 關聯。
 
 :::info
@@ -117,10 +126,13 @@ GitLab 同樣可以使用 `Closes #123` 或 `Fixes #123`，在合併所屬分支
 :::
 
 ## Commit Tempate
+
 上面簡單的介紹現今主流的 Commit 規範，但實際操作時，可能會忘記一些不常用內容，像我自己就經常忘記一些不常用的 Type。而Git 支援預設的 Commit Template，可以幫助我們統一 Commit 訊息格式。
 
 ### 設定方法
+
 首先，新增一個檔案「.gitmessage.txt」，檔名不能改，內容如下，可依自身需求調整：
+
 ```git
 <type>(<scope>): <subject>
 
@@ -136,7 +148,7 @@ GitLab 同樣可以使用 `Closes #123` 或 `Fixes #123`，在合併所屬分支
 # test: 補測試或更正現有測試
 # build: 影響打包機制或外部依賴關係的更改 (example scopes: gulp, broccoli, npm)
 # chore: 其他不修改 src 或測試文件的更改
-# ci: 變更 CI 配置文件和腳本（example：CircleCI, SauceLabs）
+# ci: 變更 CI 設定文件和腳本（example：CircleCI, SauceLabs）
 #
 
 # -- Scope --
@@ -163,7 +175,7 @@ GitLab 同樣可以使用 `Closes #123` 或 `Fixes #123`，在合併所屬分支
 #
 
 # -- Footer --
-# Footer 應該包含 Breaking Changes 的資訊並且也是 Github issue close 的參照
+# Footer 應該包含 Breaking Changes 的資訊並且也是 GitHub issue close 的參照
 # Breaking Changes 應以 "BREAKING CHANGE" 一詞開頭：帶有空格或兩個換行符。然後使用其餘的提交消息。
 # Deprecated 應以 "DEPRECATED"一詞開頭：帶有空格或兩個換行符。然後使用其餘的提交消息。
 
@@ -175,19 +187,23 @@ GitLab 同樣可以使用 `Closes #123` 或 `Fixes #123`，在合併所屬分支
 git config --global commit.template ~/.gitmessage.txt
 git config --global commit.cleanup strip
 ```
+
 說明
-* `git config`: 這是 Git 的設定指定，用於查看和設定 Git 的配置選項。
+
+* `git config`: 這是 Git 的設定指定，用於查看和設定 Git 的設定選項。
 * `--global`: 此註記表示該設定將用於全域範圍，即所有的 Git 儲存庫。如果不使用此註記，設定只會生效於當前的 Git 儲存庫。
 * `commit.template`: 用來指定 Commit 訊息的 Template 檔案位置。
 * `commit.cleanup`: 用來指定在 Commit 時如何處理 Commit 訊息，預設是 `whitespace` 不忽略註解行。
 * `strip`: 這是 `commit.cleanup` 選項的值，表示在 Commit 時，將 Commit 訊息中的註解行和多餘的空行移除。
 
 執行完畢後，會在全域的 .gitconfig 增加以下內容，全域的 .gitconfig 在 Windows 預設存放位置在使用者帳號底下，例如：`C:\Users\{Windows 帳號}`。
-```
+
+```text
 [commit]
 	cleanup = strip
 	template = {指定路徑}/.gitmessage.txt
 ```
+
 如果輸入指定未包含 `--global`，此內容則會產生在該儲存庫的 「./.git/config」檔案裡。
 
 :::info
@@ -195,9 +211,10 @@ git config --global commit.cleanup strip
 :::
 
 Git 一共有三個 config 設定：
+
 * System 設定：
   * 位置：`C:\Program Files\Git\etc\gitconfig`。
-  * 優先度最低。此設定影響整個系統中的所有使用者和專案，通常是系統管理員設置的全局配置，適合全系統共用的 Git 行為規範。
+  * 優先度最低。此設定影響整個系統中的所有使用者和專案，通常是系統管理員設置的全局設定，適合全系統共用的 Git 行為規範。
 * Global 設定
   * `C:\Users\{Windows 帳號}\.gitconfig`：
   * 次高優先度。此設定適用於單一使用者，但會被 Local 設定覆蓋。常用來設定個人使用的 Git 選項，對於所有儲存庫都有影響，除非被 Local 設定所取代。
@@ -210,7 +227,9 @@ Git 一共有三個 config 設定：
 :::
 
 ### 實際使用
+
 當於 Git Bash 輸入 `git commit` 時，會出現訊息 `hint: Waiting for your editor to close the file...`，並開啟記事本，該記事本會包含「.gitmessage.txt」的內容以及以下資訊：
+
 ```git
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
@@ -229,12 +248,16 @@ Git 一共有三個 config 設定：
 如果使用其他 Git 版控軟體，不一定會忽略 `#` 開頭的行，所以需要設定 `commit.cleanup strip` 。
 
 目前我已知有支援 Commit Template 的版控軟體如下：
+
 * GitKraken：
   在儲存庫頁籤點選 File => Preferences... => Commit，會顯示 Commit Template 設定，如果未設定 `commit.cleanup strip` 記得要勾選「Removes comments from commit messages」來忽略 `#` 開頭的行。
+
 *  Tortoisegit：
   當 `commit.cleanup` 為 `whitespace`，Commit **不**會忽略 `#` 開頭的行。
+
 * Git Extensions：
   當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行（感謝同事友情測試）。
+
 * Sourcetree：
     * Mac 版的 4.2.8 有支援（感謝同事友情測試)；Windows 版的 3.4.20 開始支援。
     * 當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行。
@@ -255,20 +278,26 @@ Sourcetree 3.4.20 已新增支援，詳見 [Sourcetree release notes](https://pr
 :::
 
 ### 還原設定
+
 可以用以下指令移除 Git Template 設定：
+
 ```git
 git config --unset --global commit.template
 ```
 
 使用以下指令還原忽略註解行的設定：
+
 ```git
 git config --global commit.cleanup whitespace
 ```
 
 ## 異動歷程
-* 2024-07-23 新增。
-* 2024-09-20：
+
+* 2024-07-23 初版文件建立。
+* 2024-09-20
   * 更新 Windows 版 Sourcetree 3.4.20 支援 Git Commit Template 功能。
   * 修正設定檔位置的說明。
+
+---
 
 ###### tags: `Git`

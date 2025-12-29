@@ -1,22 +1,23 @@
 # ASP.NET Core Web API 入門心得 - Middleware 順序
 
-[![hackmd-github-sync-badge](https://hackmd.io/kDh1zm72TiOh2p0blwqjZg/badge)](https://hackmd.io/kDh1zm72TiOh2p0blwqjZg)
-
-
 ASP.NET Core 的中介軟體部分必須依照一定的順序才可以正常運作，之前找不到具體說明順序的文章，但最近發現 MSDN 有相關的文章 [中介軟體](https://learn.microsoft.com/zh-tw/aspnet/core/fundamentals/middleware)，這邊文章只是為了做備份，避免哪天一時找不到文章時，還有自己的筆記可以看，此文章會持續調整。
 
 ## Middleware 說明
+
 * 開發人員例外狀況頁面中介軟體 (UseDeveloperExceptionPage)：回報應用程式執行階段錯誤。
 * 資料錯誤頁面中介軟體 (UseDatabaseErrorPage)：回報資料庫執行階段錯誤。
 * 例外狀況處理常式中介軟體 (UseExceptionHandler)：攔截在下列 Middleware 中擲回的例外狀況。
 * HTTP 靜態傳輸安全性通訊協定 (HSTS) 中介軟體 (UseHsts)：新增 `Strict-Transport-Security` 標頭，作用是讓網站宣告自身為安全主機，並通知瀏覽器僅使用 HTTPS 連線。
 * HTTPS 重新導向中介軟體 (UseHttpsRedirection)：將 HTTP 要求重新導向到 HTTPS。
+
 :::info
 `UseHsts` 和 `UseHttpsRedirection` 都會將 HTTP 請求重定向到 HTTPS，前者是瀏覽器處理，後者是程式處理。
 :::
+
 * 靜態檔案中介軟體 (UseStaticFiles)：會在指定的路徑中尋找對應的靜態檔案，並在接收到相應的 HTTP 請求時將它們發送到客戶端。
 * Cookie 原則中介軟體 (UseCookiePolicy)：使應用程式符合 GDPR 法規，有關 GDPR 請參閱 [在 ASP.NET Core 實作 GDPR
 ](https://hackmd.io/@CloudyWing/Hk43fPvEs)。
+
 * 路由中介軟體 (UseRouting)：路由相關處理。
 * 驗證中介軟體 (UseAuthentication)：驗證使用者是否已登入。
 * 授權中介軟體 (UseAuthorization)：授權使用者存取安全資源。
@@ -24,7 +25,9 @@ ASP.NET Core 的中介軟體部分必須依照一定的順序才可以正常運�
 * 端點路由中介軟體 (UseEndpoints 與 MapRazorPages 之類和 Endpoint 相關的)：將端點新增至要求管線。
 
 ## Middleware 完整順序
+
 根據目前內建的 Middleware，建議的順序如下。實際上，只需使用專案需要的 Middleware 即可，部分 Middleware 的順序可以調整：
+
 ```csharp
 var app = builder.Build();
 
@@ -72,7 +75,10 @@ app.MapDefaultControllerRoute();
 app.Run();
 ```
 
-## 其他相關文章
-* [ASP.NET Core Web API 入門心得](https://hackmd.io/@CloudyWing/HJ-KKurHp)
+## 異動歷程
 
-###### tags: `.NET` `.NET Core & .NET 5+` `Web API`
+* 2024-04-08 初版文件建立。
+
+---
+
+###### tags: `.NET` `.NET Core & .NET 5+` `ASP.NET` `ASP.NET Core` `Web API`

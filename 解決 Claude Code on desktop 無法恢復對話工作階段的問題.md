@@ -10,7 +10,7 @@ Claude Desktop 在 **2025 年 11 月 25 日** 開始內建 **Claude Code**，這
 
 當 **OAuth 驗證狀態** 長時間未操作過期後，再次輸入指令會觸發以下錯誤：
 
-```
+```text
 API Error: 401 {"type":"error","error":{"type":"authentication_error","message":"OAuth token has expired. Please obtain a new token or refresh your existing token."},"request_id":"req_011CWWoXen3mpmsjy27LGmqn"} · Please run /login
 ```
 
@@ -34,7 +34,7 @@ API Error: 401 {"type":"error","error":{"type":"authentication_error","message":
 
 在官方修正驗證重連機制之前，可透過以下步驟恢復操作：
 
-1. 手動關閉 Claude Desktop 視窗（執行安裝檔時雖會自動關閉，但建議先手動關閉以避免殘留程序干擾）
+1. 手動關閉 Claude Desktop 視窗（執行安裝檔時雖會自動關閉，但建議先手動關閉以避免殘留程式干擾）
 2. 重新執行 `Claude Setup.exe`
 
 重新執行安裝檔後，對話工作階段可立即恢復運作，無需重新登入或建立新的對話工作階段。此方法僅作為官方修正前的過渡手段。

@@ -142,13 +142,18 @@ services:
 
 ## 設定說明
 
-### 配置項目
+### 設定項目
 
-* **單節點模式**：`discovery.type=single-node` 適合開發環境。
-* **SSL 關閉**：為了簡化設定，關閉了 HTTP 和 Transport 層的 SSL。
-* **記憶體鎖定**：`bootstrap.memory_lock=true` 防止 JVM heap 被交換到磁碟。
-* **健康檢查**：確保服務正常啟動後才啟動相依服務。
-* **kibana_system 密碼**：Elasticsearch 會自動建立 `kibana_system` 帳號，但密碼是隨機字串，所以 setup 服務透過 API 幫設定指定密碼。
+* **單節點模式**：
+    `discovery.type=single-node` 適合開發環境。
+* **SSL 關閉**：
+    為了簡化設定，關閉了 HTTP 和 Transport 層的 SSL。
+* **記憶體鎖定**：
+    `bootstrap.memory_lock=true` 防止 JVM heap 被交換到磁碟。
+* **健康檢查**：
+    確保服務正常啟動後才啟動相依服務。
+* **kibana_system 密碼**：
+    Elasticsearch 會自動建立 `kibana_system` 帳號，但密碼是隨機字串，所以 setup 服務透過 API 幫設定指定密碼。
 
 ### 常見問題與解法
 
@@ -160,10 +165,11 @@ services:
   * 確認 `volumes/elasticsearch/data` 權限為 UID 1000:1000。
   * 若仍遇到錯誤，可 `sudo chmod -R 777 volumes/elasticsearch/data` 測試（僅限開發環境）。
 
-
 ## 異動歷程
 
 * 2025-09-24 初版文件建立。
 * 2025-11-04 修正 YAML 檔遺漏 restart 設定導致重開機會自動啟動之問題。
 
-###### tags: `Docker` `ELK` `Elasticsearch` `Kibana`
+---
+
+###### tags: `Database` `DevOps` `Docker` `ELK` `Elasticsearch` `Kibana`

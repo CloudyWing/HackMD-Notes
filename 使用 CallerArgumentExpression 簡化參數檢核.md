@@ -26,6 +26,7 @@ public static class ExceptionUtils {
 ```
 
 這樣就可以用以下方式進行參數檢查，使用 `Expression` 是為了不需要同時傳入參數值和參數名稱，以簡化使用：
+
 ```csharp
 public void Method(string str) {
     ExceptionUtils.ThrowIfNullOrWhiteSpace(() => str);   
@@ -86,17 +87,17 @@ ArgumentException.ThrowIfNullOrWhiteSpace(string? argument, string? paramName = 
 ```
 
 最近我看了 `ThrowIfNull` 的原始碼如下，當中的 `[CallerArgumentExpression]` 讓我想到之前和後輩借的書有提到它好像是用來自動取得參數名稱。
+
 ```csharp
-public static void ThrowIfNull([NotNull] object? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
-{
-    if (argument is null)
-    {
+public static void ThrowIfNull([NotNull] object? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null) {
+    if (argument is null) {
         Throw(paramName);
     }
 }
 ```
 
 因此，我就寫了以下程式進行測試：
+
 ```csharp
 string? str = "";
 Console.Write("未傳入 paramName 時，");
@@ -111,11 +112,18 @@ void TestCallerArgumentExpression(object? argument, [CallerArgumentExpression(na
 ```
 
 結果如下：
-```
+
+```text
 未傳入 paramName 時，paramName:str
 有傳入 paramName 時，paramName:str2
 ```
 
 當未傳入 `paramName` 時，會自動使用傳入 `argument` 這個引數的變數名稱作為 `paramName` 的值。這種方式比我原先使用 `Expression` 的解法更簡潔，並且還能使用 `[NotNull]` 來支援 Nullable reference 的檢查。
+
+## 異動歷程
+
+* 2024-10-13 初版文件建立。
+
+---
 
 ###### tags: `.NET` `.NET Core & .NET 5+` `C#`

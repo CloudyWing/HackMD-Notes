@@ -1,20 +1,15 @@
 # 使用 HttpClient 呼叫 WebService
 
-[![hackmd-github-sync-badge](https://hackmd.io/_mHJKdHpQm6Vq4fTERvSug/badge)](https://hackmd.io/_mHJKdHpQm6Vq4fTERvSug)
-
-
 .NET 在 WebService 有提供完整的支援，通常只需要使用 Visual Studio 加入「Web 參考」就能完成呼叫。然後，有時因為某些因素，如開發環境無法連接到 WebService，因此無法加入參考，此時可能會嘗試在不加入 Web 參考的情況下呼叫 WebService。
 
-.NET Framework 中常見的作法是使用 WebClient 和 Reflection 的組合來動態產生 WebService 服務的代碼，程式碼如下：
+.NET Framework 中常見的作法是使用 WebClient 和 Reflection 的組合來動態產生 WebService 服務的程式碼，程式碼如下：
+
 ```csharp
 public class InvokeWebService {
-    public object InvokeWebservice(string url, string @namespace, string classname, string methodname, object[] args)
-    {
-        try
-        {
+    public object InvokeWebservice(string url, string @namespace, string classname, string methodname, object[] args) {
+        try {
 
-            if ((classname == null) || (classname == ""))
-            {
+            if ((classname == null) || (classname == "")) {
                 classname = GetWsClassName(url);
             }
             System.Net.WebClient wc = new System.Net.WebClient();
@@ -38,11 +33,9 @@ public class InvokeWebService {
             cplist.ReferencedAssemblies.Add("System.Data.dll");
 
             System.CodeDom.Compiler.CompilerResults cr = icc.CompileAssemblyFromDom(cplist, ccu);
-            if (true == cr.Errors.HasErrors)
-            {
+            if (true == cr.Errors.HasErrors) {
                 System.Text.StringBuilder sb = new StringBuilder();
-                foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors)
-                {
+                foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors) {
                     sb.Append(ce.ToString());
                     sb.Append(System.Environment.NewLine);
                 }
@@ -54,15 +47,12 @@ public class InvokeWebService {
             object obj = Activator.CreateInstance(t);
             System.Reflection.MethodInfo mi = t.GetMethod(methodname);
             return mi.Invoke(obj, args);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             throw new Exception(ex.InnerException.Message, new Exception(ex.InnerException.StackTrace));
         }
     }
 
-    private string GetWsClassName(string wsUrl)
-    {
+    private string GetWsClassName(string wsUrl) {
         string[] parts = wsUrl.Split('/');
         string[] pps = parts[parts.Length - 1].Split('.');
 
@@ -70,37 +60,35 @@ public class InvokeWebService {
     }
 }
 ```
+
 但是在 .NET Core 之後，因為沒有「System.Web.Services」這個相關的 Library，所以我參考了這篇文章「[.Net core 调用WebService](https://www.cnblogs.com/hnwl0507/p/16886108.html)」，使用 HttpClient 以 SOAP 訊息格式來呼叫 WebService。
 
-有關 WebService SOAP 訊息格式內容，可以找一個 C# 寫的 WebService，在網址「{httpUrl}?op={method}」查看此 Method 的 Request 和 Response 格式，一般會有提供「SOAP 1.1」、「SOAP 1.2」和「HTTP POST」三種格式，以下是本次使用的「SOAP 1.2」格式範例。  
+有關 WebService SOAP 訊息格式內容，可以找一個 C# 寫的 WebService，在網址「{httpUrl}?op={method}」查看此 Method 的 Request 和 Response 格式，一般會有提供「SOAP 1.1」、「SOAP 1.2」和「HTTP POST」三種格式，以下是本次使用的「SOAP 1.2」格式範例。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20HttpClient%20%E5%91%BC%E5%8F%AB%20WebService/soap-1.2-format-example.png?raw=true)
 
-放大顯示。  
+放大顯示。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20HttpClient%20%E5%91%BC%E5%8F%AB%20WebService/soap-envelope-details.png?raw=true)
 
-當然，我對文章中的解法並不太滿意，因為實際輸入和輸出的型別不一定是簡單型別，所以我使用 `XmlSerializer` 來進行 Object 與 XML 相互轉換，最終的代碼如下：
+當然，我對文章中的解法並不太滿意，因為實際輸入和輸出的型別不一定是簡單型別，所以我使用 `XmlSerializer` 來進行 Object 與 XML 相互轉換，最終的程式碼如下：
 
 ```csharp
-public static class WebServiceUtils
-{
+public static class WebServiceUtils {
     private static readonly HttpClient httpClient = new HttpClient();
 
-    public static async Task<TResponse> ExecuteAsync<TResponse>(string uri, string method, IDictionary<string, string> arguments, string @namespace = "http://tempuri.org/")
-    {
+    public static async Task<TResponse> ExecuteAsync<TResponse>(string uri, string method, IDictionary<string, string> arguments, string @namespace = "http://tempuri.org/") {
         XmlSerializerNamespaces serializerNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
-        XmlWriterSettings settings = new XmlWriterSettings
-        {
+        XmlWriterSettings settings = new XmlWriterSettings {
             Indent = true,
             OmitXmlDeclaration = true
         };
 
-        string argsXml = string.Join("", arguments.Select(x =>
-        {
+        string argsXml = string.Join("", arguments.Select(x => {
             Type type = x.Value.GetType();
             XmlSerializer _serializer = new XmlSerializer(type);
             StringBuilder sb = new StringBuilder();
-            using (XmlWriter writer = XmlWriter.Create(sb, settings))
-            {
+            using (XmlWriter writer = XmlWriter.Create(sb, settings)) {
                 _serializer.Serialize(writer, x.Value, serializerNamespaces);
                 // 原本 Serializer 後，Root 會是 Type Name，所以要替換成 Dictionary Key
                 // 至於正規式不用 Type Name 達到比較精準替換原因為遇到別名的會有問題
@@ -120,10 +108,8 @@ public static class WebServiceUtils
         ";
 
         StringContent content = new StringContent(soapXml, Encoding.UTF8, "text/xml");
-        using (HttpResponseMessage message = await httpClient.PostAsync(uri, content).ConfigureAwait(false))
-        {
-            if (!message.IsSuccessStatusCode)
-            {
+        using (HttpResponseMessage message = await httpClient.PostAsync(uri, content).ConfigureAwait(false)) {
+            if (!message.IsSuccessStatusCode) {
                 throw new HttpRequestException($"HTTP request failed with status code {message.StatusCode}: {message.ReasonPhrase}");
             }
 
@@ -147,10 +133,11 @@ public static class WebServiceUtils
 ```
 
 ## 實際測試
+
 這邊先定義巢狀的 `Request` 和 `Response` 來作為 WebService 的參數和回傳值，嘗試看是否能支援較複雜的型別。
+
 ```csharp
-public class Request
-{
+public class Request {
     public int Id { get; set; }
 
     public string Name { get; set; }
@@ -160,15 +147,13 @@ public class Request
     public List<InnerRequest> InnerRequests { get; set; }
 }
 
-public class InnerRequest
-{
+public class InnerRequest {
     public int Id { get; set; }
 
     public string Name { get; set; }
 }
 
-public class Response
-{
+public class Response {
     public int Id { get; set; }
 
     public string Name { get; set; }
@@ -178,8 +163,7 @@ public class Response
     public List<InnerResponse> InnerResponse { get; set; }
 }
 
-public class InnerResponse
-{
+public class InnerResponse {
     public int Id { get; set; }
 
     public string Name { get; set; }
@@ -187,24 +171,21 @@ public class InnerResponse
 ```
 
 WebService 刻意使用多個參數。
+
 ```csharp
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 [System.ComponentModel.ToolboxItem(false)]
 // 若要允許使用 ASP.NET AJAX 從指令碼呼叫此 Web 服務，請取消註解下列一行。
 // [System.Web.Script.Services.ScriptService]
-public class TestWebService : System.Web.Services.WebService
-{
+public class TestWebService : System.Web.Services.WebService {
 
     [WebMethod]
-    public Response HelloWorld(Request request1, Request request2)
-    {
-        return new Response
-        {
+    public Response HelloWorld(Request request1, Request request2) {
+        return new Response {
             Id = 31,
             Name = "32",
-            Strings = new List<string>
-            {
+            Strings = new List<string> {
                 "331",
                 "332"
             },
@@ -221,12 +202,10 @@ public class TestWebService : System.Web.Services.WebService
 string uri = "https://localhost:44399/TestWebService.asmx";
 string method = "HelloWorld";
 IDictionary<string, object> arguments = new Dictionary<string, object>();
-Request request1 = new Request
-{
+Request request1 = new Request {
     Id = 11,
     Name = "12",
-    Strings = new List<string>
-    {
+    Strings = new List<string> {
         "131",
         "132"
     },
@@ -236,12 +215,10 @@ Request request1 = new Request
     }
 };
 
-Request request2 = new Request
-{
+Request request2 = new Request {
     Id = 21,
     Name = "22",
-    Strings = new List<string>
-    {
+    Strings = new List<string> {
         "231",
         "232"
     },
@@ -256,10 +233,18 @@ arguments.Add("request2", request2);
 Response response = await WebServiceUtils.ExecuteAsync<Response>(uri, method, arguments);
 ```
 
-從監看式看 WebService 有正確接收參數。  
+從監看式看 WebService 有正確接收參數。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20HttpClient%20%E5%91%BC%E5%8F%AB%20WebService/webservice-received-request.png?raw=true)
 
-從監看式看執行結果和 WebService 回傳的一致。  
+從監看式看執行結果和 WebService 回傳的一致。
+
 ![](https://github.com/CloudyWing/HackMD-Notes/blob/main/Images/%E4%BD%BF%E7%94%A8%20HttpClient%20%E5%91%BC%E5%8F%AB%20WebService/client-received-response.png?raw=true)
+
+## 異動歷程
+
+* 2023-02-13 初版文件建立。
+
+---
 
 ###### tags: `.NET`

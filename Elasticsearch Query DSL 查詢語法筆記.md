@@ -984,7 +984,7 @@ Query DSL：
 
 根據官方文件，`cross_fields` 會將查詢字串分析為個別詞彙，然後在任何欄位中尋找每個詞彙，就像它們是一個大欄位一樣。
 
-```
+```text
 +blended(terms:[first_name:wing, last_name:wing])
 +blended(terms:[first_name:chou, last_name:chou])
 ```
@@ -1002,7 +1002,7 @@ Query DSL：
 :::warning
 當欄位的 `search_analyzer` 設定不一致時（例如其中一個欄位有設定 analyzer，另一個沒有），`cross_fields` 的查詢行為會改變。例如執行邏輯會變成：
 
-```
+```text
 ((+first_name:wing +first_name:chou) | (+last_name:wing +last_name:chou))
 ```
 
@@ -1393,7 +1393,7 @@ Query DSL：
 **效果**：如果 "quick" 有同義詞 "fast running"，則會自動建立片語查詢 `"fast running"`。
 
 :::warning
-使用同義詞功能需要在欄位的 `search_analyzer` 中設定同義詞過濾器。然而 `combined_fields` 要求所有欄位使用相同的 `search_analyzer`，如果欄位的 analyzer 設定不一致會導致查詢失敗。因此在使用此參數時，需要確保所有查詢欄位都使用相同的同義詞設定。
+使用同義詞功能需要在欄位的 `search_analyzer` 中設定同義詞過濾器。不過 `combined_fields` 要求所有欄位使用相同的 `search_analyzer`，如果欄位的 analyzer 設定不一致會導致查詢失敗。因此在使用此參數時，需要確保所有查詢欄位都使用相同的同義詞設定。
 :::
 
 ---
@@ -1414,7 +1414,7 @@ Query DSL：
 
 **實際執行邏輯：**
 
-```
+```text
 +(combined("database", fields:["title", "abstract"]))
 +(combined("systems", fields:["title", "abstract"]))
 ```
@@ -1711,6 +1711,7 @@ Query DSL：
 1. Elasticsearch 從 `my-index` index 取得 ID 為 `2` 的文件。
 2. 讀取該文件的 `status` 欄位值：`["draft"]`。
 3. 使用 `["draft"]` 作為搜尋條件，等同於執行：
+
    ```json
    {
      "query": {
@@ -2059,6 +2060,7 @@ Query DSL：
 為避免因精度問題造成的查詢結果不符預期，建議：
 
 1. **明確指定完整的時間格式**
+
    ```json
    {
      "query": {
@@ -2073,6 +2075,7 @@ Query DSL：
    ```
 
 2. **使用 Date Math 捨入功能**
+
    ```json
    {
      "query": {
@@ -2087,6 +2090,7 @@ Query DSL：
    ```
 
 3. **查詢整個時間單位時使用 gte + lte**
+
    ```json
    {
      "query": {
@@ -2252,14 +2256,15 @@ Query DSL：
    * `doc_values: false`：欄位不會儲存 doc values，無法用於排序、彙總或腳本存取。
    * 當兩者都設為 `false` 時，exists query 會認為該欄位不存在。
 
-
 2. **超過 `ignore_above` 設定**：keyword 類型欄位值的長度超過 mapping 中設定的 `ignore_above` 限制，該值不會被索引。
+
    ```json
    // Mapping 設定 ignore_above: 10
    { "tags": "this_is_too_long" }  // 長度 15，不會被索引
    ```
 
 3. **`ignore_malformed` 且格式錯誤**：當欄位類型為數值、日期等，但寫入的資料格式錯誤時，若 mapping 中設定了 `ignore_malformed: true`，該值會被忽略不索引。
+
    ```json
    // Mapping 設定 price 為 integer 類型，且 ignore_malformed: true
    { "price": "not_a_number" }  // 格式錯誤，不會被索引，但文件寫入成功
@@ -2290,7 +2295,7 @@ Query DSL：
 * `value`：前綴字串。
 * `boost`：調整相關性分數權重。
 * `case_insensitive`：是否忽略大小寫，預設為 `false`。
-* `rewrite`：查詢重寫方法，用於優化效能。當前綴匹配到大量詞彙時，可透過此參數控制如何處理匹配結果。常用值包括 `constant_score`（預設，所有匹配給予相同分數）、`top_terms_N`（只取前 N 個詞彙）等。詳細說明請參考[官方文件](https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-multi-term-rewrite)。
+* `rewrite`：查詢重寫方法，用於最佳化效能。當前綴匹配到大量詞彙時，可透過此參數控制如何處理匹配結果。常用值包括 `constant_score`（預設，所有匹配給予相同分數）、`top_terms_N`（只取前 N 個詞彙）等。詳細說明請參考[官方文件](https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-multi-term-rewrite)。
 
 **測試資料：**
 
@@ -2541,6 +2546,7 @@ Query DSL：
 ```
 
 乍看之下會以為此查詢會排除 "Wing Chou"，但實際上：
+
 * "Wing Chou" 經過分詞後變成 `["wing", "chou"]`。
 * `~(wing)` 會否定 "wing"，但 "chou" 仍然符合。
 * 因此 "Wing Chou" 這筆資料還是會出現在查詢結果中。
@@ -2687,8 +2693,7 @@ string pattern = conditions.Count > 0
     : "#";                          // 確保不匹配任何資料
 
 SearchRequest searchRequest = new() {
-    Query = new RegexpQuery
-    {
+    Query = new RegexpQuery {
         Field = "code",
         Value = pattern,
         Flags = conditions.Count > 0 ? "ALL" : "EMPTY"
@@ -2766,7 +2771,8 @@ SearchRequest searchRequest = new() {
 Lucene 正規表達式引擎中，以下字元具有特殊意義，若要作為普通字元使用，需要使用反斜線 `\` 跳脫：
 
 **保留字元：**
-```
+
+```text
 . ? + * | { } [ ] ( ) " \ #
 ```
 
@@ -2985,7 +2991,8 @@ Lucene 的正規表達式引擎**不支援錨點運算子**，例如 `^`（行�
 
 **範例對比：**
 
-**情境：索引中有文件 name = "Wing Chou"（text 欄位）**  
+**情境：索引中有文件 name = "Wing Chou"（text 欄位）**
+
 → 經過分析器處理後，索引中的詞項是：`["wing", "chou"]`（已轉小寫、已分詞）
 
 ---
@@ -3466,4 +3473,6 @@ Lucene 的正規表達式引擎**不支援錨點運算子**，例如 `^`（行�
 
 * 2025-11-04 初版文件建立。
 
-###### tags: `ELK` `Elasticsearch`
+---
+
+###### tags: `Database` `ELK` `Elasticsearch`

@@ -1,25 +1,26 @@
 # 如何在 Entity Framework 中增加 WITH (NOLOCK) 和 Parameter Sniffing 的處理
 
-[![hackmd-github-sync-badge](https://hackmd.io/C_kRZTF-QTibZHUtN44AJQ/badge)](https://hackmd.io/C_kRZTF-QTibZHUtN44AJQ)
-
-
-前幾天在面試時被問到 SQL Server 的 `WITH (NOLOCK)`，因為太久沒用，一時想不起來，導致回答錯誤。明明一年前的筆記中有相關內容「[SQL Server 效能調教](/EC-RlPMtTI25VsCJK22uPA)」。
+前幾天在面試時被問到 SQL Server 的 `WITH (NOLOCK)`，因為太久沒用，一時想不起來，導致回答錯誤。明明一年前的筆記中有相關內容「[SQL Server 效能調教](https://github.com/CloudyWing/HackMD-Notes/blob/main/SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99.md)」。
 
 為什麼在 SQL Server 中  `WITH (NOLOCK)` 很重要，卻很久沒用了呢？主要原因是現在大部分開發都直接使用 Entity Framework，而不再像過去手刻 Library 產生 SQL 語句，直接讓 Library 在執行 Command 前修正 SQL 就好。
 
 現在我們來看看如何在 Entity Framework 中實現相同的行為。
 
 ## Interceptor（攔截器）
+
 Microsoft.EntityFrameworkCore 的 Interceptor 在 3.0 版中加入，而 .NET Framework 的 EntityFramework 則是在 6.0 版中加入。其主要功能是允許在 Entity Framework 執行低階資料庫操作或 `SaveChanges()` 時，修改或攔截正在進行的操作。更具體的內容請參考 MSDN 的「[攔截器](https://learn.microsoft.com/zh-tw/ef/core/logging-events-diagnostics/interceptors#database-interception)」。本篇文章以 Microsoft.EntityFrameworkCore 版本作為範例。
 
 ### Interceptor 介面
+
 * IDbCommandInterceptor：處理 Command 的相關方法，本文將使用此介面。
 * IDbConnectionInterceptor：處理連線與關閉連線的相關方法。
 * IDbTransactionInterceptor：處理交易相關的方法。
 * ISaveChangesInterceptor：處理 `SaveChanges()` 相關方法。
 
 ## 實作方法
+
 關於 `WITH (NOLOCK)` 的處理，網路上大部分的解法都無法處理子查詢。不過，有一篇文章「[给 EF Core 查询增加 With NoLock](https://blog.csdn.net/puzi0315/article/details/133018791)」有更一步處理，所以我就參考這篇來修改。
+
 ```csharp
 public class FixDbCommandInterceptor : DbCommandInterceptor {
     private static readonly RegexOptions regexOptions = RegexOptions.Multiline | RegexOptions.IgnoreCase;
@@ -84,6 +85,7 @@ public class FixDbCommandInterceptor : DbCommandInterceptor {
 ```
 
 ### 程式碼說明
+
 1. `DbCommandInterceptor` 已經實作了 `IDbCommandInterceptor` 的所有方法，所以只需繼承它並覆寫需要的方法。
 2. 與查詢相關的方法有 `ExecuteReader()` 和 `ExecuteScalar()`，因此針對這兩個方法的同步與非同步版本來覆寫 `IDbCommandInterceptor` 所對應的執行前方法。
 3. `CommandText` 修正：
@@ -96,15 +98,18 @@ public class FixDbCommandInterceptor : DbCommandInterceptor {
 :::
 
 ## 加入 Interceptor
+
 可以使用以下兩種方法加入 Interceptor：
 
 * 在 DbContext 中加入以下程式碼：
+
 ```csharp
  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.AddInterceptors(new FixDbCommandInterceptor());
 ```
 
 * 在 DI 中注入 `DbContext` 時，從 `DbContextOptionsBuilder` 設定：
+
 ```csharp
 services.AddDbContext<TestDbContext>(options => {
     options
@@ -114,7 +119,9 @@ services.AddDbContext<TestDbContext>(options => {
 ```
 
 ## 實際執行結果
+
 使用以下 SQL 建立資料表，並用反向工程建立 EF：
+
 ```sql
 CREATE TABLE [dbo].[Test](
     [Id] [int] IDENTITY(1,1) NOT NULL,
@@ -145,6 +152,7 @@ GO
 ```
 
 執行以下程式：
+
 ```csharp
 context.Tests.Find(1);
 
@@ -158,6 +166,7 @@ context.Tests
 ```
 
 產生的 SQL 語法如下：
+
 ```sql
 -- Find()
 SELECT TOP(1) [t].[Id], [t].[TestBit], [t].[TestDateTime], [t].[TestGuid], [t].[TestInt]
@@ -181,4 +190,10 @@ LEFT JOIN [SubTest] AS [s] WITH (NOLOCK) ON [t].[Id] = [s].[TestId]
 ORDER BY [t].[Id] OPTION (OPTIMIZE FOR UNKNOWN);
 ```
 
-###### tags: `.NET` `.NET Core & .NET 5+` `Entity Framework` `Microsoft SQL Server`
+## 異動歷程
+
+* 2024-07-18 初版文件建立。
+
+---
+
+###### tags: `.NET` `Database` `.NET Core & .NET 5+` `Entity Framework` `Microsoft SQL Server`

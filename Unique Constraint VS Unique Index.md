@@ -1,9 +1,6 @@
 # Unique Constraint VS Unique Index
 
-[![hackmd-github-sync-badge](https://hackmd.io/FDtfWz98Sk6JO7AHPmSR2g/badge)](https://hackmd.io/FDtfWz98Sk6JO7AHPmSR2g)
-
-
-最近在回顧之前寫的 [SQL Server 效能調教](/EC-RlPMtTI25VsCJK22uPA) 文章時，發現有關索引的前綴詞寫得不完整。參考這篇文章「[你需要明白的索引和约束的前缀（AK,PK,IX,CK,FK,DF,UQ）](https://www.cnblogs.com/flysun0311/archive/2013/02/28/2936588.html)」後，補充如下：
+最近在回顧之前寫的 [SQL Server 效能調教](https://github.com/CloudyWing/HackMD-Notes/blob/main/SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99.md) 文章時，發現有關索引的前綴詞寫得不完整。參考這篇文章「[你需要明白的索引和约束的前缀（AK,PK,IX,CK,FK,DF,UQ）](https://www.cnblogs.com/flysun0311/archive/2013/02/28/2936588.html)」後，補充如下：
 
 * Primary Key：PK_TableName。
 * Clustered Index：CX_TableName_Column1_Column2。
@@ -97,21 +94,30 @@ CREATE UNIQUE INDEX {IndexName} ON {TableName} ({ColumnName});
 ```
 
 ### 使用 SSMS 建立
+
 1. 開啟資料表設計，右鍵選\[索引/索引鍵\]。
 2. 根據需要選擇設定：
-  * Unique Constraint：
+   * Unique Constraint：
       * 型別：唯一索引鍵。
       * 是唯一：是（會自動幫你選擇，並會顯示灰底不能變更)。
-  * Unique Index：
+   * Unique Index：
       * 型別：索引。
       * 是唯一：是。
+
 :::info
 如果只是單純建立索引，也可以在「索引」資料夾，按右鍵選「新增索引」，需注意如果開啟設計，「新增索引」會是反灰無法選擇。
 :::
 
 ### SSMS 顯示
+
 如何知道自己建立的是 Unique Constraint 還是 Unique Index？
 
 從 SSMS 顯示上來看，「索引鍵」資料夾會顯示 Primary Key、Unique Constraint 和 Foreign Key 這幾個和條件約束相關的索引。而「索引」資料夾會顯示除了 Foreign Key 以外的索引。
+
+## 異動歷程
+
+* 2024-07-25 初版文件建立。
+
+---
 
 ###### tags: `Database` `Microsoft SQL Server`

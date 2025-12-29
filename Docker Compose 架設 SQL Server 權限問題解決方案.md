@@ -2,11 +2,11 @@
 
 最近都在運動減肥和找工作，程式都沒什麼在研究，曾經中間有想要整理一些資料給別人，但後來懶了，想想還是別多事。
 
-這幾天看朋友都在咖啡廳學習程式相關資料充實自己，想想還是振作一下，避免在面試時因為技術生疏而表現不佳。。
+這幾天看朋友都在咖啡廳學習程式相關資料充實自己，想想還是振作一下，避免在面試時因為技術生疏而表現不佳。
 
 ## 環境設定
 
-我將之前建立的 SQL Server Docker-Compose 檔案放置在 WSL 環境下，配置如下：
+我將之前建立的 SQL Server Docker-Compose 檔案放置在 WSL 環境下，設定如下：
 
 ```yaml
 services:
@@ -61,7 +61,7 @@ ERROR: BootstrapSystemDataDirectories() failure (HRESULT 0x80070005)
 ./volumes/:/var/opt/mssql/external
 ```
 
-這種做法是因為 SQL Server 的預設資料夾（`/var/opt/mssql/data`、`/var/opt/mssql/log`、`/var/opt/mssql/backup`）存在權限限制，所以改為將 Volume 對應到沒有權限問題的 `/var/opt/mssql/external` 自訂資料夾。使用這種方式時，需要在建立資料庫時手動指定檔案路徑到 external 目錄，才能將 `.mdf` 和 `.bak` 檔案存放在掛載的 Volume 中。不過，這種方式的缺點是建立資料庫時經常忘記手動指定檔案位置，導致檔案仍存放在容器內的預設位置，無法持久化保存。因此，後來決定尋找更正規的解決方案。
+這種做法是因為 SQL Server 的預設資料夾（`/var/opt/mssql/data`、`/var/opt/mssql/log`、`/var/opt/mssql/backup`）存在權限限制，所以改為將 Volume 對應到沒有權限問題的 `/var/opt/mssql/external` 自訂資料夾。使用這種方式時，需要在建立資料庫時手動指定檔案路徑到 external 目錄，才能將 `.mdf` 和 `.bak` 檔案存放在掛載的 Volume 中。不過，這種方式的缺點是建立資料庫時經常忘記手動指定檔案位置，導致檔案仍存放在容器內的預設位置，無法持久化儲存。因此，後來決定尋找更正規的解決方案。
 
 ## 正規解決方案
 
@@ -71,13 +71,13 @@ ERROR: BootstrapSystemDataDirectories() failure (HRESULT 0x80070005)
 
 解決方法是在包含 `docker-compose.yml` 的目錄中，先建立必要的子資料夾，再針對 volumes 資料夾進行權限設定。
 
-**1. 建立資料夾結構**
+**1. 建立資料夾結構**：
 
 ```bash
 mkdir -p volumes/data volumes/log volumes/backup
 ```
 
-**2. 設定資料夾權限**
+**2. 設定資料夾權限**：
 
 ```bash
 chgrp -R 0 volumes
@@ -85,7 +85,7 @@ chmod -R g=u volumes
 chown -R 10001:0 volumes
 ```
 
-**3. 啟動容器**
+**3. 啟動容器**：
 
 ```bash
 docker-compose up -d
@@ -166,4 +166,6 @@ chown -R 10001:0 volumes
 * 2025-08-24 初版文件建立。
 * 2025-11-04 補充完整操作步驟，說明需先建立子資料夾再設定權限。
 
-###### tags: `docker` `SQL Server`
+---
+
+###### tags: `Database` `DevOps` `Docker` `Microsoft SQL Server`
