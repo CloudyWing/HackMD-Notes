@@ -1,0 +1,51 @@
+:root {
+  /* Toned down Light Mode Brand Colors (Less "Neon") */
+  --vp-c-brand-1: #ea580c;
+  /* Orange 600 - Darker base for better contrast */
+  --vp-c-brand-2: #c2410c;
+  /* Orange 700 */
+  --vp-c-brand-3: #9a3412;
+  /* Orange 800 */
+  --vp-c-brand-soft: #fff7ed;
+  /* Orange 50 - Very subtle background */
+
+  /* Navigation & Sidebar Backgrounds (Break Monotony) */
+  /* --vp-nav-bg-color: #fff7ed; */
+  /* --vp-sidebar-bg-color: #fff7ed; */
+
+  /* Hero Gradient - Orange to Red */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #ea580c 30%, #dc2626);
+
+  /* Button Styling */
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-bg: linear-gradient(to right, #ea580c, #dc2626);
+  --vp-button-brand-hover-bg: linear-gradient(to right, #c2410c, #b91c1c);
+}
+
+.dark {
+  /* Keep Dark Mode Vibrant */
+  --vp-c-brand-1: #fb923c;
+  /* Orange 400 */
+  --vp-c-brand-2: #f97316;
+  /* Orange 500 */
+  --vp-c-brand-3: #ea580c;
+  /* Orange 600 */
+  --vp-c-brand-soft: #431407;
+  /* Orange 950 */
+
+  /* Reset Backgrounds for Dark Mode (Dark Gray/Black fits better) */
+  --vp-nav-bg-color: var(--vp-c-bg);
+  --vp-sidebar-bg-color: var(--vp-c-bg);
+
+  /* Make gradient slightly lighter in dark mode */
+  --vp-home-hero-name-background: linear-gradient(120deg, #fb923c 30%, #f97316);
+
+  /* Ensure button text is visible in dark mode too */
+  --vp-button-brand-text: #ffffff;
+}
+
+/* Force override for button text color */
+.VPButton.brand {
+  color: #ffffff !important;
+}
