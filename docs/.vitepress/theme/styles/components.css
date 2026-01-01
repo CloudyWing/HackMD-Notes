@@ -1,0 +1,239 @@
+/* ===== 共用組件樣式 ===== */
+
+/* ===== 標籤樣式 ===== */
+.tag-base {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.6rem;
+    background: var(--vp-c-brand-soft);
+    border: 1px solid var(--vp-c-brand-1);
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    color: var(--vp-c-brand-1);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tag-base:hover {
+    background: var(--vp-c-brand-1);
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* 標籤大小變體 */
+.tag-sm {
+    padding: 0.15rem 0.5rem;
+    font-size: 0.7rem;
+}
+
+.tag-md {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* ===== 按鈕樣式 ===== */
+.btn-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--vp-c-bg-soft);
+    border: 1px solid var(--vp-c-divider);
+    border-radius: var(--radius-md);
+    color: var(--vp-c-text-1);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-standard);
+}
+
+.btn-base:hover:not(:disabled) {
+    background: var(--vp-c-brand-soft);
+    border-color: var(--vp-c-brand-1);
+    color: var(--vp-c-brand-1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-brand-sm);
+}
+
+.btn-base:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btn-base:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/* 按鈕變體 */
+.btn-primary {
+    background: var(--vp-c-brand-1);
+    border-color: var(--vp-c-brand-1);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--vp-c-brand-2);
+    border-color: var(--vp-c-brand-2);
+    color: white;
+}
+
+/* 圓形按鈕（用於圖標按鈕）*/
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+}
+
+.btn-icon-sm {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+}
+
+/* ===== 卡片樣式 ===== */
+.card-base {
+    background: var(--vp-c-bg-soft);
+    border: 1px solid var(--vp-c-divider);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    transition: var(--transition-standard);
+}
+
+.card-base:hover {
+    border-color: var(--vp-c-brand-1);
+    box-shadow: var(--shadow-brand-sm);
+}
+
+.card-interactive {
+    cursor: pointer;
+}
+
+.card-interactive:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-brand-md);
+}
+
+/* ===== 資訊框樣式 ===== */
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--vp-c-brand-soft);
+    border-left: 3px solid var(--vp-c-brand-1);
+    border-radius: var(--radius-sm);
+    color: var(--vp-c-text-2);
+    font-size: 0.9rem;
+}
+
+.info-box i {
+    color: var(--vp-c-brand-1);
+    flex-shrink: 0;
+}
+
+/* ===== 分頁控制樣式 ===== */
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--vp-c-divider);
+}
+
+.pagination-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.page-numbers {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--vp-c-text-1);
+}
+
+.total-items {
+    font-size: 0.85rem;
+    color: var(--vp-c-text-2);
+    padding: 0.2rem 0.6rem;
+    background: var(--vp-c-brand-soft);
+    border-radius: var(--radius-sm);
+}
+
+/* ===== 共用動畫 ===== */
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 12px rgba(220, 38, 38, 0.6);
+    }
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Dark mode 調整 */
+.dark .animate-pulse-glow {
+    animation: pulse-glow-dark 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow-dark {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 8px rgba(251, 146, 60, 0.4);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 12px rgba(251, 146, 60, 0.6);
+    }
+}
+
+/* ===== 響應式調整 ===== */
+@media (max-width: 960px) {
+    .pagination-controls {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .pagination-info {
+        order: -1;
+    }
+}
+
+@media (max-width: 640px) {
+    .btn-base {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .tag-base {
+        font-size: 0.7rem;
+        padding: 0.18rem 0.55rem;
+    }
+
+    .card-base {
+        padding: 1rem;
+    }
+
+    .info-box {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.85rem;
+    }
+}

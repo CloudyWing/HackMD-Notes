@@ -1,0 +1,18 @@
+/* 外部連結圖標 */
+.vp-doc a[href^="http"]:not([href*="cloudywing.github.io"])::after {
+    content: ' ↗';
+    font-size: 0.8em;
+    opacity: 0.6;
+    margin-left: 0.2em;
+}
+
+/* 圖片優化 */
+.vp-doc img {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    margin: 2rem auto;
+}
+
+.dark .vp-doc img {
+    box-shadow: var(--shadow-lg);
+}

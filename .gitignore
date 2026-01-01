@@ -1,0 +1,34 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# VitePress
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# System
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Logs and Temp
+*.log
+temp/
+lint_report.txt
+lint_remaining.txt
+build_error*.log
+
+# Testing (Results only)
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+test-report.html
+junit.xml
+
