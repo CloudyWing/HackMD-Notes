@@ -138,32 +138,32 @@ void Execute(Permissions permiss) {
 
 以下將使用集合的概念來說明有關 Flag Enum 的位元運算。
 
-* OR (`|`) 運算符：將兩個列舉值進行 OR 運算，形成一個包含兩者的列舉項目的集合，即聯集。
+- OR (`|`) 運算符：將兩個列舉值進行 OR 運算，形成一個包含兩者的列舉項目的集合，即聯集。
 
 ![flag enum or operation](images/%E6%B7%BA%E8%AB%87%20Flag%20Enum%20%E7%9A%84%E6%87%89%E7%94%A8%E8%88%87%E5%BF%83%E5%BE%97/flag-enum-or-operation.png)
 
-* AND (`&`) 運算符：將兩個列舉值進行 AND 運算，形成一個包含兩者重複列舉項目的集合，即交集。
+- AND (`&`) 運算符：將兩個列舉值進行 AND 運算，形成一個包含兩者重複列舉項目的集合，即交集。
 
 ![flag enum and operation](images/%E6%B7%BA%E8%AB%87%20Flag%20Enum%20%E7%9A%84%E6%87%89%E7%94%A8%E8%88%87%E5%BF%83%E5%BE%97/flag-enum-and-operation.png)
 
-* XOR (`^`) 運算符：將兩個列舉值進行 XOR 運算，形成一個不包含兩者重複項目的集合，即對稱差集。
+- XOR (`^`) 運算符：將兩個列舉值進行 XOR 運算，形成一個不包含兩者重複項目的集合，即對稱差集。
 
 ![flag enum xor operation](images/%E6%B7%BA%E8%AB%87%20Flag%20Enum%20%E7%9A%84%E6%87%89%E7%94%A8%E8%88%87%E5%BF%83%E5%BE%97/flag-enum-xor-operation.png)
 
-* NOT (`~`) 運算符：將列舉值使用 NOT 運算，產生一個不包含該列舉值項目的列舉值集合，即補集。
+- NOT (`~`) 運算符：將列舉值使用 NOT 運算，產生一個不包含該列舉值項目的列舉值集合，即補集。
 
 ![flag enum not operation](images/%E6%B7%BA%E8%AB%87%20Flag%20Enum%20%E7%9A%84%E6%87%89%E7%94%A8%E8%88%87%E5%BF%83%E5%BE%97/flag-enum-not-operation.png)
 
 位元運算並沒有差集的運算符，所以無法簡單完成去除指定列舉項目的行為，但可以使用以下方式達到相同效果：
 
-* 先取得移除項目的補集，再與原項目取得交集，程式碼寫法為 `Permissions.CanUpsert & ~Permissions.CanCreate`。
-* 先與移除項目組成聯集後，再與移除項目取對稱差集，程式碼寫法為 `(Permissions.CanUpsert | Permissions.CanCreate) ^ Permissions.CanCreate`。
+- 先取得移除項目的補集，再與原項目取得交集，程式碼寫法為 `Permissions.CanUpsert & ~Permissions.CanCreate`。
+- 先與移除項目組成聯集後，再與移除項目取對稱差集，程式碼寫法為 `(Permissions.CanUpsert | Permissions.CanCreate) ^ Permissions.CanCreate`。
 
 ### 判斷是否包含特定列舉值
 
 如果要判斷是否包含特定列舉項目，可使用以下作法：
 
-* 與要判斷的列舉項目取交集後，再判斷是否相等。
+- 與要判斷的列舉項目取交集後，再判斷是否相等。
 
 ```csharp
 // has1 = true
@@ -185,7 +185,7 @@ bool has5 = (Permissions.ExcludeDelete & Permissions.CanCreate) == Permissions.C
 bool has6 = (Permissions.All & Permissions.ExcludeDelete) == Permissions.ExcludeDelete;
 ```
 
-* `HasFlag`：在 .NET Framework 4.0 時，為 Enum 新增的方法，內部仍然使用上述程式進行判斷，使用結果如下：
+- `HasFlag`：在 .NET Framework 4.0 時，為 Enum 新增的方法，內部仍然使用上述程式進行判斷，使用結果如下：
 
 ```csharp
 // has1 = true
@@ -227,4 +227,4 @@ bool has6 = Permissions.All.HasFlag(Permissions.ExcludeDelete);
 
 ## 異動歷程
 
-* 2023-12-05 初版文件建立。
+- 2023-12-05 初版文件建立。

@@ -28,8 +28,8 @@ sudo chown -R 1000:1000 volumes
 
 ::: info
 
-* 這裡刻意不建立 logs 的 volume，因為在升級或遷移 Elasticsearch 時，log 檔案的權限問題可能會造成啟動失敗。
-* Kibana 本身不儲存重要資料，所以沒建立 data 的 volume。
+- 這裡刻意不建立 logs 的 volume，因為在升級或遷移 Elasticsearch 時，log 檔案的權限問題可能會造成啟動失敗。
+- Kibana 本身不儲存重要資料，所以沒建立 data 的 volume。
 :::
 
 ## 設定檔案
@@ -153,28 +153,28 @@ services:
 
 ### 設定項目
 
-* **單節點模式**：
+- **單節點模式**：
     `discovery.type=single-node` 適合開發環境。
-* **SSL 關閉**：
+- **SSL 關閉**：
     為了簡化設定，關閉了 HTTP 和 Transport 層的 SSL。
-* **記憶體鎖定**：
+- **記憶體鎖定**：
     `bootstrap.memory_lock=true` 防止 JVM heap 被交換到磁碟。
-* **健康檢查**：
+- **健康檢查**：
     確保服務正常啟動後才啟動相依服務。
-* **kibana_system 密碼**：
+- **kibana_system 密碼**：
     Elasticsearch 會自動建立 `kibana_system` 帳號，但密碼是隨機字串，所以 setup 服務透過 API 幫設定指定密碼。
 
 ### 常見問題與解法
 
-* **記憶體不足**：
-  * 調整 .env 中的 MEM_LIMIT，或修改 ES_JAVA_OPTS。
-  * 建議 JVM Heap 設定為主機記憶體的 50% 左右。
+- **記憶體不足**：
+  - 調整 .env 中的 MEM_LIMIT，或修改 ES_JAVA_OPTS。
+  - 建議 JVM Heap 設定為主機記憶體的 50% 左右。
 
-* **權限問題**：
-  * 確認 `volumes/elasticsearch/data` 權限為 UID 1000:1000。
-  * 若仍遇到錯誤，可 `sudo chmod -R 777 volumes/elasticsearch/data` 測試（僅限開發環境）。
+- **權限問題**：
+  - 確認 `volumes/elasticsearch/data` 權限為 UID 1000:1000。
+  - 若仍遇到錯誤，可 `sudo chmod -R 777 volumes/elasticsearch/data` 測試（僅限開發環境）。
 
 ## 異動歷程
 
-* 2025-09-24 初版文件建立。
-* 2025-11-04 修正 YAML 檔遺漏 restart 設定導致重開機會自動啟動之問題。
+- 2025-09-24 初版文件建立。
+- 2025-11-04 修正 YAML 檔遺漏 restart 設定導致重開機會自動啟動之問題。

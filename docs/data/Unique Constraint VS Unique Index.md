@@ -10,14 +10,14 @@ tags: ["SQL Server"]
 
 最近在回顧之前寫的 [SQL Server 效能調教](SQL%20Server%20%E6%95%88%E8%83%BD%E8%AA%BF%E6%95%99.md) 文章時，發現有關索引的前綴詞寫得不完整。參考這篇文章「[你需要明白的索引和约束的前缀（AK,PK,IX,CK,FK,DF,UQ）](https://www.cnblogs.com/flysun0311/archive/2013/02/28/2936588.html)」後，補充如下：
 
-* Primary Key：PK_TableName。
-* Clustered Index：CX_TableName_Column1_Column2。
-* Non-Clustered Index：IX_TableName_Column1_Column2。
-* Unique Index (Alternate Key)：AK_TableName_Column1_Column2。
-* Unique Constraint：UQ_TableName_Column1_Column2。
-* Check Constraint：CK_TableName_Column1_Column2。
-* Default Constraint：DF_TableName_Column1_Column2。
-* Foreign Key：FK_TableName1_Column1_Column2_TableName2。
+- Primary Key：PK_TableName。
+- Clustered Index：CX_TableName_Column1_Column2。
+- Non-Clustered Index：IX_TableName_Column1_Column2。
+- Unique Index (Alternate Key)：AK_TableName_Column1_Column2。
+- Unique Constraint：UQ_TableName_Column1_Column2。
+- Check Constraint：CK_TableName_Column1_Column2。
+- Default Constraint：DF_TableName_Column1_Column2。
+- Foreign Key：FK_TableName1_Column1_Column2_TableName2。
 
 補充後，發現與資料唯一性相關的有 Unique Constraint（唯一約束）和 Unique Index（唯一索引）。
 
@@ -107,12 +107,12 @@ CREATE UNIQUE INDEX {IndexName} ON {TableName} ({ColumnName});
 
 1. 開啟資料表設計，右鍵選\[索引/索引鍵\]。
 2. 根據需要選擇設定：
-   * Unique Constraint：
-      * 型別：唯一索引鍵。
-      * 是唯一：是（會自動幫你選擇，並會顯示灰底不能變更)。
-   * Unique Index：
-      * 型別：索引。
-      * 是唯一：是。
+   - Unique Constraint：
+      - 型別：唯一索引鍵。
+      - 是唯一：是（會自動幫你選擇，並會顯示灰底不能變更)。
+   - Unique Index：
+      - 型別：索引。
+      - 是唯一：是。
 
 ::: info
 如果只是單純建立索引，也可以在「索引」資料夾，按右鍵選「新增索引」，需注意如果開啟設計，「新增索引」會是反灰無法選擇。
@@ -126,4 +126,4 @@ CREATE UNIQUE INDEX {IndexName} ON {TableName} ({ColumnName});
 
 ## 異動歷程
 
-* 2024-07-25 初版文件建立。
+- 2024-07-25 初版文件建立。

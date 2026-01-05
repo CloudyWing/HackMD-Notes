@@ -65,9 +65,9 @@ Scope 表示受影響的 npm 套件的名稱，這是針對 Angular 定義的，
 
 Short Summary 是對變更的簡潔描述，Angular 規範如下：
 
-* use the imperative, present tense: "change" not "changed" nor "changes"
-* don't capitalize the first letter
-* no dot (.) at the end
+- use the imperative, present tense: "change" not "changed" nor "changes"
+- don't capitalize the first letter
+- no dot (.) at the end
 
 但是我都用中文，所以就句尾不用句號而已。
 
@@ -110,21 +110,21 @@ Closes #<pr number>
 
 舉例來說，在 GitHub 中可以使用以下關鍵字將 PR 關聯並關閉 Issue，詳見 GitHub 文件「[Linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue)」。
 
-* close
-* closes
-* closed
-* fix
-* fixes
-* fixed
-* resolve
-* resolves
-* resolved
+- close
+- closes
+- closed
+- fix
+- fixes
+- fixed
+- resolve
+- resolves
+- resolved
 
 在 GitLab 中，可以用以下方式做連結，其中 `123` 替換成相應 ID：
 
-* 關聯 Issue：#123
-* 關聯 MR：!123
-* 關聯 Snippet：$123
+- 關聯 Issue：#123
+- 關聯 MR：!123
+- 關聯 Snippet：$123
 
 GitLab 同樣可以使用 `Closes #123` 或 `Fixes #123`，在合併所屬分支時，關閉相應的 Issue。詳見 GitLab 文件 GitLab 文件「[Tutorial: It's all connected in GitLab](https://about.gitlab.com/blog/2016/03/08/gitlab-tutorial-its-all-connected/)」。
 
@@ -199,11 +199,11 @@ git config --global commit.cleanup strip
 
 說明
 
-* `git config`: 這是 Git 的設定指定，用於查看和設定 Git 的設定選項。
-* `--global`: 此註記表示該設定將用於全域範圍，即所有的 Git 儲存庫。如果不使用此註記，設定只會生效於當前的 Git 儲存庫。
-* `commit.template`: 用來指定 Commit 訊息的 Template 檔案位置。
-* `commit.cleanup`: 用來指定在 Commit 時如何處理 Commit 訊息，預設是 `whitespace` 不忽略註解行。
-* `strip`: 這是 `commit.cleanup` 選項的值，表示在 Commit 時，將 Commit 訊息中的註解行和多餘的空行移除。
+- `git config`: 這是 Git 的設定指定，用於查看和設定 Git 的設定選項。
+- `--global`: 此註記表示該設定將用於全域範圍，即所有的 Git 儲存庫。如果不使用此註記，設定只會生效於當前的 Git 儲存庫。
+- `commit.template`: 用來指定 Commit 訊息的 Template 檔案位置。
+- `commit.cleanup`: 用來指定在 Commit 時如何處理 Commit 訊息，預設是 `whitespace` 不忽略註解行。
+- `strip`: 這是 `commit.cleanup` 選項的值，表示在 Commit 時，將 Commit 訊息中的註解行和多餘的空行移除。
 
 執行完畢後，會在全域的 .gitconfig 增加以下內容，全域的 .gitconfig 在 Windows 預設存放位置在使用者帳號底下，例如：`C:\Users\{Windows 帳號}`。
 
@@ -221,15 +221,15 @@ git config --global commit.cleanup strip
 
 Git 一共有三個 config 設定：
 
-* System 設定：
-  * 位置：`C:\Program Files\Git\etc\gitconfig`。
-  * 優先度最低。此設定影響整個系統中的所有使用者和專案，通常是系統管理員設置的全局設定，適合全系統共用的 Git 行為規範。
-* Global 設定。
-  * `C:\Users\{Windows 帳號}\.gitconfig`：
-  * 次高優先度。此設定適用於單一使用者，但會被 Local 設定覆蓋。常用來設定個人使用的 Git 選項，對於所有儲存庫都有影響，除非被 Local 設定所取代。
-* Local 設定：
-  * `.git\config`
-  * 優先度最高。此設定僅對當前專案有效，覆蓋 Global 和 System 的設定。由於它的影響範圍僅限特定儲存庫，因此對於需要針對專案做特殊設定的情況特別有用。
+- System 設定：
+  - 位置：`C:\Program Files\Git\etc\gitconfig`。
+  - 優先度最低。此設定影響整個系統中的所有使用者和專案，通常是系統管理員設置的全局設定，適合全系統共用的 Git 行為規範。
+- Global 設定。
+  - `C:\Users\{Windows 帳號}\.gitconfig`：
+  - 次高優先度。此設定適用於單一使用者，但會被 Local 設定覆蓋。常用來設定個人使用的 Git 選項，對於所有儲存庫都有影響，除非被 Local 設定所取代。
+- Local 設定：
+  - `.git\config`
+  - 優先度最高。此設定僅對當前專案有效，覆蓋 Global 和 System 的設定。由於它的影響範圍僅限特定儲存庫，因此對於需要針對專案做特殊設定的情況特別有用。
 
 ::: info
 三個檔名都不一樣 XD
@@ -258,18 +258,18 @@ Git 一共有三個 config 設定：
 
 目前我已知有支援 Commit Template 的版控軟體如下：
 
-* GitKraken：
+- GitKraken：
   在儲存庫頁籤點選 File => Preferences... => Commit，會顯示 Commit Template 設定，如果未設定 `commit.cleanup strip` 記得要勾選「Removes comments from commit messages」來忽略 `#` 開頭的行。
 
-* Tortoisegit：
+- Tortoisegit：
   當 `commit.cleanup` 為 `whitespace`，Commit **不**會忽略 `#` 開頭的行。
 
-* Git Extensions：
+- Git Extensions：
   當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行（感謝同事友情測試）。
 
-* Sourcetree：
-  * Mac 版的 4.2.8 有支援（感謝同事友情測試)；Windows 版的 3.4.20 開始支援。
-  * 當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行。
+- Sourcetree：
+  - Mac 版的 4.2.8 有支援（感謝同事友情測試)；Windows 版的 3.4.20 開始支援。
+  - 當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行。
 
 ::: info
 Sourcetree 3.4.18 版尚未支援 Git Template，但我看在 2024/6/27，官方在把大家喊好幾年的 Jira 單全關閉了，說在 [Commit template message](https://jira.atlassian.com/browse/SRCTREEWIN-3817) 已解決，所以也許後續某個版本有可能會支援了。
@@ -303,7 +303,7 @@ git config --global commit.cleanup whitespace
 
 ## 異動歷程
 
-* 2024-07-23 初版文件建立。
-* 2024-09-20
-  * 更新 Windows 版 Sourcetree 3.4.20 支援 Git Commit Template 功能。
-  * 修正設定檔位置的說明。
+- 2024-07-23 初版文件建立。
+- 2024-09-20
+  - 更新 Windows 版 Sourcetree 3.4.20 支援 Git Commit Template 功能。
+  - 修正設定檔位置的說明。

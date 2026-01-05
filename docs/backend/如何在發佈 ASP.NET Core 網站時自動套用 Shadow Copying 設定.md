@@ -114,23 +114,23 @@ dotnet publish -c Release -p:EnvironmentName=Staging
 
 需注意，web.config 中的 Shadow Copying 設定會因 ASP.NET Core 版本而異。在 .NET 6 時期，這項功能還處於實驗階段，所以設定的參數名稱與後續版本不同。這個設定與 Web 專案本身的 .NET 版本無關，主要取決於伺服器上安裝的 Hosting Bundle 版本。以下是不同版本的使用方式：
 
-* 使用 ASP.NET Core Hosting Bundle 7.0.0 以上版本：使用 `enableShadowCopy` 參數。
-* 使用 ASP.NET Core Hosting Bundle 6.0.0 版本：使用 `experimentalEnableShadowCopy` 參數。
+- 使用 ASP.NET Core Hosting Bundle 7.0.0 以上版本：使用 `enableShadowCopy` 參數。
+- 使用 ASP.NET Core Hosting Bundle 6.0.0 版本：使用 `experimentalEnableShadowCopy` 參數。
 
 ::: warning
 
-* 升級 .NET 版本後，必須刪除 Shadow Copying 資料夾，否則 IIS 會出現 500.30 錯誤。此時事件檢視器會顯示以下錯誤訊息：
+- 升級 .NET 版本後，必須刪除 Shadow Copying 資料夾，否則 IIS 會出現 500.30 錯誤。此時事件檢視器會顯示以下錯誤訊息：
 
     ```text
     Application '/LM/W3SVC/1/ROOT/{應用程式集區}' with physical root '{網站路徑}' failed to load coreclr. Exception message:
     Unexpected exception: directory_iterator::directory_iterator: The system cannot find the path specified.
     ```
 
-* 使用 Shadow Copying 時請注意，應避免在應用程式目錄中寫入檔案或 Log，否則每次檔案異動都可能觸發 Shadow Copying 機制，導致應用程式不必要的重啟。
+- 使用 Shadow Copying 時請注意，應避免在應用程式目錄中寫入檔案或 Log，否則每次檔案異動都可能觸發 Shadow Copying 機制，導致應用程式不必要的重啟。
 :::
 
 ## 異動歷程
 
-* 2025-03-18 初版文件建立。
-* 2025-04-08 補充升級 .NET 版本造成 Shadow Copying 異常。
-* 2026-01-01 補充使用 Shadow Copying 時需避免在應用程式目錄寫入檔案的注意事項。
+- 2025-03-18 初版文件建立。
+- 2025-04-08 補充升級 .NET 版本造成 Shadow Copying 異常。
+- 2026-01-01 補充使用 Shadow Copying 時需避免在應用程式目錄寫入檔案的注意事項。

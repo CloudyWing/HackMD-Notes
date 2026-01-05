@@ -56,12 +56,12 @@ networks:
 
 ::: info
 
-* `external_url` 不設定雖然可以連到網頁，但會有部分功能找不到網頁，且網域非所設定的 IP，而是一連串的英數字組合，或是在儲存庫上 SSH、http 裡記錄的複製儲存庫網址有這個問題。
-* `external_url` 最好設定成外部 IP 或是 Domain Name，這邊用 `127.0.0.1` 是因為雖然有指定 IP，但是無法使用主機使用設定 IP 連線(不過有時候設定又可能，暫時找不到原因)。
-* 當有設定 `external_url` 時，使用非 80 port，則要設定 `nginx['listen_port'] = 80`，如果是用 https ，則改為 `443`，詳細原因請參照此篇[文章](https://www.gushiciku.cn/pl/gv52/zh-tw)。
-* 50xx 的 Port 可以自行視需求變更如果出現「invalid port specification」的錯誤訊息，參考 [Invalid port specification: 601342](https://gitlab.com/gitlab-org/gitlab-foss/-/issues/2056)，將`5022:22`用引號括起來。
-* `external_url` 和 `gitlab_rails['gitlab_shell_ssh_port']` 的 port 設定與 ports 的對應關係要一致。
-* volumes 底下 `/var/opt/gitlab` 的路徑綁定，官網範例雖然是用「Bind Mount」，但在「artifacts」功能會因權限功能無法正常，所以是用「Volume」連結。
+- `external_url` 不設定雖然可以連到網頁，但會有部分功能找不到網頁，且網域非所設定的 IP，而是一連串的英數字組合，或是在儲存庫上 SSH、http 裡記錄的複製儲存庫網址有這個問題。
+- `external_url` 最好設定成外部 IP 或是 Domain Name，這邊用 `127.0.0.1` 是因為雖然有指定 IP，但是無法使用主機使用設定 IP 連線(不過有時候設定又可能，暫時找不到原因)。
+- 當有設定 `external_url` 時，使用非 80 port，則要設定 `nginx['listen_port'] = 80`，如果是用 https ，則改為 `443`，詳細原因請參照此篇[文章](https://www.gushiciku.cn/pl/gv52/zh-tw)。
+- 50xx 的 Port 可以自行視需求變更如果出現「invalid port specification」的錯誤訊息，參考 [Invalid port specification: 601342](https://gitlab.com/gitlab-org/gitlab-foss/-/issues/2056)，將`5022:22`用引號括起來。
+- `external_url` 和 `gitlab_rails['gitlab_shell_ssh_port']` 的 port 設定與 ports 的對應關係要一致。
+- volumes 底下 `/var/opt/gitlab` 的路徑綁定，官網範例雖然是用「Bind Mount」，但在「artifacts」功能會因權限功能無法正常，所以是用「Volume」連結。
 :::
 
 ### GitLab 的設置
@@ -163,10 +163,10 @@ Runner 設定請參閱 [Configuring GitLab Runner](https://docs.gitlab.com/runne
 
 4. 幫「TestCore」註冊一個使用 Docker Executor 的 Runner，tags 為`docker` 和 `linux`，並開啟「config.toml」進行以下調整：
 
-    * `privileged` 改為 `true`。
-    * `volumes` 改為 `["/var/run/docker.sock:/var/run/docker.sock", "/cache"]`，讓 Runner Executor 使用主機外部的 Docker Engine。
-    * 如果 GitLab 未設定 `external_url` 或是設定為 `127.0.0.1`、`localhost` 之類的，則須加上 `clone_url`。
-    * `network_mode` 設為 `gitlab_default`，讓 Runner Executor 可以用連到 GitLab。
+    - `privileged` 改為 `true`。
+    - `volumes` 改為 `["/var/run/docker.sock:/var/run/docker.sock", "/cache"]`，讓 Runner Executor 使用主機外部的 Docker Engine。
+    - 如果 GitLab 未設定 `external_url` 或是設定為 `127.0.0.1`、`localhost` 之類的，則須加上 `clone_url`。
+    - `network_mode` 設為 `gitlab_default`，讓 Runner Executor 可以用連到 GitLab。
 
 完整內容如下：
 
@@ -283,19 +283,19 @@ deploy-job:
 
 #### 使用關鍵詞
 
-* stages：定義有哪些要執行的 Stage 名稱和順序，名稱可自己設定。
-* job：範例中的 `build-job` 和`deploy-job`，名稱可自己設定。
-  * stage：設定此 Job 屬於 `stages` 裡的哪個 Stage。
-  * tags：設定執行的 Runner，例如我這邊設定`docker`、`linux`，那就會只有設定`docker`、`linux` 的 Runner 會執行，若找不到符合 Runner，則會停擺直到 timeout。
-  * image：因為是使用 Docker Executor，每個 Stage 都為一個 Docker Container，所以要設定此 Stage 所使用的 Image 環境，如果沒設定，就會使用 Runner 設定的 Default Image。
-  * variables：變數宣告。
-  * script：要在 Runner 裡執行的 Command Script。
-  * artifacts：設定成功後附加到作業的文件和目錄列表，由於每階段是獨立的 Container，所以執行後把像是編譯過後的程式進行上傳，在從下個 Stage 下載使用。
-  * paths：要上傳的檔案路徑。
-    * expire_in：保留時間。
-  * environment：要部署的環境設定
-    * name：環境名稱。
-    * 給外面連結 Url。
+- stages：定義有哪些要執行的 Stage 名稱和順序，名稱可自己設定。
+- job：範例中的 `build-job` 和`deploy-job`，名稱可自己設定。
+  - stage：設定此 Job 屬於 `stages` 裡的哪個 Stage。
+  - tags：設定執行的 Runner，例如我這邊設定`docker`、`linux`，那就會只有設定`docker`、`linux` 的 Runner 會執行，若找不到符合 Runner，則會停擺直到 timeout。
+  - image：因為是使用 Docker Executor，每個 Stage 都為一個 Docker Container，所以要設定此 Stage 所使用的 Image 環境，如果沒設定，就會使用 Runner 設定的 Default Image。
+  - variables：變數宣告。
+  - script：要在 Runner 裡執行的 Command Script。
+  - artifacts：設定成功後附加到作業的文件和目錄列表，由於每階段是獨立的 Container，所以執行後把像是編譯過後的程式進行上傳，在從下個 Stage 下載使用。
+  - paths：要上傳的檔案路徑。
+    - expire_in：保留時間。
+  - environment：要部署的環境設定
+    - name：環境名稱。
+    - 給外面連結 Url。
 
 #### 流程說明
 
@@ -314,12 +314,12 @@ deploy-job:
 1. 使用 `git config --global core.quotepath false` 來停止轉譯特殊字符，在輸出路徑時，中文會被當成特殊字符轉換掉，所以將 `core.quotepath` 設為 `false`。
 2. 產出異動清單，Command 說明如下：
 
-    * git diff-tree：透過比較兩個節點的樹對象，找到的差異的內容和模式，如果只輸入一個節點，則比較此節點與其父節點比較。
-    * -r：遞歸到子樹，若未設定只會比較一層。
-    * --no-commit-id：不顯示 Commit ID。
-    * --name-status：僅顯示更改文件的名稱和狀態。
-    * --diff-algorithm=minimal：選擇差異算法，使用最小差異。
-    * HEAD：當前分支的最後一次提交
+    - git diff-tree：透過比較兩個節點的樹對象，找到的差異的內容和模式，如果只輸入一個節點，則比較此節點與其父節點比較。
+    - -r：遞歸到子樹，若未設定只會比較一層。
+    - --no-commit-id：不顯示 Commit ID。
+    - --name-status：僅顯示更改文件的名稱和狀態。
+    - --diff-algorithm=minimal：選擇差異算法，使用最小差異。
+    - HEAD：當前分支的最後一次提交
 
 如果需要針對匯出格式調整，請參考官方文章 [diff-tree](https://git-scm.com/docs/git-diff-tree)。
 
@@ -372,4 +372,4 @@ deploy-job:
 
 ## 異動歷程
 
-* 2022-10-24 初版文件建立。
+- 2022-10-24 初版文件建立。

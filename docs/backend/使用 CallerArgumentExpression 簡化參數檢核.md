@@ -130,4 +130,4 @@ void TestCallerArgumentExpression(object? argument, [CallerArgumentExpression(na
 
 ## 異動歷程
 
-* 2024-10-13 初版文件建立。
+- 2024-10-13 初版文件建立。

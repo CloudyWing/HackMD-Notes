@@ -146,14 +146,14 @@ Autofac 在 Web 的每個 Request 裡，都會建立一個 Tag 為 「AutofacWeb
 
 #### 官網文件
 
-* [Instance Scope](https://autofac.readthedocs.io/en/latest/lifetime/instance-scope.html)
-* [How do I work with per-request lifetime scope?](https://autofac.readthedocs.io/en/latest/faq/per-request-scope.html)
-*
+- [Instance Scope](https://autofac.readthedocs.io/en/latest/lifetime/instance-scope.html)
+- [How do I work with per-request lifetime scope?](https://autofac.readthedocs.io/en/latest/faq/per-request-scope.html)
+-
 
 ### 設定允許使用 Property Injection
 
-* 一般會建議盡量使用 Constructor Injection，但有些情況下不得不使用 Property Injection，如框架本身沒支援 Constructor Injection，或是有循環依賴的情況發生。
-* 循環依賴指的是 Main Class 裡包含 Sub Class，Sub Class 裡也包含 Main Class，此時設計如下：
+- 一般會建議盡量使用 Constructor Injection，但有些情況下不得不使用 Property Injection，如框架本身沒支援 Constructor Injection，或是有循環依賴的情況發生。
+- 循環依賴指的是 Main Class 裡包含 Sub Class，Sub Class 裡也包含 Main Class，此時設計如下：
 
 ```csharp
 class Main {
@@ -179,20 +179,20 @@ builder.RegisterType<Sub>()
 
 ::: warning
 
-* 兩個型別註冊都不可使用 InstancePerDependency()。
-* 如果沒有要使用循環依賴，則不需要傳入 `PropertyWiringOptions.AllowCircularDependencies`。
+- 兩個型別註冊都不可使用 InstancePerDependency()。
+- 如果沒有要使用循環依賴，則不需要傳入 `PropertyWiringOptions.AllowCircularDependencies`。
 :::
 
 #### 官網文件
 
-* [Circular Dependencies](https://autofac.readthedocs.io/en/latest/advanced/circular-dependencies.html)
+- [Circular Dependencies](https://autofac.readthedocs.io/en/latest/advanced/circular-dependencies.html)
 
 ## 在 MVC 上使用 Autofac
 
 ### NuGet 套件
 
-* Autofac
-* Autofac.Mvc5
+- Autofac
+- Autofac.Mvc5
 
 ### 程式碼範例
 
@@ -324,8 +324,8 @@ public abstract class WebViewPageBase<T> : WebViewPage<T> {
 
 ::: info
 
-* 需注意修改的「Web.config」是資料夾「View」底下的，而非專案根目錄底下的。
-* MyNamespace 請替換成實際專案的 Namespace。
+- 需注意修改的「Web.config」是資料夾「View」底下的，而非專案根目錄底下的。
+- MyNamespace 請替換成實際專案的 Namespace。
 :::
 
 ### 模擬 ASP.NET Core 的 `FromServicesAttribute` Injection 至 Action Parameter
@@ -490,8 +490,8 @@ public class TestOptions {
 
 ### NuGet 套件
 
-* Autofac
-* Autofac.WebApi2
+- Autofac
+- Autofac.WebApi2
 
 ### 程式碼範例
 
@@ -554,8 +554,8 @@ public class ValuesController : ApiController {
 
 ### NuGet 套件
 
-* Autofac
-* Autofac.Web
+- Autofac
+- Autofac.Web
 
 ### 程式碼範例
 
@@ -637,13 +637,13 @@ public partial class _Default : Page {
 
 ## 在 Web Service 上使用 Autofac
 
-* Web Service 不支援 Constructor Injection，所以需要用 Property Injection。
-* Web.config 裡的 Xml 設定是提供給 Web Form 使用的，Web Service 無法用它來設定 Property Injection，所以需要藉由 `WebServiceBase` 來實作這部分。
+- Web Service 不支援 Constructor Injection，所以需要用 Property Injection。
+- Web.config 裡的 Xml 設定是提供給 Web Form 使用的，Web Service 無法用它來設定 Property Injection，所以需要藉由 `WebServiceBase` 來實作這部分。
 
 ### NuGet 套件
 
-* Autofac
-* Autofac.Web
+- Autofac
+- Autofac.Web
 
 ### 程式碼範例
 
@@ -685,4 +685,4 @@ public class WebService : WebServiceBase {
 
 ## 異動歷程
 
-* 2022-11-05 初版文件建立。
+- 2022-11-05 初版文件建立。

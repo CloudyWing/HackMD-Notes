@@ -75,4 +75,4 @@ public class TestRouteController : BasicController {
 
 ## 異動歷程
 
-* 2024-04-16 初版文件建立。
+- 2024-04-16 初版文件建立。

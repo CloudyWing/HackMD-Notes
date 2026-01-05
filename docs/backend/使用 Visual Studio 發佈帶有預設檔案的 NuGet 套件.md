@@ -20,9 +20,9 @@ tags: [".NET","NuGet"]
 
 Class Library 有分以下三種目標平台可以選擇：
 
-* .NET Framework：只有「.NET Framework」的專案可以使用。
-* .NET Core：只有「.NET Core」的專案可以使用。
-* .NET Standard：跨平台支援，不過 2.1 後的版本不再支援「.NET Framework」。
+- .NET Framework：只有「.NET Framework」的專案可以使用。
+- .NET Core：只有「.NET Core」的專案可以使用。
+- .NET Standard：跨平台支援，不過 2.1 後的版本不再支援「.NET Framework」。
 
 有關「.NET Standard」的版本支援選擇請參考 [.NET Standard](https://learn.microsoft.com/zh-tw/dotnet/standard/net-standard?tabs=net-standard-1-0)
 
@@ -46,7 +46,7 @@ Class Library 有分以下三種目標平台可以選擇：
 
 有關套件 XML 的資訊請參考[Pack Target Inputs](https://learn.microsoft.com/zh-tw/nuget/reference/msbuild-targets#pack-target-inputs)，這邊僅針對幾項必要設定作說明。
 
-* TargetFramework：由於「.NET Standard 2.0 」只支援到「.NET Framework 4.6.1」，如果要讓更舊版本的專案也可以使用，要將`TargetFramework` 改為 `TargetFrameworks`，內容填入要支援的版本，版本間用「;」隔開。
+- TargetFramework：由於「.NET Standard 2.0 」只支援到「.NET Framework 4.6.1」，如果要讓更舊版本的專案也可以使用，要將`TargetFramework` 改為 `TargetFrameworks`，內容填入要支援的版本，版本間用「;」隔開。
 
 ```xml
 <PropertyGroup>
@@ -54,33 +54,33 @@ Class Library 有分以下三種目標平台可以選擇：
 </PropertyGroup>
 ```
 
-* Version：
+- Version：
 Assembly 一般會有以下幾種版本號，版本號由大於或等於 0 整數組合，最大值為 `UInt16.MaxValue - 1`。
 
-  * AssemblyVersion：當將參考新增至專案中的任何元件時，會是內嵌的這個版本號碼，一般格式會是「{Major}.{Minor}.0.0」。
-  * FileVersion：設定專案的 AssemblyFileVersion，實際 DLL 檔案的版本號，一般格式會是「{Major}.{Minor}.{Build}.{Revision}」。
-  * Version：設定專案的 AssemblyInfoVersion，提供給套件辨識用的版本號，如果未設定 `PackageVersion`，NuGet 版本會使用此設定，格式「{Major}.{Minor}.{Patch}」，可在符合 [SemVer](https://semver.org/lang/zh-TW/) 的情況下，增加後綴詞。
+  - AssemblyVersion：當將參考新增至專案中的任何元件時，會是內嵌的這個版本號碼，一般格式會是「{Major}.{Minor}.0.0」。
+  - FileVersion：設定專案的 AssemblyFileVersion，實際 DLL 檔案的版本號，一般格式會是「{Major}.{Minor}.{Build}.{Revision}」。
+  - Version：設定專案的 AssemblyInfoVersion，提供給套件辨識用的版本號，如果未設定 `PackageVersion`，NuGet 版本會使用此設定，格式「{Major}.{Minor}.{Patch}」，可在符合 [SemVer](https://semver.org/lang/zh-TW/) 的情況下，增加後綴詞。
 
     各變數含意(節錄自 MSDN)：
 
-    * Major：主版號，具有相同名稱但不同主要版本的程式集不可互換。 較高的版本號可能表示對無法假定向後兼容性的產品進行了重大重寫。
-    * Minor：次版號，如果兩個程式集的名稱和主要版本號相同，但次要版本號不同，則表示為了向後兼容而進行了顯著增強。 這個更高的次要版本號可能表示產品的點發佈或產品的完全向後兼容的新版本。
-    * Build：組建編號，內部版本號的差異表示對同一原始碼的重新編譯。 當處理器、平台或編譯器發生變化時，可能會使用不同的內部版本號。
-    * Revision：修訂號：具有相同名稱、主要和次要版本號但不同修訂版的程式集旨在完全互換。 在修復先前發佈的程式集中的安全漏洞的構建中可能會使用更高的修訂版號。
-    * Patch：修訂號，當未修改介面的問題修正。
+    - Major：主版號，具有相同名稱但不同主要版本的程式集不可互換。 較高的版本號可能表示對無法假定向後兼容性的產品進行了重大重寫。
+    - Minor：次版號，如果兩個程式集的名稱和主要版本號相同，但次要版本號不同，則表示為了向後兼容而進行了顯著增強。 這個更高的次要版本號可能表示產品的點發佈或產品的完全向後兼容的新版本。
+    - Build：組建編號，內部版本號的差異表示對同一原始碼的重新編譯。 當處理器、平台或編譯器發生變化時，可能會使用不同的內部版本號。
+    - Revision：修訂號：具有相同名稱、主要和次要版本號但不同修訂版的程式集旨在完全互換。 在修復先前發佈的程式集中的安全漏洞的構建中可能會使用更高的修訂版號。
+    - Patch：修訂號，當未修改介面的問題修正。
 
     有關版本號的部分可以參閱 [使用 AssemblyVersion 和 AssemblyFileVersion 屬性](https://learn.microsoft.com/zh-tw/troubleshoot/developer/visualstudio/general/assembly-version-assembly-file-version) 和 [Version 類別](https://learn.microsoft.com/zh-tw/dotnet/api/system.version?redirectedfrom=MSDN&view=net-6.0)。
 
 ::: info
 
-* AssemblyVersion的 {Build} 和 {Revision} 為 0 的原因是這兩個版本號的變更與介面變更無關，較無兼容問題，所以都設 0 以減少元件間參考時的變更。
-  * Build 的作法比較多種，有些公司是每天會發佈一個版本，此時 Build 的值會是從特定日子到發佈日的天數。如果小套件版本發佈沒很頻繁，有些就直接使用 Patch 的值，此時的 Revision 就會變成區隔預發佈的各版本以及正式版用的，當然這樣作就沒符合原來作法的定義。
+- AssemblyVersion的 {Build} 和 {Revision} 為 0 的原因是這兩個版本號的變更與介面變更無關，較無兼容問題，所以都設 0 以減少元件間參考時的變更。
+  - Build 的作法比較多種，有些公司是每天會發佈一個版本，此時 Build 的值會是從特定日子到發佈日的天數。如果小套件版本發佈沒很頻繁，有些就直接使用 Patch 的值，此時的 Revision 就會變成區隔預發佈的各版本以及正式版用的，當然這樣作就沒符合原來作法的定義。
 :::
 
-* PackageId：套件的名稱，如果未指定，會以 AssemblyName 或目錄名稱作為套件的名稱。
-* Description：將套件上傳至 [NuGet.org](https://nuget.org) 時，Description 欄位限制為 4000 個字元。
-* Authors：套件的作者，多個作者用「;」分隔。
-* PackageLicenseExpression：套件內授權檔案的 SPDX 授權運算式或路徑，通常會顯示在像是 [NuGet.org](https://nuget.org) 的 UI 中。如果在一般授權下授權套件，例如 MIT 或 BSD-2-Clause，請使用相關聯的 [SPDX 授權識別碼](https://spdx.org/licenses/)，靘? `<PackageLicenseExpression>MIT</PackageLicenseExpression>`，如果使用其他授權，請在專案新增授權檔案，並使用 `PackageLicenseFile` 指定授權檔的位置。
+- PackageId：套件的名稱，如果未指定，會以 AssemblyName 或目錄名稱作為套件的名稱。
+- Description：將套件上傳至 [NuGet.org](https://nuget.org) 時，Description 欄位限制為 4000 個字元。
+- Authors：套件的作者，多個作者用「;」分隔。
+- PackageLicenseExpression：套件內授權檔案的 SPDX 授權運算式或路徑，通常會顯示在像是 [NuGet.org](https://nuget.org) 的 UI 中。如果在一般授權下授權套件，例如 MIT 或 BSD-2-Clause，請使用相關聯的 [SPDX 授權識別碼](https://spdx.org/licenses/)，靘? `<PackageLicenseExpression>MIT</PackageLicenseExpression>`，如果使用其他授權，請在專案新增授權檔案，並使用 `PackageLicenseFile` 指定授權檔的位置。
 
 ::: warning
 NuGet.org 只接受開放原始碼方案或免費軟體基礎核准的授權運算式。
@@ -90,8 +90,8 @@ NuGet.org 只接受開放原始碼方案或免費軟體基礎核准的授權運�
 
 安裝 NuGet 套件有提供以下兩種套件管理格式：
 
-* package.config：「.NET Framework」建議選擇此方式。
-* PackageReference：直接在專案檔(csproj)管理，「ASP.NET Core」都是使用此方式。
+- package.config：「.NET Framework」建議選擇此方式。
+- PackageReference：直接在專案檔(csproj)管理，「ASP.NET Core」都是使用此方式。
 
 ::: info
 「PackageReference」對於「.NET Framework」的支援程度不完整，詳情參閱「[packages.config (PC) 到 PackageReference (PR) 遷移 #5877](https://github.com/NuGet/Home/issues/5877))」。
@@ -253,4 +253,4 @@ $buildAction.Value = 2
 
 ## 異動歷程
 
-* 2022-11-08 初版文件建立。
+- 2022-11-08 初版文件建立。

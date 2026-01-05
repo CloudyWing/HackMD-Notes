@@ -24,31 +24,31 @@ Git 所有的儲存資料都存在於「.git」資料夾裡。刪除「.git」�
 
 記錄每次引用（如 branch、HEAD）的更新歷史，這些日誌可以用來追踪誰在什麼時間對某個分支做了哪些更改。常見內容包括：
 
-* HEAD：記錄每次 HEAD 變動的歷史。
-* refs\heads\：存放各分支的變動歷史。
-* \refs\remotes\origin\：存放遠端分支的 `git fetch` 和 `git push` 紀錄。「origin」是本機儲存庫幫連結的遠端儲存庫取得的預設別名，但也可視需要建立其他名稱。
+- HEAD：記錄每次 HEAD 變動的歷史。
+- refs\heads\：存放各分支的變動歷史。
+- \refs\remotes\origin\：存放遠端分支的 `git fetch` 和 `git push` 紀錄。「origin」是本機儲存庫幫連結的遠端儲存庫取得的預設別名，但也可視需要建立其他名稱。
 
 ::: info
 
-* Git 指令 `git reflog` 會顯示「logs/HEAD」的內容。如果使用 `git reset --hard` 或 `git rebase -i` 刪除了 Commit 記錄，可以用 `git reflog` 找出操作紀錄，再用 `git reset --hard` 還原 Commit。
+- Git 指令 `git reflog` 會顯示「logs/HEAD」的內容。如果使用 `git reset --hard` 或 `git rebase -i` 刪除了 Commit 記錄，可以用 `git reflog` 找出操作紀錄，再用 `git reset --hard` 還原 Commit。
 :::
 
 ### objects
 
-* 用途：儲存 Git 的所有資料物件，包括 blob、tree、commit 和 tag 物件。
-* 結構：依物件內容的 SHA-1 哈希值前兩個字元作為目錄，後面的 38 個字元作為檔案名稱。例如，SHA-1 哈希值為 `d670460b4b4aece5915caf5c68d12f560a9fe3e4` 的物件會存放在 「.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4」。
+- 用途：儲存 Git 的所有資料物件，包括 blob、tree、commit 和 tag 物件。
+- 結構：依物件內容的 SHA-1 哈希值前兩個字元作為目錄，後面的 38 個字元作為檔案名稱。例如，SHA-1 哈希值為 `d670460b4b4aece5915caf5c68d12f560a9fe3e4` 的物件會存放在 「.git/objects/d6/70460b4b4aece5915caf5c68d12f560a9fe3e4」。
 
 #### Commit 操作中的物件生成
 
 假設 Commit 一個檔案的變更，會產生三個物件：
 
-* Blob 物件：
+- Blob 物件：
 儲存檔案的實際內容，例如新增或修改的檔案內容會被建立成 blob 物件儲存。
 
-* Tree 物件：
+- Tree 物件：
 儲存目錄結構和該目錄下所有檔案的 blob 物件的 SHA-1 哈希值，描述檔案和子目錄的樹狀結構。
 
-* Commit 物件：
+- Commit 物件：
 儲存 Commit 資訊，包括 tree 物件的 SHA-1 哈希值、上一個 Commit 的 SHA-1 哈希值、Commit 訊息、作者和提交者資訊等，在版本控制系統中看到的 HASH 值為這個。
 
 更詳細的檔案內容，可參考官網的「[Git Internals - Git Objects](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)」。
@@ -57,9 +57,9 @@ Git 所有的儲存資料都存在於「.git」資料夾裡。刪除「.git」�
 
 檔名為分支或 Tag 名稱，內容為目前所對應的 Commit 的 HASH 值。常見資料夾有：
 
-* heads：儲存本機分支，若分支名稱含「/」，則會建立對應的目錄結構。例如：「feature/需求1」，則會建立一個「feature」的資料夾，底下存「需求1」的檔案。
-* remotes：儲存遠端分支，以遠端儲存庫名稱為資料夾，例如「origin」。
-* tags：儲存 Tag 的名稱。
+- heads：儲存本機分支，若分支名稱含「/」，則會建立對應的目錄結構。例如：「feature/需求1」，則會建立一個「feature」的資料夾，底下存「需求1」的檔案。
+- remotes：儲存遠端分支，以遠端儲存庫名稱為資料夾，例如「origin」。
+- tags：儲存 Tag 的名稱。
 
 ## 檔案
 
@@ -117,5 +117,5 @@ Git 所有的儲存資料都存在於「.git」資料夾裡。刪除「.git」�
 
 ## 異動歷程
 
-* 2024-07-31 初版文件建立。
-* 2024-09-20 儲存庫根目錄底下的「.gitconfig」無法生效，所以移除可作為版控的相關描述。
+- 2024-07-31 初版文件建立。
+- 2024-09-20 儲存庫根目錄底下的「.gitconfig」無法生效，所以移除可作為版控的相關描述。

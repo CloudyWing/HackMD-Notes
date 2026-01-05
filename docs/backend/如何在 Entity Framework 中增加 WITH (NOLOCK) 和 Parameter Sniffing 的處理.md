@@ -20,10 +20,10 @@ Microsoft.EntityFrameworkCore 的 Interceptor 在 3.0 版中加入，而 .NET Fr
 
 ### Interceptor 介面
 
-* IDbCommandInterceptor：處理 Command 的相關方法，本文將使用此介面。
-* IDbConnectionInterceptor：處理連線與關閉連線的相關方法。
-* IDbTransactionInterceptor：處理交易相關的方法。
-* ISaveChangesInterceptor：處理 `SaveChanges()` 相關方法。
+- IDbCommandInterceptor：處理 Command 的相關方法，本文將使用此介面。
+- IDbConnectionInterceptor：處理連線與關閉連線的相關方法。
+- IDbTransactionInterceptor：處理交易相關的方法。
+- ISaveChangesInterceptor：處理 `SaveChanges()` 相關方法。
 
 ## 實作方法
 
@@ -97,9 +97,9 @@ public class FixDbCommandInterceptor : DbCommandInterceptor {
 1. `DbCommandInterceptor` 已經實作了 `IDbCommandInterceptor` 的所有方法，所以只需繼承它並覆寫需要的方法。
 2. 與查詢相關的方法有 `ExecuteReader()` 和 `ExecuteScalar()`，因此針對這兩個方法的同步與非同步版本來覆寫 `IDbCommandInterceptor` 所對應的執行前方法。
 3. `CommandText` 修正：
-    * 部分包含回傳值的異動語法，可能會使用 `ExecuteScalar()` 執行，因此遇到 `INSERT`、`UPDATE` 和 `DELETE` 的語法不處理。
-    * `WITH (NOLOCK)` 是為了在資料被鎖定時不被阻塞，但如果是撈取資料來做異動，就不適合使用，因此遇到包含 `TOP(1)` (例如：`First()` 或 `Find()`) 和 `TOP(2)` (例如：`Single()`) 的語法不處理。
-    * 增加 `OPTION (OPTIMIZE FOR UNKNOWN);` 來處理 Parameter Sniffing。
+    - 部分包含回傳值的異動語法，可能會使用 `ExecuteScalar()` 執行，因此遇到 `INSERT`、`UPDATE` 和 `DELETE` 的語法不處理。
+    - `WITH (NOLOCK)` 是為了在資料被鎖定時不被阻塞，但如果是撈取資料來做異動，就不適合使用，因此遇到包含 `TOP(1)` (例如：`First()` 或 `Find()`) 和 `TOP(2)` (例如：`Single()`) 的語法不處理。
+    - 增加 `OPTION (OPTIMIZE FOR UNKNOWN);` 來處理 Parameter Sniffing。
 
 ::: warning
 以上處理缺乏實際使用的驗證，請依照自身實際情況調整。
@@ -109,14 +109,14 @@ public class FixDbCommandInterceptor : DbCommandInterceptor {
 
 可以使用以下兩種方法加入 Interceptor：
 
-* 在 DbContext 中加入以下程式碼：
+- 在 DbContext 中加入以下程式碼：
 
 ```csharp
  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.AddInterceptors(new FixDbCommandInterceptor());
 ```
 
-* 在 DI 中注入 `DbContext` 時，從 `DbContextOptionsBuilder` 設定：
+- 在 DI 中注入 `DbContext` 時，從 `DbContextOptionsBuilder` 設定：
 
 ```csharp
 services.AddDbContext<TestDbContext>(options => {
@@ -200,4 +200,4 @@ ORDER BY [t].[Id] OPTION (OPTIMIZE FOR UNKNOWN);
 
 ## 異動歷程
 
-* 2024-07-18 初版文件建立。
+- 2024-07-18 初版文件建立。

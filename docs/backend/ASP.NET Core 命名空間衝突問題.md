@@ -70,4 +70,4 @@ global using global::System.Threading.Tasks;
 
 ## 異動歷程
 
-* 2023-01-09 初版文件建立。
+- 2023-01-09 初版文件建立。

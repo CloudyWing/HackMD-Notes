@@ -49,18 +49,18 @@ HKEY_CURRENT_USER\SOFTWARE\Microsoft\SQL Server Management Studio\20.0_IsoShell\
 
 根據我的使用習慣，會選擇以下欄位：
 
-* `1`: Column Name
-* `2`: Data Type
-* `6`: Allow Nulls
-* `7`: Default Value
-* `8`: Identity
-* `17`: Description
+- `1`: Column Name
+- `2`: Data Type
+- `6`: Allow Nulls
+- `7`: Default Value
+- `8`: Identity
+- `17`: Description
 
 原因如下：
 
-* 欄位 `2`（Data Type）在相應的型別，會一併顯示 `3`（Length）、`4`（Precision）、`5`（Scale）。
-* 大部分情況下，欄位 `8`（Identity）設定後，`9`（Identity Seed）和 `10`（Identity Increment）都會是 `1`。
-* 其餘大部分的欄位並不常用。
+- 欄位 `2`（Data Type）在相應的型別，會一併顯示 `3`（Length）、`4`（Precision）、`5`（Scale）。
+- 大部分情況下，欄位 `8`（Identity）設定後，`9`（Identity Seed）和 `10`（Identity Increment）都會是 `1`。
+- 其餘大部分的欄位並不常用。
 
 設定結果如下：
 
@@ -78,8 +78,8 @@ HKEY_CURRENT_USER\SOFTWARE\Microsoft\SQL Server Management Studio\20.0_IsoShell\
 
 ## 參考資料
 
-* [SQL Server Management Studio 資料表設計模式顯示欄位描述](https://blog.focal.world/2017/04/sql-server-management-studio.html)。
+- [SQL Server Management Studio 資料表設計模式顯示欄位描述](https://blog.focal.world/2017/04/sql-server-management-studio.html)。
 
 ## 異動歷程
 
-* 2024-07-15 初版文件建立。
+- 2024-07-15 初版文件建立。

@@ -20,9 +20,9 @@ tags: [".NET","Oracle"]
 
 透過使用 Visual Studio 內建的反組譯功能，我們可以觀察到以下三個 enum 的對應值：
 
-* `DbType.String`：16
-* `OracleDbType.NVarchar2`：119
-* `OracleDbType.Varchar2`：126
+- `DbType.String`：16
+- `OracleDbType.NVarchar2`：119
+- `OracleDbType.Varchar2`：126
 
     ![oracle unicode insert issue 1](images/%E4%BD%BF%E7%94%A8%20Dapper%20%E5%92%8C%20ODAC%20Managed%20Driver%20%E7%84%A1%E6%B3%95%E5%AF%AB%E5%85%A5%20Unicode%20%E7%9A%84%E5%95%8F%E9%A1%8C/oracle-unicode-insert-issue-1.png) ![oracle unicode insert issue 2](images/%E4%BD%BF%E7%94%A8%20Dapper%20%E5%92%8C%20ODAC%20Managed%20Driver%20%E7%84%A1%E6%B3%95%E5%AF%AB%E5%85%A5%20Unicode%20%E7%9A%84%E5%95%8F%E9%A1%8C/oracle-unicode-insert-issue-2.png)
 
@@ -87,4 +87,4 @@ using (IDbConnection conn = new OracleConnection(connStr)) {
 
 ## 異動歷程
 
-* 2023-06-15 初版文件建立。
+- 2023-06-15 初版文件建立。

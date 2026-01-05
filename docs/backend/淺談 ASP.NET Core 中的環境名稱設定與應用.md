@@ -18,9 +18,9 @@ tags: [".NET","ASP.NET","ASP.NET Core"]
 
 在 .NET Core 和 .NET 5 及之後的版本中，除了組態設定外，還增加了環境變數 `EnvironmentName` 來區分不同的環境。`EnvironmentName` 可以是任何值，但 ASP.NET Core 預設提供以下值：
 
-* Development：本機開發使用。
-* Staging：預發佈版本
-* Production：如果未設定 `DOTNET_ENVIRONMENT` 和 `ASPNETCORE_ENVIRONMENT`，則為預設值，一般做為正式機版本使用。
+- Development：本機開發使用。
+- Staging：預發佈版本
+- Production：如果未設定 `DOTNET_ENVIRONMENT` 和 `ASPNETCORE_ENVIRONMENT`，則為預設值，一般做為正式機版本使用。
 
 這三個環境名稱可以對應到 GitLab Flow 的 master、pre-production 和 production 分支。如果 GitLab Flow 定義了其他環境分支，也可以設定相應的環境名稱。
 
@@ -139,4 +139,4 @@ ASP.NET Core 使用 `IWebHostEnvironment` 物件定義環境相關操作。此�
 
 ## 異動歷程
 
-* 2024-07-12 初版文件建立。
+- 2024-07-12 初版文件建立。

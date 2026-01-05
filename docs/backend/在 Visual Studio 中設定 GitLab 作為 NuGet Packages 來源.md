@@ -120,9 +120,9 @@ Pipeline 執行完，可以在群組或專案的「Deploy」→「Package Regist
 
 在 Token 設定頁面需要完成以下三個部分：
 
-* 設定一個易於識別的名稱，可依個人喜好命名。
-* 如有需要，可設定「Expiration date」(到期日)，若無期限限制則可以不填。
-* 勾選 API 權限。由於發佈工作是透過 CI/CD 進行，Visual Studio 僅需讀取套件，故只需勾選 `read_api` 權限即可。
+- 設定一個易於識別的名稱，可依個人喜好命名。
+- 如有需要，可設定「Expiration date」(到期日)，若無期限限制則可以不填。
+- 勾選 API 權限。由於發佈工作是透過 CI/CD 進行，Visual Studio 僅需讀取套件，故只需勾選 `read_api` 權限即可。
 
 設定完成後，點擊「Create personal access token」按鈕產生 Token。
 
@@ -167,4 +167,4 @@ dotnet nuget add source "https://{GitLab Domain}/api/v4/groups/{Group 流水號}
 
 ## 異動歷程
 
-* 2025-03-30 初版文件建立。
+- 2025-03-30 初版文件建立。

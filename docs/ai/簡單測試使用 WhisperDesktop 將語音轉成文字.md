@@ -23,9 +23,9 @@ tags: ["Whisper"]
    ![whisper desktop assets zip](images/%E7%B0%A1%E5%96%AE%E6%B8%AC%E8%A9%A6%E4%BD%BF%E7%94%A8%20WhisperDesktop%20%E5%B0%87%E8%AA%9E%E9%9F%B3%E8%BD%89%E6%88%90%E6%96%87%E5%AD%97/whisper-desktop-assets-zip.png)
 
 3. 解壓縮後，會看到以下三個檔案：
-   * WhisperDesktop.exe：實際執行檔案。
-   * Whisper.dll：函式庫檔案。
-   * lz4.txt：授權聲明。
+   - WhisperDesktop.exe：實際執行檔案。
+   - Whisper.dll：函式庫檔案。
+   - lz4.txt：授權聲明。
 
 ## 下載模型
 
@@ -49,7 +49,7 @@ tags: ["Whisper"]
 1. 執行 WhisperDesktop.exe。
 2. 在 Model Path 欄位指定已下載的模型位置。
 3. Model Implementation 選擇 `GPU`（其他選項我不知道用途，這邊就不說明了）。
-   * 如果沒有正確偵測到顯示卡，可以點擊 `advanced...` 進行細節設定。
+   - 如果沒有正確偵測到顯示卡，可以點擊 `advanced...` 進行細節設定。
 
    ![whisper desktop advanced settings](images/%E7%B0%A1%E5%96%AE%E6%B8%AC%E8%A9%A6%E4%BD%BF%E7%94%A8%20WhisperDesktop%20%E5%B0%87%E8%AA%9E%E9%9F%B3%E8%BD%89%E6%88%90%E6%96%87%E5%AD%97/whisper-desktop-advanced-settings.png)
 
@@ -58,18 +58,18 @@ tags: ["Whisper"]
 6. 若要翻譯成英文，請勾選 Translate，不過我測試音樂常翻失敗。
 7. Transcribe File 選擇要轉成文字的音樂或影片檔案。
 8. Output Format 可以選擇以下格式：
-   * None：不輸出檔案。
-   * Text file (.txt)：純文字檔案。
-   * Text with timestamps：包含時間戳記的文字檔案。
-   * SubRip subtitles (.srt)：常見的字幕格式，包含時間碼和文字。
-   * WebVTT subtitles (.vtt)：網頁影片字幕格式。
+   - None：不輸出檔案。
+   - Text file (.txt)：純文字檔案。
+   - Text with timestamps：包含時間戳記的文字檔案。
+   - SubRip subtitles (.srt)：常見的字幕格式，包含時間碼和文字。
+   - WebVTT subtitles (.vtt)：網頁影片字幕格式。
 9. 指定輸出的檔案位置及檔名。
 
    ![whisper desktop output location](images/%E7%B0%A1%E5%96%AE%E6%B8%AC%E8%A9%A6%E4%BD%BF%E7%94%A8%20WhisperDesktop%20%E5%B0%87%E8%AA%9E%E9%9F%B3%E8%BD%89%E6%88%90%E6%96%87%E5%AD%97/whisper-desktop-output-location.png)
 
 10. 如果不想特別指定檔案輸出位置，可以勾選 `Place that file to the input folder`。
-    * 這樣會將輸出檔案儲存在與輸入檔案相同的位置。
-    * 檔名會是原檔案名稱加上輸出格式對應的副檔名。
+    - 這樣會將輸出檔案儲存在與輸入檔案相同的位置。
+    - 檔名會是原檔案名稱加上輸出格式對應的副檔名。
 
 「Audio Capture」功能可以直接讀取麥克風輸入的語音，但我的電腦無法偵測到藍牙耳機，因此這部分暫不說明。
 
@@ -77,14 +77,14 @@ tags: ["Whisper"]
 
 使用 PNY RTX 4070 Ti Super 16GB Blower 顯示卡進行測試，轉換一個 5 分 16 秒的 mp3 檔案：
 
-* 使用 `ggml-large-v3.bin` 需要 22 分 01 秒，且不一定能成功轉換（實測時，檔案內容空白，可能需要使用其他版本的 large 模型才能正確轉出）。
-* 使用 `ggml-medium.bin` 僅需 11 秒即可完成。
+- 使用 `ggml-large-v3.bin` 需要 22 分 01 秒，且不一定能成功轉換（實測時，檔案內容空白，可能需要使用其他版本的 large 模型才能正確轉出）。
+- 使用 `ggml-medium.bin` 僅需 11 秒即可完成。
 
 使用 i7-12700H 內顯（無獨立顯示卡）進行測試，同樣是轉換 5 分 16 秒的 mp3 檔案：
 
-* 使用 `ggml-tiny.bin` 需要 41 秒。
-* 使用 `ggml-small.bin` 需要 4 分 19 秒。
-* 使用 `ggml-medium.bin` 需要 13 分 5 秒。
+- 使用 `ggml-tiny.bin` 需要 41 秒。
+- 使用 `ggml-small.bin` 需要 4 分 19 秒。
+- 使用 `ggml-medium.bin` 需要 13 分 5 秒。
 
 轉出來的文字正確率隨著模型大小增加而有明顯的提升。
 
@@ -92,11 +92,11 @@ tags: ["Whisper"]
 
 基於測試結果與速度考量，以下是我個人使用建議：
 
-* 對於有獨立顯示卡的使用者：建議使用 `ggml-medium.bin` 模型。
-* 對於使用內顯或早期顯示卡的使用者：
-  * 日常使用：選擇 `ggml-small.bin`，這是可接受的最小模型，`ggml-tiny.bin` 模型的準確率太差了。
-  * 重要內容轉錄：可以選擇 `ggml-medium.bin` 並接受較長的處理時間，以獲得更高的準確度。
+- 對於有獨立顯示卡的使用者：建議使用 `ggml-medium.bin` 模型。
+- 對於使用內顯或早期顯示卡的使用者：
+  - 日常使用：選擇 `ggml-small.bin`，這是可接受的最小模型，`ggml-tiny.bin` 模型的準確率太差了。
+  - 重要內容轉錄：可以選擇 `ggml-medium.bin` 並接受較長的處理時間，以獲得更高的準確度。
 
 ## 異動歷程
 
-* 2025-03-24 初版文件建立。
+- 2025-03-24 初版文件建立。

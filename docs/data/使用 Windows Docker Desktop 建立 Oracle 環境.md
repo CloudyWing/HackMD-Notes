@@ -14,8 +14,8 @@ tags: ["Oracle","Docker"]
 
 1. 目前只有提供給Linux Container環境使用。
 2. Windows環境必需要能執行Linux Bash Shell，可使用以下兩種方式：
-    * 使用Git Bash。
-    * 目前Windows 10已有內建，開啟「命令提示字元」輸入bash，如果指令無法執行，請參考此篇[文章](https://blog.gtwang.org/windows/how-to-get-ubuntu-and-bash-running-on-windows-10/)。
+    - 使用Git Bash。
+    - 目前Windows 10已有內建，開啟「命令提示字元」輸入bash，如果指令無法執行，請參考此篇[文章](https://blog.gtwang.org/windows/how-to-get-ubuntu-and-bash-running-on-windows-10/)。
 
 ## 安裝步驟
 
@@ -33,13 +33,13 @@ tags: ["Oracle","Docker"]
 
 4. 開啟bash，先將指令位置移到「存放位置/OracleDatabase/SingleInstance/dockerfile/」底下。
 5. 輸入指令建立image，指令格式為`./buildContainerImage.sh -v [version] -t [image_name:tag] [-e | -s | -x] [-i] [-o] [container build option]`，參數說明如下：
-   * -v: 請設定存在資料夾名稱的版本號。
-   * -t: 設定docker-image的Tag。
-   * -e: 產生安裝「Enterprise Edition」的image，需有檔案「Dockerfile」或「Dockerfile.ee」的版本才可使用。
-   * -s: 產生安裝「Standard Edition 2」的image，需有檔案「Dockerfile」或「Dockerfile.se2」的版本才可使用。
-   * -x: 產生安裝「Express Edition」的image，需有檔案「Dockerfile.xe」的版本才可使用。
-   * -i: 忽略「MD5 checksums」檢查。
-   * -o: 輸入 container 建立參數，靘? 「'--build-arg SLIMMING=false'」。
+   - -v: 請設定存在資料夾名稱的版本號。
+   - -t: 設定docker-image的Tag。
+   - -e: 產生安裝「Enterprise Edition」的image，需有檔案「Dockerfile」或「Dockerfile.ee」的版本才可使用。
+   - -s: 產生安裝「Standard Edition 2」的image，需有檔案「Dockerfile」或「Dockerfile.se2」的版本才可使用。
+   - -x: 產生安裝「Express Edition」的image，需有檔案「Dockerfile.xe」的版本才可使用。
+   - -i: 忽略「MD5 checksums」檢查。
+   - -o: 輸入 container 建立參數，靘? 「'--build-arg SLIMMING=false'」。
 
     ```text
     ./buildContainerImage.sh -e -v 21.3.0 -o '--build-arg SLIMMING=false'
@@ -91,4 +91,4 @@ tags: ["Oracle","Docker"]
 
 ## 異動歷程
 
-* 2022-10-24 初版文件建立。
+- 2022-10-24 初版文件建立。

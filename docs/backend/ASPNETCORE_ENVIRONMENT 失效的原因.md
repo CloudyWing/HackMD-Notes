@@ -1,4 +1,4 @@
-﻿---
+---
 title: "ASPNETCORE_ENVIRONMENT 失效的原因"
 date: 2024-09-19
 lastmod: 2024-09-19
@@ -26,4 +26,4 @@ iisreset /restart
 
 ## 異動歷程
 
-* 2024-09-19 初版文件建立。
+- 2024-09-19 初版文件建立。

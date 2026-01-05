@@ -12,24 +12,24 @@ ASP.NET Core 的中介軟體部分必須依照一定的順序才可以正常運�
 
 ## Middleware 說明
 
-* 開發人員例外狀況頁面中介軟體 (UseDeveloperExceptionPage)：回報應用程式執行階段錯誤。
-* 資料錯誤頁面中介軟體 (UseDatabaseErrorPage)：回報資料庫執行階段錯誤。
-* 例外狀況處理常式中介軟體 (UseExceptionHandler)：攔截在下列 Middleware 中擲回的例外狀況。
-* HTTP 靜態傳輸安全性通訊協定 (HSTS) 中介軟體 (UseHsts)：新增 `Strict-Transport-Security` 標頭，作用是讓網站宣告自身為安全主機，並通知瀏覽器僅使用 HTTPS 連線。
-* HTTPS 重新導向中介軟體 (UseHttpsRedirection)：將 HTTP 要求重新導向到 HTTPS。
+- 開發人員例外狀況頁面中介軟體 (UseDeveloperExceptionPage)：回報應用程式執行階段錯誤。
+- 資料錯誤頁面中介軟體 (UseDatabaseErrorPage)：回報資料庫執行階段錯誤。
+- 例外狀況處理常式中介軟體 (UseExceptionHandler)：攔截在下列 Middleware 中擲回的例外狀況。
+- HTTP 靜態傳輸安全性通訊協定 (HSTS) 中介軟體 (UseHsts)：新增 `Strict-Transport-Security` 標頭，作用是讓網站宣告自身為安全主機，並通知瀏覽器僅使用 HTTPS 連線。
+- HTTPS 重新導向中介軟體 (UseHttpsRedirection)：將 HTTP 要求重新導向到 HTTPS。
 
 ::: info
 `UseHsts` 和 `UseHttpsRedirection` 都會將 HTTP 請求重定向到 HTTPS，前者是瀏覽器處理，後者是程式處理。
 :::
 
-* 靜態檔案中介軟體 (UseStaticFiles)：會在指定的路徑中尋找對應的靜態檔案，並在接收到相應的 HTTP 請求時將它們發送到客戶端。
-* Cookie 原則中介軟體 (UseCookiePolicy)：使應用程式符合 GDPR 法規，有關 GDPR 請參閱 [在 ASP.NET Core 實作 GDPR](%E5%9C%A8%20ASP.NET%20Core%20%E5%AF%A6%E4%BD%9C%20GDPR.md)。
+- 靜態檔案中介軟體 (UseStaticFiles)：會在指定的路徑中尋找對應的靜態檔案，並在接收到相應的 HTTP 請求時將它們發送到客戶端。
+- Cookie 原則中介軟體 (UseCookiePolicy)：使應用程式符合 GDPR 法規，有關 GDPR 請參閱 [在 ASP.NET Core 實作 GDPR](%E5%9C%A8%20ASP.NET%20Core%20%E5%AF%A6%E4%BD%9C%20GDPR.md)。
 
-* 路由中介軟體 (UseRouting)：路由相關處理。
-* 驗證中介軟體 (UseAuthentication)：驗證使用者是否已登入。
-* 授權中介軟體 (UseAuthorization)：授權使用者存取安全資源。
-* 工作階段中介軟體 (UseSession)：Session 相關處理。
-* 端點路由中介軟體 (UseEndpoints 與 MapRazorPages 之類和 Endpoint 相關的)：將端點新增至要求管線。
+- 路由中介軟體 (UseRouting)：路由相關處理。
+- 驗證中介軟體 (UseAuthentication)：驗證使用者是否已登入。
+- 授權中介軟體 (UseAuthorization)：授權使用者存取安全資源。
+- 工作階段中介軟體 (UseSession)：Session 相關處理。
+- 端點路由中介軟體 (UseEndpoints 與 MapRazorPages 之類和 Endpoint 相關的)：將端點新增至要求管線。
 
 ## Middleware 完整順序
 
@@ -84,4 +84,4 @@ app.Run();
 
 ## 異動歷程
 
-* 2024-04-08 初版文件建立。
+- 2024-04-08 初版文件建立。

@@ -312,8 +312,8 @@ DEFAULT VALUES;
 
 ## 結論
 
-* 當 SQL Server 欄位有設定預設值時，Entity Framework 在新增資料時，如果 Entity 屬性值與該型別的預設值一致，某些型別的欄位在產生 INSERT 語法時會被忽略。
-* 使用 Entity Framework 時，盡量不要使用 SQL 預設值，如果使用，也應確保 SQL 預設值與 C# 預設值一致，以避免發生預期外結果。但對於字串型別，可將其設為 `NOT NULL Default ''`，以統一處理 `null` 和空字串。
+- 當 SQL Server 欄位有設定預設值時，Entity Framework 在新增資料時，如果 Entity 屬性值與該型別的預設值一致，某些型別的欄位在產生 INSERT 語法時會被忽略。
+- 使用 Entity Framework 時，盡量不要使用 SQL 預設值，如果使用，也應確保 SQL 預設值與 C# 預設值一致，以避免發生預期外結果。但對於字串型別，可將其設為 `NOT NULL Default ''`，以統一處理 `null` 和空字串。
 
 ## 同場加映
 
@@ -432,4 +432,4 @@ WHERE [Id] = @p3;
 
 ## 異動歷程
 
-* 2025-07-12 初版文件建立。
+- 2025-07-12 初版文件建立。

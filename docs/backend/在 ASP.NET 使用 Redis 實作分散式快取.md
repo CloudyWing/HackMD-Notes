@@ -85,21 +85,21 @@ Redis 是 In-Memory 的 NoSQL 資料庫，最初是在 Linux 上發展起來，�
 
 ::: info
 
-* 當 Container Run 起來時，可能會發現資料夾「/data」底下並無任何檔案，這是正常現象，當連線 Redis 寫入資料或是把 Container 關掉時，會發現底下多出一個「dump.rdb」。
-  * 當如果外部連結 Redis 無法正常，**本機環境**可參考 [Could not connect to Redis at 127.0.0.1:6379: Connection refused in docker](https://stackoverflow.com/questions/56080984/connection-to-redis-servier-via-stackexchange-redis)裡的內容修改「redis.conf」的以下內容：
-    * 將 `bind 127.0.0.1 -::1` 註解掉。
-    * 將 `protected-mode yes` 改為 `protected-mode no`。
-  * `bind` 參數是設定允許連接的網路 IP，可以設定多組 IP，如果只設定`bind 127.0.0.1 -::1` 變成只有本機環境可以連結。
-  * `protected-mode` 參數如果設定為 `yes`，則需要有設定 `bind` 參數或密碼設定，密碼設定請參閱 `requirepass` 參數上方的註解，Redis 6 和舊版設定不太一樣。
+- 當 Container Run 起來時，可能會發現資料夾「/data」底下並無任何檔案，這是正常現象，當連線 Redis 寫入資料或是把 Container 關掉時，會發現底下多出一個「dump.rdb」。
+  - 當如果外部連結 Redis 無法正常，**本機環境**可參考 [Could not connect to Redis at 127.0.0.1:6379: Connection refused in docker](https://stackoverflow.com/questions/56080984/connection-to-redis-servier-via-stackexchange-redis)裡的內容修改「redis.conf」的以下內容：
+    - 將 `bind 127.0.0.1 -::1` 註解掉。
+    - 將 `protected-mode yes` 改為 `protected-mode no`。
+  - `bind` 參數是設定允許連接的網路 IP，可以設定多組 IP，如果只設定`bind 127.0.0.1 -::1` 變成只有本機環境可以連結。
+  - `protected-mode` 參數如果設定為 `yes`，則需要有設定 `bind` 參數或密碼設定，密碼設定請參閱 `requirepass` 參數上方的註解，Redis 6 和舊版設定不太一樣。
 :::
 
 ## 在 ASP.NET Core 使用 Cache
 
 ### 程式碼範例
 
-* Framework：Razor Pages
-* .NET 版本：.NET 6
-* NuGet 套件： Microsoft.Extensions.Caching.Abstractions 6.0.0
+- Framework：Razor Pages
+- .NET 版本：.NET 6
+- NuGet 套件： Microsoft.Extensions.Caching.Abstractions 6.0.0
 
 #### Program.cs
 
@@ -170,8 +170,8 @@ public class IndexModel : PageModel {
 
 微軟的 MemoryCache 提供兩個快取到期的時間策略，比較如下：
 
-* Absolute：絕對到期時間，只要時間到就刪除快取資料。
-* Sliding：設定多久沒被讀取資料，就清除快取資料，如果一直有被讀取，會導致快取資料一直存在，所以當快取的資料是有異動可能時，最好搭配 Absolute 或 `IChangeToken`(.NET Framework 是 `ChangeMonitor`)，來讓快取資料過期。
+- Absolute：絕對到期時間，只要時間到就刪除快取資料。
+- Sliding：設定多久沒被讀取資料，就清除快取資料，如果一直有被讀取，會導致快取資料一直存在，所以當快取的資料是有異動可能時，最好搭配 Absolute 或 `IChangeToken`(.NET Framework 是 `ChangeMonitor`)，來讓快取資料過期。
 
 ### MSDN 範例
 
@@ -183,7 +183,7 @@ public class IndexModel : PageModel {
 
 調整上一個範例的套件和程式碼。
 
-* NuGet 套件：Microsoft.Extensions.Caching.StackExchangeRedis 6.0.10
+- NuGet 套件：Microsoft.Extensions.Caching.StackExchangeRedis 6.0.10
 
 #### Program.cs
 
@@ -240,15 +240,15 @@ public class IndexModel : PageModel {
 
 ### MSDN 文件
 
-* [ASP.NET Core中的分散式快取](https://learn.microsoft.com/zh-tw/aspnet/core/performance/caching/distributed?view=aspnetcore-6.0)
+- [ASP.NET Core中的分散式快取](https://learn.microsoft.com/zh-tw/aspnet/core/performance/caching/distributed?view=aspnetcore-6.0)
 
 ## 在 ASP.NET Framework 使用 Redis 實作分散式快取
 
 ### 程式碼範例
 
-* Framework：MVC
-* .NET 版本：4.8.1
-* NuGet 套件：StackExchange.Redis 2.6.70
+- Framework：MVC
+- .NET 版本：4.8.1
+- NuGet 套件：StackExchange.Redis 2.6.70
 
 #### RedisConnection.cs
 
@@ -304,10 +304,10 @@ public class HomeController : Controller {
 
 #### 參考資料
 
-* [Redis with .NET](https://docs.redis.com/latest/rs/references/client_references/client_csharp/)
+- [Redis with .NET](https://docs.redis.com/latest/rs/references/client_references/client_csharp/)
 
-* [Redis系列 - C#存取Redis (上)](https://jed1978.github.io/2018/05/11/Redis-Programming-CSharp-Basic-1.html)
+- [Redis系列 - C#存取Redis (上)](https://jed1978.github.io/2018/05/11/Redis-Programming-CSharp-Basic-1.html)
 
 ## 異動歷程
 
-* 2022-11-02 初版文件建立。
+- 2022-11-02 初版文件建立。

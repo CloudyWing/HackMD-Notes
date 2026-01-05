@@ -16,13 +16,13 @@ tags: [".NET","WPF","Dependency Injection"]
 
 在此設定專案使用的 DI 套件，這邊以「Microsoft.Extensions.DependencyInjection」為例 (WPF 預設沒安裝)，如果有需要讀取「appsettings.json」的設定，則需要在額外安裝「Microsoft.Extensions.Configuration」及其他有用到的相關套件，此範例共裝了以下套件：
 
-* CommunityToolkit.Mvvm。
-* Microsoft.Extensions.Configuration。
-* Microsoft.Extensions.Configuration.Abstractions。
-* Microsoft.Extensions.Configuration.FileExtensions。
-* Microsoft.Extensions.Configuration.Json。
-* Microsoft.Extensions.DependencyInjection。
-* Microsoft.Extensions.Options.ConfigurationExtensions。
+- CommunityToolkit.Mvvm。
+- Microsoft.Extensions.Configuration。
+- Microsoft.Extensions.Configuration.Abstractions。
+- Microsoft.Extensions.Configuration.FileExtensions。
+- Microsoft.Extensions.Configuration.Json。
+- Microsoft.Extensions.DependencyInjection。
+- Microsoft.Extensions.Options.ConfigurationExtensions。
 
 ```csharp
 public partial class App : Application {
@@ -69,10 +69,10 @@ public partial class App : Application {
 
 建立 ViewModel 有以下注意事項：
 
-* ViewModel 必須要繼承 `ObservableObject`。
-* ViewModel 必須要使用 `partial` 修飾詞宣告成 Partial Class。
-* 原本預計要和前端綁定 Property，改為建立成 Field，並加上 Attribute `ObservableProperty`，建議使用 Lower Camel Case(小駝峰)命名。
-* 要執行的 Command Method，需加上 Attribute `RelayCommand`。
+- ViewModel 必須要繼承 `ObservableObject`。
+- ViewModel 必須要使用 `partial` 修飾詞宣告成 Partial Class。
+- 原本預計要和前端綁定 Property，改為建立成 Field，並加上 Attribute `ObservableProperty`，建議使用 Lower Camel Case(小駝峰)命名。
+- 要執行的 Command Method，需加上 Attribute `RelayCommand`。
 
 ```csharp
 public partial class ViewModel : ObservableObject {
@@ -111,8 +111,8 @@ public partial class MainWindow : Window {
 }
 ```
 
-* `<TextBox />` 使用 `Text="{Binding Input}"` 綁定顯示文字，由於實際上是綁定 Attribute 自動產生的屬性，所以是要用 Pascal Case(大駝峰)。
-* `<Button />` 使用 `Command="{Binding SubmitCommand}"` 綁定點擊按鈕執行的 Method，由於實際上是綁定 Attribute 自動產生的屬性，所以 Method 要加上「Command」的後綴詞。
+- `<TextBox />` 使用 `Text="{Binding Input}"` 綁定顯示文字，由於實際上是綁定 Attribute 自動產生的屬性，所以是要用 Pascal Case(大駝峰)。
+- `<Button />` 使用 `Command="{Binding SubmitCommand}"` 綁定點擊按鈕執行的 Method，由於實際上是綁定 Attribute 自動產生的屬性，所以 Method 要加上「Command」的後綴詞。
 
 ```xml
 <Window x:Class="WpfApp.MainWindow"
@@ -147,4 +147,4 @@ public partial class MainWindow : Window {
 
 ## 異動歷程
 
-* 2023-02-15 初版文件建立。
+- 2023-02-15 初版文件建立。

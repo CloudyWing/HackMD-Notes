@@ -14,15 +14,15 @@ tags: ["C#"]
 
 `GetHashCode()` 是一個用來產生整數型雜湊值的方法，這個值主要用來比對物件值是否相等。實作 `GetHashCode()` 要遵守以下原則：
 
-* 如果兩個物件被認為相等（`Equals()` 回傳 `true`）， `GetHashCode()` 必須回傳相同的值。
-* 如果兩個物件不相等，則 `GetHashCode()` 不需要回傳不同的值。
-* `GetHashCode()` 不應該拋出例外狀況。
+- 如果兩個物件被認為相等（`Equals()` 回傳 `true`）， `GetHashCode()` 必須回傳相同的值。
+- 如果兩個物件不相等，則 `GetHashCode()` 不需要回傳不同的值。
+- `GetHashCode()` 不應該拋出例外狀況。
 
 `GetHashCode()` 方法常用於以下情況：
 
-* `IDictionary<TKey, TValue>`、`Dictionary` 的實作類別：如 `Dictionary<TKey, TValue>` 和 `HashTable`，這類類別使用 `GetHashCode()` 進行鍵的快速比對。
-* `ISet<T>` 的實作類別：如 `HashSet<T>`，使用 `GetHashCode()` 來判斷元素唯一性。
-* LINQ 的 `Distinct()` 方法：使用 `GetHashCode()` 來去除重複的元素。
+- `IDictionary<TKey, TValue>`、`Dictionary` 的實作類別：如 `Dictionary<TKey, TValue>` 和 `HashTable`，這類類別使用 `GetHashCode()` 進行鍵的快速比對。
+- `ISet<T>` 的實作類別：如 `HashSet<T>`，使用 `GetHashCode()` 來判斷元素唯一性。
+- LINQ 的 `Distinct()` 方法：使用 `GetHashCode()` 來去除重複的元素。
 
 如果覆寫了 `Equals()` 卻未覆寫 `GetHashCode()`，即使物件在 `Equals()` 下相等，這些類別仍可能認為它們不相等，導致錯誤行為。實際上，當只覆寫 `Equals()`，Visual Studio 會出現以下警告。
 
@@ -119,12 +119,12 @@ public class Test {
 
 程式碼說明：
 
-* `-1360180430` 和 `-1521134295` 是常數，用來初始化和組合雜湊碼，以產生更均勻分布的雜湊值。這些常數通常是大質數，因為質數在雜湊函式中有助於減少碰撞的機率。
-  * -1360180430：這是初始雜湊碼值。透過使用一個非零的起始值（通常是質數），可以確保物件的雜湊碼不同於預設值，並且即使物件沒有任何屬性，也不會回傳零作為雜湊碼。
-  * -1521134295：這是用來組合雜湊值的乘數。使用一個質數乘數來混合各個欄位的雜湊值，可以增加結果的隨機性，從而減少雜湊碰撞的機率。
-* 參考物件使用 `EqualityComparer<T>.Default` 來計算雜湊值的原因：
-  * 避免 `null` 值的情況，當值 `null` 時，會回傳 `0`。
-  * 確保在不同類別的物件上使用相同的雜湊運算規則。
+- `-1360180430` 和 `-1521134295` 是常數，用來初始化和組合雜湊碼，以產生更均勻分布的雜湊值。這些常數通常是大質數，因為質數在雜湊函式中有助於減少碰撞的機率。
+  - -1360180430：這是初始雜湊碼值。透過使用一個非零的起始值（通常是質數），可以確保物件的雜湊碼不同於預設值，並且即使物件沒有任何屬性，也不會回傳零作為雜湊碼。
+  - -1521134295：這是用來組合雜湊值的乘數。使用一個質數乘數來混合各個欄位的雜湊值，可以增加結果的隨機性，從而減少雜湊碰撞的機率。
+- 參考物件使用 `EqualityComparer<T>.Default` 來計算雜湊值的原因：
+  - 避免 `null` 值的情況，當值 `null` 時，會回傳 `0`。
+  - 確保在不同類別的物件上使用相同的雜湊運算規則。
 
 當然這 .Framework 的版本，不太好記，對於不支援 `HashCode.Combine()` 的 .NET Framework，部分開發者可能會使用匿名物件來取得 `GetHashCode()`，當然這個作法可能會因為建立臨時的匿名物件，而稍微影響效能。
 
@@ -139,8 +139,8 @@ public override int GetHashCode() => new { Name, Age }.GetHashCode();
 `ContainsKey()` 方法內部使用 `FindValue()` 方法來搜尋是否存在指定的 `TKey`。若找到對應的值，則表示 `TKey` 存在於 `Dictionary<TKey, TValue>` 中。
 `Dictionary` 有兩個主要的陣列欄位，分別是：
 
-* `_entries`：型別為 `Entry[]`，`Entry` 幫包含了 `TKey`、`TValue` 以及下一個具有相同 bucket 值的 entry 索引。
-* `_buckets`：型別為 `int[]`，儲存了各個 bucket 值（`TKey` 的 HashCode 經過模除等運算計算的值）和對應的 entry 索引的對照表。
+- `_entries`：型別為 `Entry[]`，`Entry` 幫包含了 `TKey`、`TValue` 以及下一個具有相同 bucket 值的 entry 索引。
+- `_buckets`：型別為 `int[]`，儲存了各個 bucket 值（`TKey` 的 HashCode 經過模除等運算計算的值）和對應的 entry 索引的對照表。
 
 而 `FindValue()` 實作流程如下：
 
@@ -235,4 +235,4 @@ ReturnNotFound:
 
 ## 異動歷程
 
-* 2024-09-01 初版文件建立。
+- 2024-09-01 初版文件建立。

@@ -251,4 +251,4 @@ Response response = await WebServiceUtils.ExecuteAsync<Response>(uri, method, ar
 
 ## 異動歷程
 
-* 2023-02-13 初版文件建立。
+- 2023-02-13 初版文件建立。

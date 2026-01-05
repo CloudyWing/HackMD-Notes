@@ -16,13 +16,13 @@ tags: [".NET","C#","Entity Framework"]
 
 Entity Framework 常見的 Exception 有以下三個：
 
-* DbUpdateException：
+- DbUpdateException：
 當儲存至資料庫時發生錯誤 (例如違反資料庫約束或其他儲存操作失敗) 時，所拋出的 Exception。這個 Exception 通常用來封裝更底層的 Exception，如資料庫連線錯誤或 SQL 執行錯誤。
 
-* DbUpdateConcurrencyException：
+- DbUpdateConcurrencyException：
 當儲存至資料庫時發生並發問題時，所拋出的 Exception。通常會在 Entity 類型中設定了 `RowVersion` 或 `ConcurrencyCheck` 特性時發生，這些特性用於實現並發控制。當 EF 發現資料庫中的資料已被其他操作修改，而當前操作的資料版本與之不符合時，就會拋出這個 Exception。
 
-* DbEntityValidationException：
+- DbEntityValidationException：
 當呼叫 `SaveChanges()` 且 Entity 的驗證失敗時，所拋出的 Exception。這個 Exception 通常用於捕捉 Entity 的資料驗證錯誤，例如屬性值不符合資料註釋（如 `[Required]`、`[MaxLength]`）的要求。已於在 Entity Framework Core 中被移除。
 
 ::: info
@@ -32,19 +32,19 @@ Entity Framework 常見的 Exception 有以下三個：
 
 說一句老實話，每次看到 EF Exception 的訊息都會很困擾，例如可能會看到以下訊息：
 
-* EF Core 的 `DbUpdateException` 訊息：
+- EF Core 的 `DbUpdateException` 訊息：
 
 > An error occurred while saving the entity changes. See the inner exception for details.
 
-* EF 的 `DbEntityValidationException` 訊息：
+- EF 的 `DbEntityValidationException` 訊息：
 
 > 一個或多個實體的驗證失敗。如需詳細資料，請參閱 'EntityValidationErrors' 屬性。
 
 鬼才知道是什麼原因，變成需要針對這幾個 Exception 做特別處理。
 如何處理 Entity Exception，主要取決於發生 Exception（這裡指的是全部的 Exception）時，前端是否會看到 Exception 的錯誤訊息：
 
-* 當系統會直接將原始的 Exception 訊息回傳給前端時。為了避免前端看到過多詳細資訊，應選擇在寫入 Exception Log 時，從 `InnerException` 或 `EntityValidationErrors` 中提取完整的錯誤訊息並記錄到 Log 中。這樣既能保證 Log 中有詳細的錯誤資訊，也能讓前端僅看到原本的攏統訊息。
-* 前端無法看到 Exception 訊息：
+- 當系統會直接將原始的 Exception 訊息回傳給前端時。為了避免前端看到過多詳細資訊，應選擇在寫入 Exception Log 時，從 `InnerException` 或 `EntityValidationErrors` 中提取完整的錯誤訊息並記錄到 Log 中。這樣既能保證 Log 中有詳細的錯誤資訊，也能讓前端僅看到原本的攏統訊息。
+- 前端無法看到 Exception 訊息：
 在這種情況下，可以直接在 DbContext 中覆寫 `SaveChanges()` 方法來捕獲 Entity Exception，並重新拋出一個相同類型的 Exception，將 `Message` 設為完整的錯誤訊息。這樣 Exception Log 也不需要額外處理，讓錯誤處理和權責劃分更為清楚。
 
 ## SaveChanges() 失敗時，還原 Entity 狀態
@@ -58,10 +58,10 @@ Entity Framework 常見的 Exception 有以下三個：
 ::: info
 在是否應該設定預設值這個問題上，業界有不同的觀點，主要可以分為兩種：
 
-* 支援設定預設值的：
+- 支援設定預設值的：
 設定預設值有助於在資料遺漏或未存值時避免錯誤，這樣可以降低應用程式出現問題的機率，並確保資料的完整性。
 
-* 反對設定預設值的：
+- 反對設定預設值的：
 支援將欄位設為 `NOT NULL` 並且不設定預設值，這樣在資料未正確存值時，程式會立即報錯，幫助開發者及早發現並修正潛在的問題，避免隱藏錯誤的風險。
 
 兩種作法的設計思路不同，也不能說誰對誰錯，但如果團隊沒特別要求，我個人傾向於第二種做法。
@@ -329,19 +329,19 @@ table22 的 Table1s 關聯數量: 1
 
 有關 `TestEFContext` 的第 50 行處理 `EntityState.Deleted` 情境，以下針對 TableRef 的 Entity State 的處理方式不同來說明結果差異。
 
-* TableRef 筆數：
-  * `EntityState.Unchanged`：
+- TableRef 筆數：
+  - `EntityState.Unchanged`：
   TableRef 中將有兩筆資料，這與 `Remove()` 前的狀況相同，這結果才是正確的。
 
-  * `EntityState.Detached`：
+  - `EntityState.Detached`：
   TableRef 只有一筆，缺少 `TableRef (Dictionary<string, object>) {Table1Id: 1, Table2Id: 1} Unchanged FK {Table1Id: 1} FK {Table2Id: 1}`。
 
-* `table11.Table2s.Count`：兩者皆為 0。
-* 當重新從資料庫取得 `Table1.Id` 為 `1` 的資料：
-  * `EntityState.Unchanged`：
+- `table11.Table2s.Count`：兩者皆為 0。
+- 當重新從資料庫取得 `Table1.Id` 為 `1` 的資料：
+  - `EntityState.Unchanged`：
   `Table2s.Count` 仍然是 0。推測是和「[EF Core DbContext 快取特性實驗](https://blog.darkthread.net/blog/efcore-scoped-dbcontext-cache/)」、「[查詢的運作方式](https://learn.microsoft.com/zh-tw/ef/core/querying/how-query-works#the-life-of-a-query)」所提到的 DbContext 快取機制有關。雖然會從資料庫查詢資料，但因為 DbContext 已存在該資料且已追蹤，因此直接回傳 DbContext 裡的 Entity。話說這我怎看都覺得像 Bug...。
 
-  * `EntityState.Detached`：`Table2s.Count` 會是 1，導覽屬性成功從資料庫重新取得資料。
+  - `EntityState.Detached`：`Table2s.Count` 會是 1，導覽屬性成功從資料庫重新取得資料。
 
 雖然使用上來看，設為 `EntityState.Detached` 結果會一好點，但實際上都有問題，因此不建議在有外鍵的情況下使用 Entity 狀態還原。
 
@@ -351,4 +351,4 @@ table22 的 Table1s 關聯數量: 1
 
 ## 異動歷程
 
-* 2024-08-17 初版文件建立。
+- 2024-08-17 初版文件建立。

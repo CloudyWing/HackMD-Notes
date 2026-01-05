@@ -241,5 +241,5 @@ Swagger Input 的預設值，是顯示 `schema.Enum` 裡的第一個 `OpenApiStr
 
 ## 異動歷程
 
-* 2024-04-10 初版文件建立。
-* 2025-01-16 修正 EnumSchemaFilter 會重複加入 enum 專案描述的錯誤。
+- 2024-04-10 初版文件建立。
+- 2025-01-16 修正 EnumSchemaFilter 會重複加入 enum 專案描述的錯誤。

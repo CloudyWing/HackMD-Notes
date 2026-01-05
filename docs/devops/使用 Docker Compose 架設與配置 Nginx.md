@@ -256,9 +256,9 @@ server {
 
 **指令說明：**
 
-* `root`：指定靜態檔案的根目錄。
-* `index`：指定預設的索引檔案，當請求的是目錄時，會依序尋找這些檔案。
-* `try_files`：依序嘗試尋找檔案、目錄，若都不存在則回傳 404 錯誤。
+- `root`：指定靜態檔案的根目錄。
+- `index`：指定預設的索引檔案，當請求的是目錄時，會依序尋找這些檔案。
+- `try_files`：依序嘗試尋找檔案、目錄，若都不存在則回傳 404 錯誤。
 
 **運作範例：**
 
@@ -472,14 +472,14 @@ http {
 
 **Main Context 的設定：**
 
-* `worker_processes`：Worker 程序數量。
-* `worker_rlimit_nofile`：每個 Worker 可開啟的檔案數。
-* `user`：執行 Worker 的使用者。
+- `worker_processes`：Worker 程序數量。
+- `worker_rlimit_nofile`：每個 Worker 可開啟的檔案數。
+- `user`：執行 Worker 的使用者。
 
 **Events 區塊的設定：**
 
-* `worker_connections`：每個 Worker 的連線數。
-* `use`：事件處理模型（如 epoll）。
+- `worker_connections`：每個 Worker 的連線數。
+- `use`：事件處理模型（如 epoll）。
 
 如果需要修改這些設定，可以使用以下指令將預設的 nginx.conf 複製出來：
 
@@ -491,10 +491,10 @@ docker run --rm nginx cat /etc/nginx/nginx.conf > volumes/config/nginx.conf
 
 如果不確定設定檔該如何撰寫，可以使用 [DigitalOcean 的 Nginx 設定產生器](https://www.digitalocean.com/community/tools/nginx)來輔助產生基本的設定檔。這個工具提供圖形化介面，可以根據需求選擇不同的設定選項，例如：
 
-* 靜態網站或 Reverse Proxy。
-* SSL/HTTPS 設定。
-* PHP 支援。
-* 壓縮與快取設定。
+- 靜態網站或 Reverse Proxy。
+- SSL/HTTPS 設定。
+- PHP 支援。
+- 壓縮與快取設定。
 
 產生的設定檔可以直接複製使用，再根據實際需求微調。
 
@@ -649,17 +649,17 @@ volumes:
 
 為什麼要加 `:ro`？
 
-* 防止容器內的程序意外修改主機檔案。
-* 保護設定檔不被竄改。
-* 明確表達這些目錄只用來讀取。
+- 防止容器內的程序意外修改主機檔案。
+- 保護設定檔不被竄改。
+- 明確表達這些目錄只用來讀取。
 
 舉例來說，當容器啟動時，Nginx 會檢查 `default.conf` 是否為官方預設的設定檔，如果是，會嘗試加上 `listen [::]:80;` 使之支援 IPv6。如果有加上 `:ro`，就可以避免被修改。
 
 哪些不能加 `:ro`？
 
-* log 目錄：Nginx 必須能寫入 log。
-* 上傳目錄：如果網站允許使用者上傳檔案。
-* 快取目錄：Nginx 需要寫入快取資料。
+- log 目錄：Nginx 必須能寫入 log。
+- 上傳目錄：如果網站允許使用者上傳檔案。
+- 快取目錄：Nginx 需要寫入快取資料。
 
 #### 建立網站設定檔
 
@@ -931,15 +931,15 @@ server {
 
 使用 template 方式時，環境變數的替換只在**容器啟動時**進行。因此：
 
-* ✅ 修改環境變數後，需要重新啟動容器：`docker compose up -d`
-* ❌ 無法使用 `docker compose exec nginx nginx -s reload` 重新載入設定。
+- ✅ 修改環境變數後，需要重新啟動容器：`docker compose up -d`
+- ❌ 無法使用 `docker compose exec nginx nginx -s reload` 重新載入設定。
 
 如果需要頻繁調整設定，建議使用直接掛載 conf 檔案的方式。
 
 ## 參考資源
 
-* [Nginx 官方文件](https://nginx.org/en/docs/)
+- [Nginx 官方文件](https://nginx.org/en/docs/)
 
 ## 異動歷程
 
-* 2025-11-27 初版文件建立。
+- 2025-11-27 初版文件建立。

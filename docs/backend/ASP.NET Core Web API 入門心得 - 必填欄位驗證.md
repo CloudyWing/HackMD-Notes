@@ -109,7 +109,7 @@ public class UpdateInput : CreateInput {
 此外，在 Swagger 中，`[BindRequired]` 和 `[Required]` 的屬性會被標記為必填。因此，需要進一步處理才能確保 Swagger 顯示的必填欄位是正確的。處理
 ：
 
-* `RequiredForTypeAttribute` 繼承了 `RequiredAttribute`(前面範例作法)：
+- `RequiredForTypeAttribute` 繼承了 `RequiredAttribute`(前面範例作法)：
 
 ```csharp
 public class RequiredForTypeSchemaFilter : ISchemaFilter {
@@ -138,7 +138,7 @@ public class RequiredForTypeSchemaFilter : ISchemaFilter {
 }
 ```
 
-* 如果 `RequiredForTypeAttribute` 沒有繼承 `RequiredAttribute`：
+- 如果 `RequiredForTypeAttribute` 沒有繼承 `RequiredAttribute`：
 
 ```csharp
 public class RequiredForTypeSchemaFilter : ISchemaFilter {
@@ -175,4 +175,4 @@ public class RequiredForTypeSchemaFilter : ISchemaFilter {
 
 ## 異動歷程
 
-* 2024-04-13 初版文件建立。
+- 2024-04-13 初版文件建立。

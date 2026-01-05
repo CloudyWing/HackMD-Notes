@@ -48,9 +48,9 @@ tags: ["SQL Server"]
 
 常見的 SQL 標準包括：
 
-* ANSI SQL：由美國國家標準學會（ANSI）訂立的 SQL 標準。
-* T-SQL：Microsoft SQL Server 對 ANSI SQL 標準的實作，並加入了額外功能和擴充。
-* PL/SQL：Oracle 對 ANSI SQL 標準的實作，並加入了額外功能和擴充。
+- ANSI SQL：由美國國家標準學會（ANSI）訂立的 SQL 標準。
+- T-SQL：Microsoft SQL Server 對 ANSI SQL 標準的實作，並加入了額外功能和擴充。
+- PL/SQL：Oracle 對 ANSI SQL 標準的實作，並加入了額外功能和擴充。
 
 ### 不等於運算子
 
@@ -60,8 +60,8 @@ tags: ["SQL Server"]
 
 ## 參考資料
 
-* [NULL 和 UNKNOWN (Transact-SQL)](https://learn.microsoft.com/zh-tw/sql/t-sql/language-elements/null-and-unknown-transact-sql?view=sql-server-ver16)
+- [NULL 和 UNKNOWN (Transact-SQL)](https://learn.microsoft.com/zh-tw/sql/t-sql/language-elements/null-and-unknown-transact-sql?view=sql-server-ver16)
 
 ## 異動歷程
 
-* 2024-07-24 初版文件建立。
+- 2024-07-24 初版文件建立。

@@ -30,13 +30,13 @@ public virtual TEntity? Find (params object?[]? keyValues);
 
 `Find()` 具有以下特性：
 
-* 首先會搜尋已經存在於本地快取中的 Entity。本地快取包括：
-  * 通過 `Load()` 載入的資料。
-  * 使用 `ToList()` 或 `Single()` 等方法查詢過的 Entity。
-  * 通過 `Add()` 加入 `DbSet` 的 Entity。
-* 如果在本地快取中找不到對應的 Entity，則會向資料庫發送查詢。
-* 使用 `ToList()` 或 `Single()` 方法查詢資料時如果使用了 `AsNoTracking()`，則查詢結果不會存入本地快取。且 `DbSet` 在使用 `AsNoTracking()` 後無法使用 `Find()` 方法。
-* `Find()` 方法只能查詢單一 Entity，不支援像 `Include()` 這樣的關聯資料預加載功能。
+- 首先會搜尋已經存在於本地快取中的 Entity。本地快取包括：
+  - 通過 `Load()` 載入的資料。
+  - 使用 `ToList()` 或 `Single()` 等方法查詢過的 Entity。
+  - 通過 `Add()` 加入 `DbSet` 的 Entity。
+- 如果在本地快取中找不到對應的 Entity，則會向資料庫發送查詢。
+- 使用 `ToList()` 或 `Single()` 方法查詢資料時如果使用了 `AsNoTracking()`，則查詢結果不會存入本地快取。且 `DbSet` 在使用 `AsNoTracking()` 後無法使用 `Find()` 方法。
+- `Find()` 方法只能查詢單一 Entity，不支援像 `Include()` 這樣的關聯資料預加載功能。
 
 ## 結論
 
@@ -44,4 +44,4 @@ public virtual TEntity? Find (params object?[]? keyValues);
 
 ## 異動歷程
 
-* 2024-07-16 初版文件建立。
+- 2024-07-16 初版文件建立。

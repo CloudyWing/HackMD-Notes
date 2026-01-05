@@ -62,9 +62,9 @@ Same-Site 的定義與 Same-Origin 比，較為寬鬆，由於並未查到官網
 
 參考文章：
 
-* [Samesite cookie 解釋](https://web.dev/samesite-cookies-explained/)
-* [Chrome 80 後針對第三方 Cookie 的規則調整 (default SameSite=Lax)](https://ianhung0529.medium.com/chrome-80-%E5%BE%8C%E9%87%9D%E5%B0%8D%E7%AC%AC%E4%B8%89%E6%96%B9-cookie-%E7%9A%84%E8%A6%8F%E5%89%87%E8%AA%BF%E6%95%B4-default-samesite-lax-aaba0bc785a3)
-* [再探同源政策，談 SameSite 設定對 Cookie 的影響與注意事項](https://medium.com/%E7%A8%8B%E5%BC%8F%E7%8C%BF%E5%90%83%E9%A6%99%E8%95%89/%E5%86%8D%E6%8E%A2%E5%90%8C%E6%BA%90%E6%94%BF%E7%AD%96-%E8%AB%87-samesite-%E8%A8%AD%E5%AE%9A%E5%B0%8D-cookie-%E7%9A%84%E5%BD%B1%E9%9F%BF%E8%88%87%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85-6195d10d4441)
+- [Samesite cookie 解釋](https://web.dev/samesite-cookies-explained/)
+- [Chrome 80 後針對第三方 Cookie 的規則調整 (default SameSite=Lax)](https://ianhung0529.medium.com/chrome-80-%E5%BE%8C%E9%87%9D%E5%B0%8D%E7%AC%AC%E4%B8%89%E6%96%B9-cookie-%E7%9A%84%E8%A6%8F%E5%89%87%E8%AA%BF%E6%95%B4-default-samesite-lax-aaba0bc785a3)
+- [再探同源政策，談 SameSite 設定對 Cookie 的影響與注意事項](https://medium.com/%E7%A8%8B%E5%BC%8F%E7%8C%BF%E5%90%83%E9%A6%99%E8%95%89/%E5%86%8D%E6%8E%A2%E5%90%8C%E6%BA%90%E6%94%BF%E7%AD%96-%E8%AB%87-samesite-%E8%A8%AD%E5%AE%9A%E5%B0%8D-cookie-%E7%9A%84%E5%BD%B1%E9%9F%BF%E8%88%87%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85-6195d10d4441)
 
 ## 在 ASP.NET Core 設定 SameSite Cookies
 
@@ -212,4 +212,4 @@ public static bool DisallowsSameSiteNone(string userAgent) {
 
 ## 異動歷程
 
-* 2022-10-26 初版文件建立。
+- 2022-10-26 初版文件建立。

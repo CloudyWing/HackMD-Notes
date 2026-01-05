@@ -18,13 +18,13 @@ Docker Desktop 的 Linux Containers 大致有以下架構：
 
 ## Windows 安裝 WSL 2 的版本要求
 
-* Windows 10 必需為 2004 版(組建 19041) 或更新版本。
-* Windows 11。
+- Windows 10 必需為 2004 版(組建 19041) 或更新版本。
+- Windows 11。
 
 ## 安裝 WSL 2
 
-* 以下指令使用 **Windows PowerShell(系統管理員身分)** 輸入。
-* 看到 **&lt;DistributionName&gt;**，則替換成要安裝的 Linux 套件。
+- 以下指令使用 **Windows PowerShell(系統管理員身分)** 輸入。
+- 看到 **&lt;DistributionName&gt;**，則替換成要安裝的 Linux 套件。
 
 1. 安裝 WSL 2。
 
@@ -36,9 +36,9 @@ Docker Desktop 的 Linux Containers 大致有以下架構：
 
 ::: info
 
-* 未指定 Linux 發行版時，預設為 **Ubuntu**。
-  * 只有尚未安裝任何 Linux 發行版時，才可不指定 Linux 發行版。
-  * 可用 `wsl --list --online` 或 `wsl -l -o` 查詢可安裝的 Linux 發行版名稱。
+- 未指定 Linux 發行版時，預設為 **Ubuntu**。
+  - 只有尚未安裝任何 Linux 發行版時，才可不指定 Linux 發行版。
+  - 可用 `wsl --list --online` 或 `wsl -l -o` 查詢可安裝的 Linux 發行版名稱。
 :::
 
 1. 將 WSL 2 設定為預設版本。
@@ -63,11 +63,11 @@ Docker Desktop 的 Linux Containers 大致有以下架構：
 
 ::: info
 
-* 可用 `wsl --list --verbose` 或 `wsl -l -v` 查詢目前已安裝和正在使用的套件為何。
-  * 安裝 Docker Desktop 時，如果有勾選「Install required components for WSL 2」，會安裝以下兩個 Linux 發行版：
+- 可用 `wsl --list --verbose` 或 `wsl -l -v` 查詢目前已安裝和正在使用的套件為何。
+  - 安裝 Docker Desktop 時，如果有勾選「Install required components for WSL 2」，會安裝以下兩個 Linux 發行版：
 
-    * docker-desktop：用於運行 Docker Engine(dockerd)。
-    * docker-desktop-data：用於存儲 Containers 和 Images。
+    - docker-desktop：用於運行 Docker Engine(dockerd)。
+    - docker-desktop-data：用於存儲 Containers 和 Images。
 :::
 
 1. 移除 Linux 發行版。
@@ -82,8 +82,8 @@ Docker Desktop 的 Linux Containers 大致有以下架構：
 
 ### 官方相關文件
 
-* [使用 WSL 在 Windows 上安裝 Linux](https://learn.microsoft.com/zh-tw/windows/wsl/install?source=recommendations)
-* [WSL 的基本命令](https://learn.microsoft.com/zh-tw/windows/wsl/basic-commands)
+- [使用 WSL 在 Windows 上安裝 Linux](https://learn.microsoft.com/zh-tw/windows/wsl/install?source=recommendations)
+- [WSL 的基本命令](https://learn.microsoft.com/zh-tw/windows/wsl/basic-commands)
 
 ## Linux Containers 整合 WLS 2
 
@@ -94,10 +94,10 @@ Docker 官方提到 Linux Containers 改為整合 WLS 2 有以下優點：
 
 Linux Containers 模式下要整合 WSL 2 需進行以下設定：
 
-* [x] Settings > General > Use the WSL 2 based engine。
-* [x] Settings > Resources > WSL Integration：
-  * [x]  Enable integration with my default WSL distro。
-  * [x]  在「Enable integration with additional distros:」底下專案啟用要使用 Linux 套件。
+- [x] Settings > General > Use the WSL 2 based engine。
+- [x] Settings > Resources > WSL Integration：
+  - [x]  Enable integration with my default WSL distro。
+  - [x]  在「Enable integration with additional distros:」底下專案啟用要使用 Linux 套件。
 
 ### 官方相關文件
 
@@ -126,13 +126,13 @@ docker: Got permission denied while trying to connect to the Docker daemon socke
 
 ## Windows 與 Linux 發行版互相存取資料的方法
 
-* Windows 可在檔案總管上方路經輸入`\\wsl$\&lt;DistributionName&gt;`連至 Linux 發行版根目錄，&lt;DistributionName&gt; 為要連結的發行版名稱；透過`\\wsl$` 存取 Linux 檔案將會使用 WSL 發行版本的預設使用者。
-* 而 Linux 則是透過路徑 `/mnt/&lt;WindowsDriveLetter&gt;` 連至各硬碟根目錄，&lt;WindowsDriveLetter&gt; 為要連結的硬碟代號；而 Linux 發行版存取 Windows 檔案時，檔案權限會從 Windows 權限中計算，或從已由 Linux 新增至檔案的中繼資料中讀取。
+- Windows 可在檔案總管上方路經輸入`\\wsl$\&lt;DistributionName&gt;`連至 Linux 發行版根目錄，&lt;DistributionName&gt; 為要連結的發行版名稱；透過`\\wsl$` 存取 Linux 檔案將會使用 WSL 發行版本的預設使用者。
+- 而 Linux 則是透過路徑 `/mnt/&lt;WindowsDriveLetter&gt;` 連至各硬碟根目錄，&lt;WindowsDriveLetter&gt; 為要連結的硬碟代號；而 Linux 發行版存取 Windows 檔案時，檔案權限會從 Windows 權限中計算，或從已由 Linux 新增至檔案的中繼資料中讀取。
 
 ### 詳細的內容請參閱
 
-* [跨 Windows 和 Linux 檔案系統運作](https://stackoverflow.com/questions/36590514/how-to-enable-the-windows-10-containers-feature)
-* [WSL 的檔案權限](https://learn.microsoft.com/zh-tw/windows/wsl/file-permissions)
+- [跨 Windows 和 Linux 檔案系統運作](https://stackoverflow.com/questions/36590514/how-to-enable-the-windows-10-containers-feature)
+- [WSL 的檔案權限](https://learn.microsoft.com/zh-tw/windows/wsl/file-permissions)
 
 ## 未解決問題
 
@@ -147,8 +147,8 @@ docker: Got permission denied while trying to connect to the Docker daemon socke
 
 ## 異動歷程
 
-* 2022-10-24 初版文件建立。
-* 2024-10-30
-  * 將簡寫指令改為完整指令。
-  * 補充解除安裝 WSL 的指令。
-  * 嘗試提供之前問題的解決方案。
+- 2022-10-24 初版文件建立。
+- 2024-10-30
+  - 將簡寫指令改為完整指令。
+  - 補充解除安裝 WSL 的指令。
+  - 嘗試提供之前問題的解決方案。

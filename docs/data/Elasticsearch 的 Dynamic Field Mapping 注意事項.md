@@ -28,13 +28,13 @@ tags: ["Elastic Stack","Elasticsearch"]
 
 不是全部的型別都能透過動態對應自動處理。例如：
 
-* **地理位置欄位**：
+- **地理位置欄位**：
     如果想要使用 `geo_point` 或 `geo_shape` 相關的地理查詢 API，必須預先在 mapping 中定義。即使你存入了符合地理位置結構的 JSON 資料(如 `{"lat": 25.03, "lon": 121.56}`)，如果沒有預先定義為 `geo_point` 型別，Elasticsearch 只會將其視為普通的 `object`，無法使用 `geo_distance` 之類的地理查詢功能。
 
-* **巢狀物件(Nested)**：
+- **巢狀物件(Nested)**：
     如果需要對陣列中的物件進行獨立查詢，必須使用 `nested` 型別。動態對應只會將其建立為 `object` 型別，導致陣列中的物件欄位會被扁平化，無法正確查詢。
 
-* **自訂分析器**：
+- **自訂分析器**：
     如果需要特定的文字分析方式(如中文分詞、同義詞處理等)，必須在 mapping 中明確指定 analyzer，動態對應只會使用預設的 standard analyzer。
 
 相關資訊可參考 [Field data types](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)。
@@ -43,8 +43,8 @@ tags: ["Elastic Stack","Elasticsearch"]
 
 Elasticsearch 官方文件特別警告了 [Mapping explosion](https://www.elastic.co/docs/troubleshoot/elasticsearch/mapping-explosion) 的問題。如果使用動態對應，且資料來源包含大量不同的欄位名稱(例如：使用者自訂欄位、動態產生的 key)，可能會導致：
 
-* Index 中的欄位數量爆炸性成長。
-* 記憶體使用量大幅增加。
+- Index 中的欄位數量爆炸性成長。
+- 記憶體使用量大幅增加。
 
 預設情況下，一個 index 最多只能有 1000 個欄位，超過後會拒絕新增文件。
 
@@ -96,4 +96,4 @@ Elasticsearch 官方文件建議使用明確對應(Explicit mapping)來為每個
 
 ## 異動歷程
 
-* 2025-10-04 初版文件建立。
+- 2025-10-04 初版文件建立。

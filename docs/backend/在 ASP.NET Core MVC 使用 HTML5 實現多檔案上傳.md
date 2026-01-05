@@ -10,38 +10,38 @@ tags: [".NET","ASP.NET","ASP.NET Core","Axios"]
 
 ## 使用版本
 
-* .NET 6
-* vue@2.7.10
-* axios@0.27.2
-* bootstrap@5.2.1
-* popper.js@2.11.6
+- .NET 6
+- vue@2.7.10
+- axios@0.27.2
+- bootstrap@5.2.1
+- popper.js@2.11.6
 
 ## 實作前需了解內容
 
 ### HTML
 
-* [FormData](https://docs.w3cub.com/dom/formdata/using_formdata_objects)
+- [FormData](https://docs.w3cub.com/dom/formdata/using_formdata_objects)
 使用 XMLHttpRequest 時，可以用 FormData 設定 Key/Value 的資料傳送. 它主要用於發送表單數據。
 
-* [multipart/form-data](https://www.w3schools.com/tags/att_form_enctype.asp)
+- [multipart/form-data](https://www.w3schools.com/tags/att_form_enctype.asp)
 表單上傳檔案時 form 的「enctype」屬性或是 ajax headers 裡「Content-Type」必需設置此值，不過如果 ajax 上傳檔案是使用 FormData，瀏覽器會自動添加，所以一般不用也不建議特別設定。
 
-* [HTML <input> multiple Attribute](https://www.w3schools.com/tags/att_input_multiple.asp)
+- [HTML <input> multiple Attribute](https://www.w3schools.com/tags/att_input_multiple.asp)
 簡單屬性，使用 multiple 屬性可以讓 input file 選擇多個檔案，簡單屬性標準寫法以 multiple 為例，`multiple="multiple"`，但實際寫 `multiple` 或 `multiple="{任意值}"` 皆是同樣效果。
 
 ```html
 <input type="file" id="files" name="files" multiple="multiple" />
 ```
 
-* [Progress Event Handler](https://docs.w3cub.com/dom/xmlhttprequest/progress_event)
+- [Progress Event Handler](https://docs.w3cub.com/dom/xmlhttprequest/progress_event)
 XMLHttpRequest 會在接收到更多資料時，定時觸發的事件，其中 Event Args 有兩個[屬性](https://www.w3schools.com/JSref/obj_progressevent.asp)可用於繪製 Progress Bar。
 
-  * loaded：已加載的資料量。
-  * total：需加載的總資料量。
+  - loaded：已加載的資料量。
+  - total：需加載的總資料量。
 
 ### .NET
 
-* [IFormFile](https://learn.microsoft.com/zh-tw/dotnet/api/microsoft.aspnetcore.http.iformfile?view=aspnetcore-6.0)
+- [IFormFile](https://learn.microsoft.com/zh-tw/dotnet/api/microsoft.aspnetcore.http.iformfile?view=aspnetcore-6.0)
 過往在 MVC 5 時，檔案上傳一直無法與模型繫結屬性整合在一起，必須在 Action 使用「HttpPostedFileBase」型別的參數，或是使用「Request.Files」來取得上傳檔案資料。
 ASP.NET Core 增加了「IFormFile」型別可來做為檔案上傳時的繫結屬性型別，多檔案上傳則使用「IFormFileCollection 」。
 
@@ -133,7 +133,7 @@ public async Task<IActionResult> Index3(IndexViewModel viewModel) {
 
 因為資安因素，Request 和 Response 等都會有大小限制，而檔案上傳時，會牽涉到的兩個屬性主要為 MultipartBodyLengthLimit 和 MaxRequestBodySize，如果要從程式端調整限制有以下作法：
 
-* Global設定。
+- Global設定。
 
 ```csharp
 // Program.cs
@@ -154,7 +154,7 @@ builder.Services.Configure<IISServerOptions>(options => {
 });
 ```
 
-* 從Attribute限制。
+- 從Attribute限制。
 
 ```csharp
 [HttpPost]
@@ -169,11 +169,11 @@ public async Task<IActionResult> Index(IndexViewModel viewModel) {
 :::    danger
 注意事項
 
-* 設定 `long.MaxValue` 只是舉例用，請依照實際需求設置限制大小。
-* 上述設定單位皆為 byte。
-* Attribute 優先度會高於 Global 設定。
+- 設定 `long.MaxValue` 只是舉例用，請依照實際需求設置限制大小。
+- 上述設定單位皆為 byte。
+- Attribute 優先度會高於 Global 設定。
 :::
 
 ## 異動歷程
 
-* 2022-10-24 初版文件建立。
+- 2022-10-24 初版文件建立。

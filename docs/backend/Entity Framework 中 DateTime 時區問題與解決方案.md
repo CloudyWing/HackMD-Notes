@@ -117,9 +117,9 @@ Utc:2024-08-15T02:35:48.8422172Z, Kind:Utc
 
 從結果可以看到：
 
-* 當 `Kind` 為 `Local` 時，呼叫 `ToLocalTime()` 不會改變時間。
-* 當 `Kind` 為 `Utc` 時，呼叫 `ToUniversalTime()` 也不會改變時間。
-* 當 `Kind` 為 `Unspecified` 時，由於無法確定時間的類型，呼叫 `ToLocalTime()` 時，系統會假設原本是 UTC 時間，並轉換為本機時間，因而增加時區偏移。相反地，呼叫 `ToUniversalTime()` 時，系統會假設原本是本機時間，並減去時區偏移。
+- 當 `Kind` 為 `Local` 時，呼叫 `ToLocalTime()` 不會改變時間。
+- 當 `Kind` 為 `Utc` 時，呼叫 `ToUniversalTime()` 也不會改變時間。
+- 當 `Kind` 為 `Unspecified` 時，由於無法確定時間的類型，呼叫 `ToLocalTime()` 時，系統會假設原本是 UTC 時間，並轉換為本機時間，因而增加時區偏移。相反地，呼叫 `ToUniversalTime()` 時，系統會假設原本是本機時間，並減去時區偏移。
 
 也因此，ABP.IO 在使用 `DateTime` 時，有定義 `IClock` 介面，來將的`Kind` 進行修正，來避免預期外問題，以下節錄他的 `Clock` 程式碼，藉由比對設定的 `Kind` 與要標準化的時間的 `Kind`，來決定轉換結果，更具體的說明可參考官方文件「[Timing](https://abp.io/docs/latest/framework/infrastructure/timing)」。
 
@@ -153,8 +153,8 @@ public virtual DateTime Normalize(DateTime dateTime) {
 
 可以藉由 `HasConversion()` 來進行以下處理：
 
-* 在資料寫入時，若 `DateTime` 的 `Kind` 不是 `Utc`，則呼叫 `ToUniversalTime()` 進行轉換。
-* 在取出資料時，將 `DateTime` 的 `Kind` 設定為 `Utc`。
+- 在資料寫入時，若 `DateTime` 的 `Kind` 不是 `Utc`，則呼叫 `ToUniversalTime()` 進行轉換。
+- 在取出資料時，將 `DateTime` 的 `Kind` 設定為 `Utc`。
 
 具體程式碼如下：
 
@@ -256,4 +256,4 @@ public partial class MyDbContext {
 
 ## 異動歷程
 
-* 2024-08-15 初版文件建立。
+- 2024-08-15 初版文件建立。

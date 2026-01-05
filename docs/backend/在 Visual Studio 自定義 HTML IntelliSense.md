@@ -14,19 +14,19 @@ tags: ["Visual Studio","IntelliSense"]
 
 ## 目前問題點
 
-* 只能針對電腦的 Visual Studio 設定，而無法針對專案進行設定。
-* 每次更新 Visual Studio，設定會失效。
+- 只能針對電腦的 Visual Studio 設定，而無法針對專案進行設定。
+- 每次更新 Visual Studio，設定會失效。
 
 ## 設定方法
 
 1. 先至 Visual Studio 的 HTML IntelliSense 範本存放位置，開啟檔案「SchemaCatalog.xml」，位置參考如下：
-    * 2019 Community：`C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Web Tools\Languages\Schemas\HTML\`。
-    * 2022 Community：`C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Web Tools\Languages\Schemas\HTML`。
+    - 2019 Community：`C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Web Tools\Languages\Schemas\HTML\`。
+    - 2022 Community：`C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Web Tools\Languages\Schemas\HTML`。
 
 2. 在「SchemaCatalog.xml」新增 `<schema />` 來引用自定義的 [XSD(XML Schema Definition)](https://zh.wikipedia.org/zh-tw/XML_Schema) 檔案，`<schema />` 屬性如下：
-    * File：要擴充的 XSD 檔名。
-    * IsSupplemental：要設定 `true`，HTML IntelliSense 才會生效
-    * CustomPrefix：觸發 `IntelliSense` 的關鍵字，這邊要與自定義屬性的 Prefix 一致，才不會有問題。
+    - File：要擴充的 XSD 檔名。
+    - IsSupplemental：要設定 `true`，HTML IntelliSense 才會生效
+    - CustomPrefix：觸發 `IntelliSense` 的關鍵字，這邊要與自定義屬性的 Prefix 一致，才不會有問題。
 
     範例如下：
 
@@ -49,8 +49,8 @@ tags: ["Visual Studio","IntelliSense"]
 
 ::: info
 
-* 更新 Visual Studio 就會造成自定義的 HTML IntelliSense 失效，就是因為檔案「SchemaCatalog.xml」被重置了。
-  * 如果你覺得 AngularJS 或 Aria 的 IntelliSense 很礙眼，就把引用的 XML 給註解掉，這樣至少下次更新 Visual Studio 前都不會再出現了。
+- 更新 Visual Studio 就會造成自定義的 HTML IntelliSense 失效，就是因為檔案「SchemaCatalog.xml」被重置了。
+  - 如果你覺得 AngularJS 或 Aria 的 IntelliSense 很礙眼，就把引用的 XML 給註解掉，這樣至少下次更新 Visual Studio 前都不會再出現了。
 :::
 
 1. 同層資料夾建立 XSD 檔案，如檔案儲存有權限問題，則在別處撰寫完再複製過來。
@@ -96,15 +96,15 @@ tags: ["Visual Studio","IntelliSense"]
 
 由於各個節點的作用是我參考現成的檔案試出來的結果，所以我只能大概說明一下，XSD 結構可以參考「[XML Schema Tutorial](https://www.w3schools.com/xml/schema_intro.asp)」，但具體那些是有效果的我不確定。
 
-* `<xsd:element />`：設定要觸發 IntelliSense 的 HTML 元素，XML 屬性如下：
-  * name：設定 HTML TAG，如果要任意 TAG 都觸發則填入「\_\_\_all\_\_\_」。
-* `<xsd: complexType />`：內層可以包含多個 `<xsd:attribute />` 或 `<xsd:attributeGroup />`。
-* `<xsd:attribute />`：用來定義 HTML 的自定義屬性，XML 屬性如下：
-  * name：自定義屬性名稱。
-* `<xsd:attributeGroup />`：用來將多個`<xsd: complexType />` 定義成群組，XML 屬性如下：
-  * name：群組名稱。
-  * ref：藉由填入已定義的 `<xsd:attributeGroup />` 的 name 來引用該群組。
-* `<xsd:restriction />`：用來限制 HTML 的屬性值，搭配`<xsd:enumeration />` 來列舉能填入的值。
+- `<xsd:element />`：設定要觸發 IntelliSense 的 HTML 元素，XML 屬性如下：
+  - name：設定 HTML TAG，如果要任意 TAG 都觸發則填入「\_\_\_all\_\_\_」。
+- `<xsd: complexType />`：內層可以包含多個 `<xsd:attribute />` 或 `<xsd:attributeGroup />`。
+- `<xsd:attribute />`：用來定義 HTML 的自定義屬性，XML 屬性如下：
+  - name：自定義屬性名稱。
+- `<xsd:attributeGroup />`：用來將多個`<xsd: complexType />` 定義成群組，XML 屬性如下：
+  - name：群組名稱。
+  - ref：藉由填入已定義的 `<xsd:attributeGroup />` 的 name 來引用該群組。
+- `<xsd:restriction />`：用來限制 HTML 的屬性值，搭配`<xsd:enumeration />` 來列舉能填入的值。
 
 ### 實作範例
 
@@ -232,11 +232,11 @@ tags: ["Visual Studio","IntelliSense"]
 
 使用結果如下：
 
-* 輸入「data-」列出相關屬性。
+- 輸入「data-」列出相關屬性。
 
     ![html intellisense data attribute](images/%E5%9C%A8%20Visual%20Studio%20%E8%87%AA%E5%AE%9A%E7%BE%A9%20HTML%20IntelliSense/html-intellisense-data-attribute.png)
 
-* 選擇「data-format」後列出可選擇的屬性值。
+- 選擇「data-format」後列出可選擇的屬性值。
 
     ![html intellisense data format](images/%E5%9C%A8%20Visual%20Studio%20%E8%87%AA%E5%AE%9A%E7%BE%A9%20HTML%20IntelliSense/html-intellisense-data-format.png)
 
@@ -246,4 +246,4 @@ Unobtrusive JavaScript 可以理解就像是 Bootstrap 或是「jquery.validate.
 
 ## 異動歷程
 
-* 2022-11-11 初版文件建立。
+- 2022-11-11 初版文件建立。

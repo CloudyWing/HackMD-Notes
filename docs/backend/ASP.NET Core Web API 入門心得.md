@@ -67,11 +67,11 @@ ASP.NET Core 與 ASP.NET Framework 不同，其 MVC 和 Web API 的 Controller �
 
 Web API 的 Controller 可以看到設定了 `ApiController` 的 Attribute，根據 [MSDN](https://learn.microsoft.com/zh-tw/aspnet/core/web-api/?view=aspnetcore-6.0#apicontroller-attribute-1) 描述，將執行以下行為：
 
-* 屬性路由需求。
-* HTTP 400 自動回應
-* 繫結來源參數推斷。
-* 多部分/表單資料要求推斷。
-* 錯誤狀態碼的問題詳細資料。
+- 屬性路由需求。
+- HTTP 400 自動回應
+- 繫結來源參數推斷。
+- 多部分/表單資料要求推斷。
+- 錯誤狀態碼的問題詳細資料。
 
 若不想每個 Controller 都加入 `ApiController` Attribute，可透過定義一個 `BasicController` 的父類別來實現。這個 `BasicController` 可以繼承自 `Controller` 或 `ControllerBase`，然後將各個 Web API Controller 都繼承 `BasicController`。
 
@@ -220,8 +220,8 @@ public class MyController : BasicController {
 
 ::: info
 
-* 當設定 `ApiController` Attribute時，將無法透過 `UseEndpoints()`、`UseMvc()` 或 `UseMvcWithDefaultRoute` 等方法所定義的慣例路由來存取動作。
-* 使用 `UseMvc()` 等方法來設定路由時，慣例路由使用大括號 `{}` 來表示參數，例如："{controller=Home}/{action=Index}/{id?}"；而在 Route 屬性中，則使用中括號 `[]`，例如："[controller]/[action]"。
+- 當設定 `ApiController` Attribute時，將無法透過 `UseEndpoints()`、`UseMvc()` 或 `UseMvcWithDefaultRoute` 等方法所定義的慣例路由來存取動作。
+- 使用 `UseMvc()` 等方法來設定路由時，慣例路由使用大括號 `{}` 來表示參數，例如："{controller=Home}/{action=Index}/{id?}"；而在 Route 屬性中，則使用中括號 `[]`，例如："[controller]/[action]"。
 :::
 
 #### HTTP 400 自動回應
@@ -238,19 +238,19 @@ if (!ModelState.IsValid) {
 
 ASP.NET Core 提供了以下 Attribute，用於設定參數的繫結方式：
 
-* `FromBody`：要求本文。這個 Attribute 用於從 HTTP 請求的主體中繫結資料，通常用於 POST 請求，其中資料是透過請求主體傳送的。
-* `FromForm`：要求本文中的表單資料。使用這個 Attribute 可以繫結來自 HTML 表單的資料，通常用於 POST 請求，其中資料以表單形式提交。
-* `FromHeader`：要求標頭。這個 Attribute 用於從 HTTP 請求標頭中擷取資料，例如提取特定標頭的值。
-* `FromQuery`：要求查詢字串參數。使用這個 Attribute 可以繫結來自 URL 查詢字串的資料，通常用於 GET 請求。
-* `FromRoute`：來自目前要求的路由資料。這個 Attribute 用於繫結從路由中提取的資料，通常用於路由中定義的路由參數。
-* `FromServices`：作為動作參數插入的要求服務。使用這個 Attribute 可以繫結來自 DI（Dependency Injection）容器的服務，使其可在動作方法中使用。
+- `FromBody`：要求本文。這個 Attribute 用於從 HTTP 請求的主體中繫結資料，通常用於 POST 請求，其中資料是透過請求主體傳送的。
+- `FromForm`：要求本文中的表單資料。使用這個 Attribute 可以繫結來自 HTML 表單的資料，通常用於 POST 請求，其中資料以表單形式提交。
+- `FromHeader`：要求標頭。這個 Attribute 用於從 HTTP 請求標頭中擷取資料，例如提取特定標頭的值。
+- `FromQuery`：要求查詢字串參數。使用這個 Attribute 可以繫結來自 URL 查詢字串的資料，通常用於 GET 請求。
+- `FromRoute`：來自目前要求的路由資料。這個 Attribute 用於繫結從路由中提取的資料，通常用於路由中定義的路由參數。
+- `FromServices`：作為動作參數插入的要求服務。使用這個 Attribute 可以繫結來自 DI（Dependency Injection）容器的服務，使其可在動作方法中使用。
 
 自動推斷的規則如下：
 
-* `FromBody`：會自動推斷未在 DI 容器中註冊的複雜型別參數，但會忽略一些特殊內建類型，如 `IFormCollection` 和 `CancellationToken`。
-* `FromForm`：專為 `IFormFile` 和 `IFormFileCollection` 這類型別的參數進行推斷。不會對任何簡單或自定義型別進行推斷。
-* `FromRoute`：會根據符合路由範本參數的參數名稱進行推斷。若有多個路由符合參數，系統會視其為 `FromRoute`。
-* `FromQuery`：會針對任何其他參數進行推斷，而不是特定於路由的參數。
+- `FromBody`：會自動推斷未在 DI 容器中註冊的複雜型別參數，但會忽略一些特殊內建類型，如 `IFormCollection` 和 `CancellationToken`。
+- `FromForm`：專為 `IFormFile` 和 `IFormFileCollection` 這類型別的參數進行推斷。不會對任何簡單或自定義型別進行推斷。
+- `FromRoute`：會根據符合路由範本參數的參數名稱進行推斷。若有多個路由符合參數，系統會視其為 `FromRoute`。
+- `FromQuery`：會針對任何其他參數進行推斷，而不是特定於路由的參數。
 
 #### 多部分/表單資料要求推斷
 
@@ -341,13 +341,13 @@ if (app.Environment.IsDevelopment()) {
 }
 ```
 
-* `AddEndpointsApiExplorer()`：
+- `AddEndpointsApiExplorer()`：
 是 ASP.NET Core 內建的方法，僅在 Swagger 需要增加對最小 API 的支援時才需要使用。
-* `AddSwaggerGen()`：
+- `AddSwaggerGen()`：
 用於向 DI 容器中注入 Swagger 的相關服務。通常在這個方法中設定 Swagger 生成器，從應用程式的組件、Controller 和註釋中擷取 API 相關的資訊。
-* `UseSwagger()`：
+- `UseSwagger()`：
 啟用 Swagger Middleware，使其在應用程式運行時提供Swagger文件。可透過「https\://\{Your Domain\}/swagger/v1/swagger\.json」查看生成的JSON檔案。
-* `UseSwaggerUI()`：
+- `UseSwaggerUI()`：
 啟用Swagger UI Middleware，生成一個互動式的網頁介面。預設的網址是「https\://\{Your Domain\}/swagger/index.html」，頁面示例如下：
 
     ![swagger ui example](images/ASP.NET%20Core%20Web%20API%20%E5%85%A5%E9%96%80%E5%BF%83%E5%BE%97/swagger-ui-example.png)
@@ -601,4 +601,4 @@ swagger.json 也會新增 `description` 的內容：
 
 ## 異動歷程
 
-* 2023-08-04 初版文件建立。
+- 2023-08-04 初版文件建立。

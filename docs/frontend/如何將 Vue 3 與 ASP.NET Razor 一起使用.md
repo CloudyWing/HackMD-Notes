@@ -10,14 +10,14 @@ tags: [".NET","ASP.NET","ASP.NET Core","Razor Pages","Vue.js"]
 
 ## 使用版本
 
-* .NET 6
-* vue@3.2.45
-* vee-validate@4.7.3
-* vee-validate/rules@4.5.11
-* vee-validate/i18n@4.7.3
-* axios@1.2.2
-* bootstrap@5.2.3
-* popper.js@2.11.6
+- .NET 6
+- vue@3.2.45
+- vee-validate@4.7.3
+- vee-validate/rules@4.5.11
+- vee-validate/i18n@4.7.3
+- axios@1.2.2
+- bootstrap@5.2.3
+- popper.js@2.11.6
 
 ## 前言
 
@@ -43,9 +43,9 @@ Vue 3 有提供「Composition API」和「Options API」兩種寫法，本篇文
 
 在這裡，我們會建立 Vue 物件，並設定其他套件的使用。注意以下幾點：
 
-* Vue 組件的名稱必須與 TagHelper 的 Tag 名稱相同，例如 `VForm` 對應到 `VeeValidateFormTagHelper` 產生的 `<v-form></v-form>`。
-* `VeeValidateFormTagHelper` 會產生 Attribute `:initial-errors="initialErrors()"`，這是為了呼叫 `initialErrors` 來初始化錯誤訊息。
-* 請將 `{組件名稱}` 替換成實際的 DLL 組件名稱，這會動態產生一個專組件名稱的樣式檔，樣式檔內容為 `_Layout.cshtml.css` 的內容。
+- Vue 組件的名稱必須與 TagHelper 的 Tag 名稱相同，例如 `VForm` 對應到 `VeeValidateFormTagHelper` 產生的 `<v-form></v-form>`。
+- `VeeValidateFormTagHelper` 會產生 Attribute `:initial-errors="initialErrors()"`，這是為了呼叫 `initialErrors` 來初始化錯誤訊息。
+- 請將 `{組件名稱}` 替換成實際的 DLL 組件名稱，這會動態產生一個專組件名稱的樣式檔，樣式檔內容為 `_Layout.cshtml.css` 的內容。
 
 ```html
 <!DOCTYPE html>
@@ -434,8 +434,8 @@ public class VueInputTagHelper : TagHelper {
 
 ### Page.cshtml
 
-* 如果有需要使用前端欄位驗證才需要使用 `<v-form></v-form>` 和 `<v-field></v-field>`，否則使用一般的 `<form></form>` 和 `<input />` 就好。
-* `isSubmitting` 定義在 `VeeValidateFormTagHelper` 裡面，目的在當 Submit 後，將按鈕給 Disabled，避免重覆點擊。
+- 如果有需要使用前端欄位驗證才需要使用 `<v-form></v-form>` 和 `<v-field></v-field>`，否則使用一般的 `<form></form>` 和 `<input />` 就好。
+- `isSubmitting` 定義在 `VeeValidateFormTagHelper` 裡面，目的在當 Submit 後，將按鈕給 Disabled，避免重覆點擊。
 
 ```html
 <v-form method="post" asp-page="./Test">
@@ -471,5 +471,5 @@ public class VueInputTagHelper : TagHelper {
 
 ## 異動歷程
 
-* 2023-01-30 初版文件建立。
-* 2024-04-07 補充了文章架構未處理的問題。
+- 2023-01-30 初版文件建立。
+- 2024-04-07 補充了文章架構未處理的問題。

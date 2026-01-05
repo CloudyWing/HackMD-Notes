@@ -18,8 +18,8 @@ tags: [".NET","C#"]
 
 釋放非託管資源的方法有兩種：
 
-* 實作處置模式：實作 `IDisposable` 介面，並在 `Dispose()` 方法中釋放非託管資源。
-* 宣告完成項 (Finalizer)：以前稱為解構式 (Destructor)，無法主動呼叫，而是在垃圾回收 (GC) 時自動呼叫，用於釋放非託管資源。但在實作 `IDisposable` 的時候，應該優先使用 `Dispose` 方法釋放資源。詳細內容可以參考此文章「[完成項 (C# 程式設計手冊)](https://learn.microsoft.com/zh-tw/dotnet/csharp/programming-guide/classes-and-structs/finalizers)」。
+- 實作處置模式：實作 `IDisposable` 介面，並在 `Dispose()` 方法中釋放非託管資源。
+- 宣告完成項 (Finalizer)：以前稱為解構式 (Destructor)，無法主動呼叫，而是在垃圾回收 (GC) 時自動呼叫，用於釋放非託管資源。但在實作 `IDisposable` 的時候，應該優先使用 `Dispose` 方法釋放資源。詳細內容可以參考此文章「[完成項 (C# 程式設計手冊)](https://learn.microsoft.com/zh-tw/dotnet/csharp/programming-guide/classes-and-structs/finalizers)」。
 
 ### 實作範例
 
@@ -135,16 +135,16 @@ class ExampleConjunctiveDisposableusing : IDisposable, IAsyncDisposable {
 
 這個範例有幾個需要注意的地方：
 
-* `DisposeAsync()` 的實現：
+- `DisposeAsync()` 的實現：
   `DisposeAsync()` 在呼叫 `DisposeAsync(bool disposing)` 時傳入 `false`，這是因為 `Dispose(bool disposing)` 和 `DisposeCoreAsync()` 都會針對可同步釋放和非同步釋放資源的物件進行處理，呼叫 `DisposeAsync(bool disposing)` 僅是為了處理其他非託管資源。
 
-* `Dispose(bool disposing)` 的處理邏輯：
+- `Dispose(bool disposing)` 的處理邏輯：
   在 `Dispose(bool disposing)` 方法中，通常不會呼叫非同步的 `DisposeCoreAsync` 方法，這樣做是為了避免引發同步同步與異步之間的死結的可能性。因此只檢查是否實作了 `IDisposable`。如果實作了，才會呼叫 `Dispose()`。這代表，如果該非同步物件型別未實作 `IDisposable`，資源可能不會被正確釋放。
 
-* 同時實作 `IDisposable` 的原因：
+- 同時實作 `IDisposable` 的原因：
   `IAsyncDisposable` .NET Core 3.0 中新增的介面，主要用於支援非同步資源釋放。但有可能有些現有的程式和資源管理框架在 `IAsyncDisposable` 出現之前已經實作了 `IDisposable`。因此，這些程式可能只檢查物件是否實作 `IDisposable`，而忽略 `IAsyncDisposable`。因此實作 `IDisposable` 可以相容在不支援非同步釋放的上下文中，資源也能夠被正確釋放。
 
-* `ConfigureAwait(false)` 的用途：
+- `ConfigureAwait(false)` 的用途：
   關於 `ConfigureAwait(false)` 的用途，MSDN 文章是直接說參考「[ConfigureAwait FAQ](https://devblogs.microsoft.com/dotnet/configureawait-faq/)」。
 根據我的理解，`ConfigureAwait(false)` 是讓程式在 `await` 操作結束後，不強制回到原來的 SynchronizationContext。SynchronizationContext 可能是 UI 執行緒（如視窗應用程式中的主執行緒）或 Web 請求處理執行緒。這通常用於背景執行的非同步處理中，當不需要回到原來的上下文時，以提高性能並避免不必要的上下文切換或死結。但說實話，我自己也不是很理解，所以自行看原文。
 
@@ -237,4 +237,4 @@ await using (AsyncDisposableObject resource = new AsyncDisposableObject()) {
 
 ## 異動歷程
 
-* 2024-08-08 初版文件建立。
+- 2024-08-08 初版文件建立。

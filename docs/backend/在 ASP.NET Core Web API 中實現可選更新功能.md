@@ -268,8 +268,8 @@ builder.Services.AddControllers(options => {
 
 為了讓 `OptionalValue<T>` 上設定的 `ValidationAttribute` 能夠使用 `Value` 屬性進行驗證，我們需要自定義一個實現 `IModelValidator` 的驗證器。這個驗證器的邏輯如下：
 
-* 當 `HasValue` 屬性為 `false` 時，將忽略驗證。
-* 當 `HasValue` 為 `true` 時，則使用 `Value` 屬性進行相應的驗證。
+- 當 `HasValue` 屬性為 `false` 時，將忽略驗證。
+- 當 `HasValue` 為 `true` 時，則使用 `Value` 屬性進行相應的驗證。
 
 ### 自定義 OptionalValueValidator
 
@@ -654,4 +654,4 @@ public class TestController : ControllerBase {
 
 ## 異動歷程
 
-* 2024-10-21 初版文件建立。
+- 2024-10-21 初版文件建立。

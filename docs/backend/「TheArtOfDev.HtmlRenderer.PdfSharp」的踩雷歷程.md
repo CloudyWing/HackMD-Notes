@@ -12,9 +12,9 @@ tags: [".NET","PDF"]
 
 ## 套件介紹
 
-* PDFsharp：PDF 套件，這個名稱的大小寫我沒打錯，就是長這樣。
-* HtmlRenderer.Core：此套件用於解析 HTML 元素，並使用自定義類別來存儲相關資訊。
-* HtmlRenderer.PdfSharp：將 「HtmlRenderer.Core」所定義的物件轉成成「PDFsharp」所需資訊來產出 PDF。
+- PDFsharp：PDF 套件，這個名稱的大小寫我沒打錯，就是長這樣。
+- HtmlRenderer.Core：此套件用於解析 HTML 元素，並使用自定義類別來存儲相關資訊。
+- HtmlRenderer.PdfSharp：將 「HtmlRenderer.Core」所定義的物件轉成成「PDFsharp」所需資訊來產出 PDF。
 
 ## 踩雷歷程
 
@@ -76,8 +76,8 @@ pdf.Save("document.pdf");
 
 ::: info
 
-* 目前預設字型中，僅有「標楷體」和「Malgun Gothic」能夠正確顯示中文。
-* 在 Windows 英文環境中，請將「標楷體」更改為「DFKai-SB」。反之，在中文環境中請勿使用「DFKai-SB」。
+- 目前預設字型中，僅有「標楷體」和「Malgun Gothic」能夠正確顯示中文。
+- 在 Windows 英文環境中，請將「標楷體」更改為「DFKai-SB」。反之，在中文環境中請勿使用「DFKai-SB」。
 :::
 
 ### 表格被截斷
@@ -180,4 +180,4 @@ pdf.Save("document.pdf");
 
 ## 異動歷程
 
-* 2023-12-05 初版文件建立。
+- 2023-12-05 初版文件建立。

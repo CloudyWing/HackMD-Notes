@@ -16,22 +16,22 @@ tags: [".NET","ASP.NET","ASP.NET Core","GDPR"]
 
 ## 實作的方式
 
-* 建立隱私權政策頁面：
+- 建立隱私權政策頁面：
 如果使用 Visual Studio 建立 .NET Core 2.1 以上的 Web 專案，會發現多了一個「Privacy」頁面，這個是用來顯示該網站的隱私權政策(Privacy Policy)。
 隱私權政策的範例可以參考[網站用中文隱私權條款範例](https://lyrasoft.net/en/blog/knowledge/24-chinese-privacy-policy-template.html)，據作者所說，這是以《政府網站版型與內容管理規範》中為基礎的隱私權政策範本調整後的版本，但我沒找到原範本，如果是商業用，最好還是要確認內容是否有符合 GDPR 等法規。
 
-* 網頁上顯示有使用 Cookies 的相關訊息：
-  * 提供「隱私權與 Cookie 政策」的頁面連結。
-  * 詢問是否同意政策，問法大致分為以下幾種：
-    * 不詢問，僅告知繼續使用此網站即表示同意隱私權政策，和提供「關閉」的按鈕。
-    * 告知繼續使用此網站即表示同意隱私權政策，提供「同意」與「關閉」兩個按鈕。
-    * 不預設使用者繼續瀏覽就是同意，並提供「同意」與「關閉」兩個按鈕。
-    * 針對網頁上使用的 Cookies 種類進行劃分，讓使用者可以同意只使用必要性的 Cookies，「[stack overflow](https://stackoverflow.com/)」就是此類，有興趣可以用無痕模式瀏覽，就可以看到它有提供一個「Customize settings」的按鈕，讓你可以調整允許使用的 Cookies 類型。
-  * 關閉提示訊息的處理方式：
-    * 關閉：僅讓畫面上暫時不顯示，當重新進入此網頁，提示訊息會繼續出現。
-    * 同意：在 Cookie 寫入 Flag，當此 Cookie 存在時，不再顯示提示訊息，並後續視情況是否依 Flag 決定寫入其他 Cookies。
+- 網頁上顯示有使用 Cookies 的相關訊息：
+  - 提供「隱私權與 Cookie 政策」的頁面連結。
+  - 詢問是否同意政策，問法大致分為以下幾種：
+    - 不詢問，僅告知繼續使用此網站即表示同意隱私權政策，和提供「關閉」的按鈕。
+    - 告知繼續使用此網站即表示同意隱私權政策，提供「同意」與「關閉」兩個按鈕。
+    - 不預設使用者繼續瀏覽就是同意，並提供「同意」與「關閉」兩個按鈕。
+    - 針對網頁上使用的 Cookies 種類進行劃分，讓使用者可以同意只使用必要性的 Cookies，「[stack overflow](https://stackoverflow.com/)」就是此類，有興趣可以用無痕模式瀏覽，就可以看到它有提供一個「Customize settings」的按鈕，讓你可以調整允許使用的 Cookies 類型。
+  - 關閉提示訊息的處理方式：
+    - 關閉：僅讓畫面上暫時不顯示，當重新進入此網頁，提示訊息會繼續出現。
+    - 同意：在 Cookie 寫入 Flag，當此 Cookie 存在時，不再顯示提示訊息，並後續視情況是否依 Flag 決定寫入其他 Cookies。
 
-* 使用者沒同意就不寫入 Cookies 的方法：
+- 使用者沒同意就不寫入 Cookies 的方法：
 在訊息上告知「繼續使用此網站即表示同意隱私權政策」，部分是不想處理停止 Cookies 寫入的部分，所以預設使用者同意，並在隱私權政策上說明可以調整瀏覽器設定來阻止 Cookies 寫入，當然合理來說應該是在使用者同意前，停止非必要性的 Cookies 寫入。
 
     實際上在實作這部分也不困難，只要不使用原生框架的 API，而是寫一個 Facade 進行封裝，當有使用者同意的 Cookie 時，才會真正呼叫原生 API 就好。
@@ -80,9 +80,9 @@ app.Run();
 
 ### _CookieConsentPartial.cshtml
 
-* `ITrackingConsentFeature` 的預設 Injection Instance 型別是 [ResponseCookiesWrapper](https://github.com/dotnet/aspnetcore/blob/main/src/Security/CookiePolicy/src/ResponseCookiesWrapper.cs) (具體 DI 行為是在 `app.UseCookiePolicy()` 這邊進行)。
-* `consentFeature?.CanTrack` 的值為 `CookiePolicyOptions.CheckConsentNeeded(HttpContext) == true` 和有「Consent」存在，也就是說，如果 `Programs.cs` 裡設定 `CheckConsentNeeded = context => false` 就不會顯示提醒。
-* `consentFeature?.CreateConsentCookie()` 是用來建立「Consent」的文字，內容大致為`.AspNet.Consent=yes; expires={日期}; path=/; secure`，在這邊還不會真正建立 「Consent」，而是在`document.cookie = button.dataset.cookieString;` 時建立。
+- `ITrackingConsentFeature` 的預設 Injection Instance 型別是 [ResponseCookiesWrapper](https://github.com/dotnet/aspnetcore/blob/main/src/Security/CookiePolicy/src/ResponseCookiesWrapper.cs) (具體 DI 行為是在 `app.UseCookiePolicy()` 這邊進行)。
+- `consentFeature?.CanTrack` 的值為 `CookiePolicyOptions.CheckConsentNeeded(HttpContext) == true` 和有「Consent」存在，也就是說，如果 `Programs.cs` 裡設定 `CheckConsentNeeded = context => false` 就不會顯示提醒。
+- `consentFeature?.CreateConsentCookie()` 是用來建立「Consent」的文字，內容大致為`.AspNet.Consent=yes; expires={日期}; path=/; secure`，在這邊還不會真正建立 「Consent」，而是在`document.cookie = button.dataset.cookieString;` 時建立。
 
 ```html
 @using Microsoft.AspNetCore.Http.Features
@@ -123,4 +123,4 @@ Response.Cookies.Append("name", "value", new CookieOptions {
 
 ## 異動歷程
 
-* 2022-10-27 初版文件建立。
+- 2022-10-27 初版文件建立。

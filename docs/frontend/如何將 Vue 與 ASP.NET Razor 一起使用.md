@@ -10,12 +10,12 @@ tags: [".NET","ASP.NET","ASP.NET Core","Razor Pages","Vue.js"]
 
 ## 使用版本
 
-* .NET 6
-* vue@2.7.10
-* vee-validate@2.2.15
-* axios@0.27.2
-* bootstrap@5.2.1
-* popper.js@2.11.6
+- .NET 6
+- vue@2.7.10
+- vee-validate@2.2.15
+- axios@0.27.2
+- bootstrap@5.2.1
+- popper.js@2.11.6
 
 ## 前言
 
@@ -31,11 +31,11 @@ Vue 的語法教學請參考官網 [Vue 2.x 教學](https://v2.vueJS.org/v2/guid
 
 1. 需要有一個根結點的 DOM 做為 Vue Template，裡面包含需要進行畫面渲染的內容，並提供便於 Vue 可以使用 Selector 搜尋到此 DOM 的屬性，一般會設定 id，因為如果 Vue 找到多個 DOM 元素，也只有第一個會生效。
 2. 在 JavaScript 裡建立 Vue object，傳入參數如下：
-    * el：用來尋找根結點 DOM 的 selector 字串，例如：`'#app'`，尋找 ID 為 app 的 DOM。
-    * data：一般為 object 或回傳 object 的 function，object 的 property 必須包含會使用到的 key，例如：`{ records: [] }` 或 `function() { return { records: [] } }`
-    * methods：屬性為 Vue 會使用到 method 的 object，例如：`{ handler: function() { }}`。
-    * created：Vue 物件建立完畢後執行的 function，一般會將資料載入寫在這。
-    * computed：用 key-function 組合起來的 object，概念上類似 C# 的 getter，例如：`{ recordCount: function() { return records.length } }`
+    - el：用來尋找根結點 DOM 的 selector 字串，例如：`'#app'`，尋找 ID 為 app 的 DOM。
+    - data：一般為 object 或回傳 object 的 function，object 的 property 必須包含會使用到的 key，例如：`{ records: [] }` 或 `function() { return { records: [] } }`
+    - methods：屬性為 Vue 會使用到 method 的 object，例如：`{ handler: function() { }}`。
+    - created：Vue 物件建立完畢後執行的 function，一般會將資料載入寫在這。
+    - computed：用 key-function 組合起來的 object，概念上類似 C# 的 getter，例如：`{ recordCount: function() { return records.length } }`
 
 簡易的 Sample 如下：
 
@@ -217,8 +217,8 @@ site.css
     ```
 
 2. Vue 的一些語法簡寫會用到「@」，例如「v-on:click」可簡寫成「@click」，但是不建議在 Razor Pages 使用，因為 Tag Helper 裡加「@」可能會無法編譯，所以硬要 Razor Pages 使用 Vue 的 @ 簡寫，會造成一些地方使用簡寫，一些地方使用非簡寫的混用狀況，完整遇到「@」的狀況如下：
-    * 「@」同樣為 Razor 語法關鍵字，所以一般正常再增加一個「@」進行跳脫，例如：「@@click」才行。
-    * Tag Helper 裡不能在值以外的地方出現「@」，連加「@」跳脫都會錯誤。
+    - 「@」同樣為 Razor 語法關鍵字，所以一般正常再增加一個「@」進行跳脫，例如：「@@click」才行。
+    - Tag Helper 裡不能在值以外的地方出現「@」，連加「@」跳脫都會錯誤。
 
     ```html
     <-- 沒有使用 asp-for 為一般 HTML，加 @ 跳脫可以使用 -->
@@ -490,4 +490,4 @@ _Layout.cshtml 在建立 Vue Object 時，增加 validateBeforeSubmit，以及�
 
 ## 異動歷程
 
-* 2022-10-24 初版文件建立。
+- 2022-10-24 初版文件建立。

@@ -14,25 +14,25 @@ tags: [".NET",".NET Framework","ASP.NET","MemoryCache"]
 
 ### Properties
 
-* Duration：快取期間 (秒鐘)。
-* Location：
+- Duration：快取期間 (秒鐘)。
+- Location：
 快取儲存位置，設定值請參考 「[OutputCacheLocation](https://learn.microsoft.com/zh-TW/dotnet/api/system.web.ui.outputcachelocation?view=netframework-4.8&WT.mc_id=DOP-MVP-37580)」，以下簡略說明：
 
-  * None：停用快取。
-  * Client：瀏覽器用戶端。
-  * Server：Web Server。
-  * Downstream：Client 和 Proxy Server。
-  * ServerAndClient：Client 和 Web Server。
-  * Any：Web Server、Client 和 Proxy Server。
-* NoStore：設定是否不允許快取。
-* VaryByXXX：依Header、Form 和 Query 參數等來區分快取內容，例如報表查詢時，應該要針對不同的查詢條件設定快取。
-* CacheProfile：設定 Config 定義的快取方案的 Name，通常專案上會有幾個固定的快取方案，為避免當方案內容異動時，要修改全部使用該方案的程式碼，所以會在 Config 定義各方案的快取設定，各 Action Method 再使用 CacheProfile 來指定快取方案。
+  - None：停用快取。
+  - Client：瀏覽器用戶端。
+  - Server：Web Server。
+  - Downstream：Client 和 Proxy Server。
+  - ServerAndClient：Client 和 Web Server。
+  - Any：Web Server、Client 和 Proxy Server。
+- NoStore：設定是否不允許快取。
+- VaryByXXX：依Header、Form 和 Query 參數等來區分快取內容，例如報表查詢時，應該要針對不同的查詢條件設定快取。
+- CacheProfile：設定 Config 定義的快取方案的 Name，通常專案上會有幾個固定的快取方案，為避免當方案內容異動時，要修改全部使用該方案的程式碼，所以會在 Config 定義各方案的快取設定，各 Action Method 再使用 CacheProfile 來指定快取方案。
 
 ::: info
 NoStore 和 Location.None 看起來很類似，但實際作用不一樣，具體行為如下：
 
-* NoStore：將 Header 的 `Cache-Control` 設為 `no-store`，不影響 Web Server 的快取。
-* Location.None：將 Header 的 `Cache-Control` 設為 `no-cache`，且不儲存 Web Server 的快取。
+- NoStore：將 Header 的 `Cache-Control` 設為 `no-store`，不影響 Web Server 的快取。
+- Location.None：將 Header 的 `Cache-Control` 設為 `no-cache`，且不儲存 Web Server 的快取。
 
 `Cache-Control` 的行為可參考「[Cache-Control](https://pjchender.dev/webdev/note-http-cache/#cache-control)」，節錄 `no-store` 和 `no-cache` 的內容如下：
 `no-store`: 不要讓瀏覽器快取。
@@ -144,8 +144,8 @@ public class TestController : Controller {
 
 `MemoryCache` 可使用 `ChangeMonitor` 來偵測資料來源是否變更，.NET Framework 提供了以下兩個實作 Class：
 
-* [HostFileChangeMonitor](https://learn.microsoft.com/zh-tw/dotnet/api/system.runtime.caching.hostfilechangemonitor)：用來監測主機上的檔案異動。
-* [SqlChangeMonitor](https://learn.microsoft.com/zh-tw/dotnet/api/system.runtime.caching.sqlchangemonitor)：用來偵測 SQL Server 上的資料異動。
+- [HostFileChangeMonitor](https://learn.microsoft.com/zh-tw/dotnet/api/system.runtime.caching.hostfilechangemonitor)：用來監測主機上的檔案異動。
+- [SqlChangeMonitor](https://learn.microsoft.com/zh-tw/dotnet/api/system.runtime.caching.sqlchangemonitor)：用來偵測 SQL Server 上的資料異動。
 `SqlChangeMonitor` 使用「[SqlDependency](https://learn.microsoft.com/zh-tw/dotnet/framework/data/adonet/sql/detecting-changes-with-sqldependency)」來監測資料庫的資料異動，當 `SqlDependency` 加入 `SqlCommand` 時，會建立一個 「[SqlNotificationRequest](https://learn.microsoft.com/zh-tw/dotnet/framework/data/adonet/sql/sqlcommand-execution-with-a-sqlnotificationrequest)」 指派給 `SqlCommand` 來與 SQL Server 建立通知要求，而當資料進行異動時，`SqlChangeMonitor` 就會通知 `MemoryCache` 清除快取資料。
 
 ### 範例
@@ -218,9 +218,9 @@ public class HomeController : Controller {
 
 ::: warning
 
-* 為啟用資料監聽，需要在資料庫中啟用 Service Broker 功能。
-* 用來監聽資料的 SQL 語法，必須要指定到具體要監聽的欄位，且資料表名稱必須要涵蓋 Schema (靘? `dbo`)，否則無法正確建立快取資料。
-* `SqlDependency` 設定 `SqlCommand` 後，必需執行一次 `SqlCommand` 才可生效。
+- 為啟用資料監聽，需要在資料庫中啟用 Service Broker 功能。
+- 用來監聽資料的 SQL 語法，必須要指定到具體要監聽的欄位，且資料表名稱必須要涵蓋 Schema (靘? `dbo`)，否則無法正確建立快取資料。
+- `SqlDependency` 設定 `SqlCommand` 後，必需執行一次 `SqlCommand` 才可生效。
 :::
 
 #### 啟用 Service Broker
@@ -251,4 +251,4 @@ ALTER DATABASE {資料庫名稱} SET NEW_BROKER WITH ROLLBACK IMMEDIATE;
 
 ## 異動歷程
 
-* 2022-11-14 初版文件建立。
+- 2022-11-14 初版文件建立。

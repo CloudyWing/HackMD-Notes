@@ -16,11 +16,11 @@ GitLab CI 的設定檔案是 `.gitlab-ci.yml`，這個檔案定義了你的專�
 
 一般檔案命名如下：
 
-* 主要 CI/CD 設定檔案: `.gitlab-ci.yml` (固定名稱)。
-* 包含檔案 (includes): 通常使用 `.gitlab-ci-*.yml` 格式，例如：
-  * `.gitlab-ci-deploy.yml`。
-  * `.gitlab-ci-build.yml`。
-  * `.gitlab-ci-test.yml`。
+- 主要 CI/CD 設定檔案: `.gitlab-ci.yml` (固定名稱)。
+- 包含檔案 (includes): 通常使用 `.gitlab-ci-*.yml` 格式，例如：
+  - `.gitlab-ci-deploy.yml`。
+  - `.gitlab-ci-build.yml`。
+  - `.gitlab-ci-test.yml`。
 
 ## Stages (階段)
 
@@ -37,14 +37,14 @@ stages:
 
 **常見的 stages 命名（依執行順序）：**
 
-* `build` - 建構階段。
-* `test` - 測試階段。
-* `quality` - 程式碼品質檢查。
-* `security` - 安全性檢查。
-* `publish` - 發佈至登記檔 (registry)。
-* `deploy` - 部署至環境。
-* `notify` - 通知。
-* `cleanup` - 清理資源。
+- `build` - 建構階段。
+- `test` - 測試階段。
+- `quality` - 程式碼品質檢查。
+- `security` - 安全性檢查。
+- `publish` - 發佈至登記檔 (registry)。
+- `deploy` - 部署至環境。
+- `notify` - 通知。
+- `cleanup` - 清理資源。
 
 ## Jobs (任務)
 
@@ -63,9 +63,9 @@ build-job:
 **命名慣例：**
 Jobs 通常遵循「動作-物件-環境」的模式，例如：
 
-* `build-app`。
-* `test-api`。
-* `deploy-staging`。
+- `build-app`。
+- `test-api`。
+- `deploy-staging`。
 
 ## Rules (規則)
 
@@ -136,9 +136,9 @@ test-job:
 **命名慣例：**
 變數通常使用全大寫並以底線區隔，例如：
 
-* `APP_VERSION`。
-* `DOCKER_IMAGE_NAME`。
-* `DATABASE_URL`。
+- `APP_VERSION`。
+- `DOCKER_IMAGE_NAME`。
+- `DATABASE_URL`。
 
 ::: info
 在 GitLab CI 中使用變數時，可以用 `$VARIABLE_NAME` 或 `${VARIABLE_NAME}` 的語法來引用變數。當變數名稱需要與其他文字相連時，可以使用大括弧語法 `${VARIABLE_NAME}` 來明確界定變數名稱的範圍，避免解析錯誤。
@@ -175,8 +175,8 @@ cache:
 **命名慣例：**
 Cache 鍵通常使用變數組合：
 
-* `${CI_COMMIT_REF_SLUG}` - 依據分支。
-* `${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}` - 依據 job 和分支。
+- `${CI_COMMIT_REF_SLUG}` - 依據分支。
+- `${CI_JOB_NAME}-${CI_COMMIT_REF_SLUG}` - 依據 job 和分支。
 
 ## Artifacts (成品)
 
@@ -228,10 +228,10 @@ workflow:
 
 以上範例的含義：
 
-* 當提交到 `main` 分支時，總是執行 pipeline。
-* 當有合併請求時，總是執行 pipeline。
-* 當有標籤時，總是執行 pipeline。
-* 對於其他情況，不執行 pipeline。
+- 當提交到 `main` 分支時，總是執行 pipeline。
+- 當有合併請求時，總是執行 pipeline。
+- 當有標籤時，總是執行 pipeline。
+- 對於其他情況，不執行 pipeline。
 
 ### 命名 Pipeline
 
@@ -414,8 +414,8 @@ build_job2:
 
 **命名慣例：**
 
-* 模板 job 名稱以點開頭，如 `.build_template`。
-* 模板錨點通常使用 `_definition` 或 `_template` 後綴。
+- 模板 job 名稱以點開頭，如 `.build_template`。
+- 模板錨點通常使用 `_definition` 或 `_template` 後綴。
 
 ## 預先定義環境變數清單
 
@@ -709,4 +709,4 @@ build_job2:
 
 ## 異動歷程
 
-* 2025-04-07 初版文件建立。
+- 2025-04-07 初版文件建立。

@@ -11,17 +11,17 @@ tags: ["Elastic Stack","Elasticsearch"]
 ## 下載與安裝
 
 1. 前往官方網站下載 Windows 版本的 Elasticsearch。
-   * 網址：[https://www.elastic.co/downloads/elasticsearch](https://www.elastic.co/downloads/elasticsearch)。
-   * 下載 Windows 的 .zip 檔案。
+   - 網址：[https://www.elastic.co/downloads/elasticsearch](https://www.elastic.co/downloads/elasticsearch)。
+   - 下載 Windows 的 .zip 檔案。
 
 2. 目錄結構說明：
-   * bin：執行檔目錄。
-   * config：設定檔目錄。
-   * jdk：內建 Java 環境。
-   * lib：核心程式庫與相依性套件。
-   * logs：記錄檔目錄。
-   * modules：核心模組。
-   * plugins：外掛目錄。
+   - bin：執行檔目錄。
+   - config：設定檔目錄。
+   - jdk：內建 Java 環境。
+   - lib：核心程式庫與相依性套件。
+   - logs：記錄檔目錄。
+   - modules：核心模組。
+   - plugins：外掛目錄。
 
 ## 基本設定
 
@@ -117,8 +117,8 @@ CA（Certificate Authority）憑證是用於簽發其他憑證，例如 SSL 憑�
 
 2. 設定 CA 憑證檔名：
 
-    * 可直接按 Enter 使用預設檔名 `elastic-stack-ca.p12`，或輸入自訂檔名。
-    * 檔案會產生在 Elasticsearch 安裝目錄底下。
+    - 可直接按 Enter 使用預設檔名 `elastic-stack-ca.p12`，或輸入自訂檔名。
+    - 檔案會產生在 Elasticsearch 安裝目錄底下。
 
     ```text
     Please enter the desired output file [elastic-stack-ca.p12]: 
@@ -206,10 +206,10 @@ CA（Certificate Authority）憑證是用於簽發其他憑證，例如 SSL 憑�
 
 8. 輸入主機名稱。以下是常見的設定方式：
 
-   * localhost - 如果只在本機存取。
-   * 實際主機名稱。
-   * *.domain.com - 如果想要使用萬用字元憑證。
-   * 多個主機名稱 - 每行輸入一個，輸入完成後按 Enter。
+   - localhost - 如果只在本機存取。
+   - 實際主機名稱。
+   - *.domain.com - 如果想要使用萬用字元憑證。
+   - 多個主機名稱 - 每行輸入一個，輸入完成後按 Enter。
 
     ```text
     Which hostnames will be used to connect to your nodes?
@@ -367,8 +367,8 @@ CA（Certificate Authority）憑證是用於簽發其他憑證，例如 SSL 憑�
 ::: info
 當設定 SSL 憑證時，有兩個憑證檔案相關設定：
 
-* Keystore：用於存放伺服器的私鑰和憑證。
-* Truststore：用於存放受信任的 CA 憑證。
+- Keystore：用於存放伺服器的私鑰和憑證。
+- Truststore：用於存放受信任的 CA 憑證。
 
 使用 `elasticsearch-certutil http` 產生的 `http.p12` 檔案，已經包含了必要的 CA 憑證。因此可以將同一個 p12 檔案同時用於 Keystore 和 Truststore。如果有特殊需求，也可以使用不同的 p12 檔案，但請確保它們都是由同一個 CA 憑證所簽發。
 
@@ -380,8 +380,8 @@ CA（Certificate Authority）憑證是用於簽發其他憑證，例如 SSL 憑�
 
 ::: warning
 
-* 目前測試 `elasticsearch-certutil ca` 產生出來的 CA 憑證不能作為 Truststore 使用。
-* 在 elasticsearch.yml 中，`xpack.security.http.ssl.keystore.path` 的路徑必須相對於 `config` 目錄。如果使用指向其他位置的絕對路徑，系統會產生錯誤而無法啟動。
+- 目前測試 `elasticsearch-certutil ca` 產生出來的 CA 憑證不能作為 Truststore 使用。
+- 在 elasticsearch.yml 中，`xpack.security.http.ssl.keystore.path` 的路徑必須相對於 `config` 目錄。如果使用指向其他位置的絕對路徑，系統會產生錯誤而無法啟動。
 :::
 
 ### 建立 x.509 的憑證
@@ -511,8 +511,8 @@ CA（Certificate Authority）憑證是用於簽發其他憑證，例如 SSL 憑�
 elasticsearch-users useradd {username} -p {password} -r superuser
 ```
 
-* 密碼至少 6 碼。
-* 使用者資訊儲存於 `config/users` 與 `config/users_roles`。
+- 密碼至少 6 碼。
+- 使用者資訊儲存於 `config/users` 與 `config/users_roles`。
 
 其他使用者管理指令：
 
@@ -555,6 +555,6 @@ elasticsearch-service.bat install
 
 ## 異動歷程
 
-* 2025-01-23 初版文件建立。
-* 2025-03-05 增加 x.509 憑證設定。
-* 2025-03-18 補充 keystore 描述。
+- 2025-01-23 初版文件建立。
+- 2025-03-05 增加 x.509 憑證設定。
+- 2025-03-18 補充 keystore 描述。

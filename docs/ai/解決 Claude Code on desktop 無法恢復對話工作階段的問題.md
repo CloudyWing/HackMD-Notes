@@ -31,8 +31,8 @@ API Error: 401 {"type":"error","error":{"type":"authentication_error","message":
 
 此問題已在官方社群中引起多位 **Claude Desktop (Windows/macOS)** 使用者反應，證實為目前的已知 Bug：
 
-* **[GitHub Issue #13928: Claude Code for Windows unusable due to OAuth loop](https://github.com/anthropics/claude-code/issues/13928)**
-* **[GitHub Issue #15007: /login Does Not Recover Active Session](https://github.com/anthropics/claude-code/issues/15007)**
+- **[GitHub Issue #13928: Claude Code for Windows unusable due to OAuth loop](https://github.com/anthropics/claude-code/issues/13928)**
+- **[GitHub Issue #15007: /login Does Not Recover Active Session](https://github.com/anthropics/claude-code/issues/15007)**
 
 ## 臨時解決方案
 
@@ -51,4 +51,4 @@ API Error: 401 {"type":"error","error":{"type":"authentication_error","message":
 
 ## 異動歷程
 
-* 2025-12-27 初版文件建立。
+- 2025-12-27 初版文件建立。
