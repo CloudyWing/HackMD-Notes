@@ -134,17 +134,21 @@ watch(() => [props.category, props.tags], resetPage)
 watch(sortField, resetPage)
 
 // Pagination navigation
+const scrollToTop = () => {
+  document.querySelector('.article-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
 const nextPage = () => {
   if (currentPage.value < totalPages.value) {
     currentPage.value++
-    document.querySelector('.article-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    scrollToTop()
   }
 }
 
 const prevPage = () => {
   if (currentPage.value > 1) {
     currentPage.value--
-    document.querySelector('.article-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    scrollToTop()
   }
 }
 </script>
@@ -242,12 +246,37 @@ const prevPage = () => {
         :aria-label="'上一頁'"
       >
         <i class="fa-solid fa-chevron-left"></i>
-        上一頁
+        <span class="btn-text">上一頁</span>
       </button>
       
-      <div class="pagination-info">
-        <span class="page-numbers">第 {{ currentPage }} 頁 / 共 {{ totalPages }} 頁</span>
-        <span class="total-items">(共 {{ filteredPosts.length }} 篇文章)</span>
+      <!-- Desktop Pagination: Numbers -->
+      <div class="desktop-pagination">
+        <button 
+          v-for="page in totalPages" 
+          :key="page"
+          class="page-number-btn"
+          :class="{ active: currentPage === page }"
+          @click="currentPage = page; scrollToTop()"
+        >
+          {{ page }}
+        </button>
+      </div>
+
+      <!-- Mobile Pagination: Dropdown -->
+      <div class="mobile-pagination">
+        <div class="pagination-select-wrapper">
+          <select 
+            v-model="currentPage" 
+            class="pagination-select"
+            @change="scrollToTop"
+            aria-label="選擇頁碼"
+          >
+            <option v-for="page in totalPages" :key="page" :value="page">
+              第 {{ page }} 頁 / 共 {{ totalPages }} 頁
+            </option>
+          </select>
+          <i class="fa-solid fa-chevron-down select-arrow"></i>
+        </div>
       </div>
       
       <button 
@@ -256,7 +285,7 @@ const prevPage = () => {
         :disabled="currentPage === totalPages"
         :aria-label="'下一頁'"
       >
-        下一頁
+        <span class="btn-text">下一頁</span>
         <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
@@ -483,14 +512,82 @@ const prevPage = () => {
 .pagination-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid var(--vp-c-divider);
 }
 
-/* 分頁按鈕繼承 btn-base 樣式，分頁資訊樣式已移至共用樣式 components.css */
+.pagination-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.desktop-pagination {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.page-number-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-number-btn:hover:not(.active) {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+}
+
+.page-number-btn.active {
+  background: var(--vp-c-brand-1);
+  color: white;
+  border-color: var(--vp-c-brand-1);
+}
+
+/* Mobile Dropdown Styles */
+.mobile-pagination {
+  display: none;
+}
+
+.pagination-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pagination-select {
+  appearance: none;
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: var(--radius-sm);
+  color: var(--vp-c-text-1);
+  font-size: 0.9rem;
+  cursor: pointer;
+  min-width: 160px;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 1rem;
+  color: var(--vp-c-text-2);
+  pointer-events: none;
+  font-size: 0.8rem;
+}
 
 @media (max-width: 768px) {
   .list-controls {
@@ -529,18 +626,58 @@ const prevPage = () => {
     padding: 0.6rem 0.85rem;
   }
   
+  /* Pagination Responsive */
   .pagination-controls {
-    flex-direction: column;
-    gap: 0.75rem;
+    display: flex !important;
+    flex-direction: row !important; /* CRITICAL: Override column layout */
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem;
   }
-  
-  .pagination-button {
+
+  .desktop-pagination {
+    display: none;
+  }
+
+  .mobile-pagination {
+    display: block;
+    flex: 0 1 auto;
+    min-width: 140px;
+    max-width: 180px;
+  }
+
+  .pagination-select {
     width: 100%;
-    justify-content: center;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 0.5rem 1.5rem 0.5rem 0.75rem;
+    min-width: 0;
   }
   
-  .pagination-info {
-    order: -1;
+  /* Icon-only square buttons on mobile */
+  .pagination-button {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+  }
+  
+  .pagination-button .btn-text {
+    display: none;
+  }
+  
+  .pagination-button i {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
+  .select-arrow {
+    font-size: 0.7rem;
   }
 }
 </style>

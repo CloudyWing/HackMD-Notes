@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useFormatters } from '../composables/useFormatters.ts'
 import { useUrlUtils } from '../composables/useUrlUtils.ts'
-import { getCategoryIcon, getCategoryClass } from '../../categories.mjs'
+import { getCategoryIcon, getCategoryClass, getCategoryDisplayName } from '../../categories.mjs'
 import ViewCount from './ViewCount.vue'
 
 
@@ -41,7 +41,7 @@ const categoryClass = computed(() => {
   <div class="article-card" :class="{ compact }">
     <div class="card-content">
       <div class="card-header">
-        <span class="category-icon" :class="categoryClass">
+        <span class="category-icon" :class="categoryClass" :title="getCategoryDisplayName(getCategoryFromUrl(post.url))">
           <i :class="categoryIcon"></i>
         </span>
         <span v-if="post.isNew" class="new-badge animate-pulse-glow">

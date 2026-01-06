@@ -350,7 +350,7 @@ h1 i {
   margin-top: 3rem;
   padding-top: 2rem;
   margin-bottom: 2rem;
-  border-top: 2px solid var(--vp-c-divider);
+  /* Removed border-top to avoid double border with tag selector section */
 }
 
 .articles-header h2 {
