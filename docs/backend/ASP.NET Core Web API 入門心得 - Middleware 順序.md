@@ -18,7 +18,7 @@ ASP.NET Core 的中介軟體部分必須依照一定的順序才可以正常運�
 - HTTP 靜態傳輸安全性通訊協定 (HSTS) 中介軟體 (UseHsts)：新增 `Strict-Transport-Security` 標頭，作用是讓網站宣告自身為安全主機，並通知瀏覽器僅使用 HTTPS 連線。
 - HTTPS 重新導向中介軟體 (UseHttpsRedirection)：將 HTTP 要求重新導向到 HTTPS。
 
-::: info
+::: tip
 `UseHsts` 和 `UseHttpsRedirection` 都會將 HTTP 請求重定向到 HTTPS，前者是瀏覽器處理，後者是程式處理。
 :::
 

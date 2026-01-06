@@ -20,7 +20,7 @@ tags: [".NET","ASP.NET","ASP.NET Core"]
 iisreset /restart
 ```
 
-::: info
+::: tip
 執行上述指令時，可能需要系統管理員權限。
 :::
 

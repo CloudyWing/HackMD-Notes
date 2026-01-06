@@ -69,7 +69,7 @@ System.DivideByZeroException: Attempted to divide by zero.
    at Program.<Main>$(String[] args) in D:\Programming\Projects\TestThrow\TestThrow\Program.cs:line 5
 ```
 
-::: info
+::: tip
 其實這篇文章的主要目的是測試使用 `throw ex` 重新拋出的 Exception，其 `InnerException` 是否為原來的 Exception。我原本以為可能會是，但實際測試結果顯示 `InnerException` 為 `null`，這代表了原本的堆疊資訊確實會遺失。
 :::
 

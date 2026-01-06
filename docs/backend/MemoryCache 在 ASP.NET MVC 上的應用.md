@@ -28,7 +28,7 @@ tags: [".NET",".NET Framework","ASP.NET","MemoryCache"]
 - VaryByXXX：依Header、Form 和 Query 參數等來區分快取內容，例如報表查詢時，應該要針對不同的查詢條件設定快取。
 - CacheProfile：設定 Config 定義的快取方案的 Name，通常專案上會有幾個固定的快取方案，為避免當方案內容異動時，要修改全部使用該方案的程式碼，所以會在 Config 定義各方案的快取設定，各 Action Method 再使用 CacheProfile 來指定快取方案。
 
-::: info
+::: tip
 NoStore 和 Location.None 看起來很類似，但實際作用不一樣，具體行為如下：
 
 - NoStore：將 Header 的 `Cache-Control` 設為 `no-store`，不影響 Web Server 的快取。

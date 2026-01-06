@@ -423,7 +423,7 @@ public class OptionalValueOperationFilter : IOperationFilter {
 }
 ```
 
-::: info
+::: tip
 我這邊是將 `[FromBody]` 的處理寫在 `OptionalValueSchemaFilter`，但 `OptionalValueOperationFilter` 調整後，可能也能支援 `[FromBody]` 的處理。
 :::
 

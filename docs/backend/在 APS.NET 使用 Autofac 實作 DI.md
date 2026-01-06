@@ -61,7 +61,7 @@ builder.Register(c => new TypeA(c.Resolve<TypeB>()));
 | AsClosedTypesOf(open)     | 註冊給可分配給開放泛型型別的封閉實例的型別使用。            |
 | AsSelf()                  | 將型別註冊給自身使用。                                      |
 
-::: info
+::: tip
 如果未設定使用型別，預設使用 `AsSelf()`，但如果有指定時，就不會自動增加 `AsSelf()`，可多項指定一起使用。
 
 ```csharp
@@ -138,7 +138,7 @@ using(var scope2 = container.BeginLifetimeScope("AutofacWebRequest")) {
 +----------------------------------------------------+
 ```
 
-::: info
+::: tip
 `InstancePerMatchingLifetimeScope({Tag})` 和 `InstancePerRequest()` 皆為 `InstancePerLifetimeScope()` 的變種。
 當在呼叫 `container.BeginLifetimeScope({Tag})` 建立 Scope 時，可以設定 Tag，而宣告 `InstancePerMatchingLifetimeScope({Tag})` 的型別，只能建立在標記該 Tag 的 Scope 底下。
 Autofac 在 Web 的每個 Request 裡，都會建立一個 Tag 為 「AutofacWebRequest」 的 Scope，而 `InstancePerRequest()` 大致等同於 `InstancePerMatchingLifetimeScope("AutofacWebRequest")`。
@@ -322,7 +322,7 @@ public abstract class WebViewPageBase<T> : WebViewPage<T> {
 </configuration>
 ```
 
-::: info
+::: tip
 
 - 需注意修改的「Web.config」是資料夾「View」底下的，而非專案根目錄底下的。
 - MyNamespace 請替換成實際專案的 Namespace。

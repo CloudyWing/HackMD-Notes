@@ -114,7 +114,7 @@ CREATE UNIQUE INDEX {IndexName} ON {TableName} ({ColumnName});
       - 型別：索引。
       - 是唯一：是。
 
-::: info
+::: tip
 如果只是單純建立索引，也可以在「索引」資料夾，按右鍵選「新增索引」，需注意如果開啟設計，「新增索引」會是反灰無法選擇。
 :::
 

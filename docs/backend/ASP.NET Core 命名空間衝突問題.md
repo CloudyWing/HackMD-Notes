@@ -60,7 +60,7 @@ global using global::System.Threading.Tasks;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 ```
 
-::: info
+::: tip
 上述路徑是 .NET 5 才有找到，目前我沒找到 .NET 6 是將編譯過程中產生的「\Razor\Pages\{Page Name}.cshtml.g.cs」的檔案放在哪邊。
 :::
 

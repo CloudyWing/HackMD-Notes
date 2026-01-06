@@ -99,7 +99,7 @@ deploy-job:
     - tags
 ```
 
-::: info
+::: tip
 GitLab 官方推薦使用 `rules` 而非 `only/except`，因為 `rules` 提供更多靈活性和控制能力。同樣功能的 `rules` 寫法如下：
 
 ```yaml
@@ -140,7 +140,7 @@ test-job:
 - `DOCKER_IMAGE_NAME`。
 - `DATABASE_URL`。
 
-::: info
+::: tip
 在 GitLab CI 中使用變數時，可以用 `$VARIABLE_NAME` 或 `${VARIABLE_NAME}` 的語法來引用變數。當變數名稱需要與其他文字相連時，可以使用大括弧語法 `${VARIABLE_NAME}` 來明確界定變數名稱的範圍，避免解析錯誤。
 :::
 

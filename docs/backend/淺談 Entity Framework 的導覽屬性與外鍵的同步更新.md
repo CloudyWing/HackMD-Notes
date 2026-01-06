@@ -166,7 +166,7 @@ Main State:Unchanged
 Sub State:Unchanged
 ```
 
-::: info
+::: tip
 Sub State 會是 `Added` 的原因，應該是我使用 `context.Entry(sub).State` 查看 Sub State時，觸發導覽屬性的異動追蹤。
 :::
 

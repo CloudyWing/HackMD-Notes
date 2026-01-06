@@ -94,7 +94,7 @@ gitGraph
 
 另一個適合使用 `git rebase` 的情境是當團隊要求在發送 MR（Merge Request，GitLab 中的稱呼，在 GitHub 中稱為 Pull Request）之前，應確保分支不會發生衝突。此時，發 MR 的人可以先使用 `git rebase` 將當前分支的 Commit 移到目標分支的最新狀態上，解決所有衝突後再發送 MR。
 
-::: info
+::: tip
 有關解決衝突的權責應該是在審核者還是 MR 提交者，不同團隊作法不同，請依各團隊規定。
 :::
 

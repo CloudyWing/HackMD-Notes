@@ -53,7 +53,7 @@ Redis 是 In-Memory 的 NoSQL 資料庫，最初是在 Linux 上發展起來，�
 
 一些額外的安裝設定可參閱 [官網安裝教學](https://docs.memurai.com/en/installation)。
 
-::: info
+::: tip
 由於 Memurai 本身是兼容 Redis 的分支，連線 Redis 的工具，可以直接連結 Memurai 的資料庫，像是 Visual Studio 可以使用原本連線 Redis 套件，在不變更程式碼的情況下，連線Memurai 的資料庫。
 :::
 
@@ -83,7 +83,7 @@ Redis 是 In-Memory 的 NoSQL 資料庫，最初是在 Linux 上發展起來，�
 
 3. 開啟 Command Line，使用指令 `cd` 切換到「docker-compose.yml」所在目錄，執行指令`docker-compose up -d`。
 
-::: info
+::: tip
 
 - 當 Container Run 起來時，可能會發現資料夾「/data」底下並無任何檔案，這是正常現象，當連線 Redis 寫入資料或是把 Container 關掉時，會發現底下多出一個「dump.rdb」。
   - 當如果外部連結 Redis 無法正常，**本機環境**可參考 [Could not connect to Redis at 127.0.0.1:6379: Connection refused in docker](https://stackoverflow.com/questions/56080984/connection-to-redis-servier-via-stackexchange-redis)裡的內容修改「redis.conf」的以下內容：
@@ -195,7 +195,7 @@ builder.Services.AddStackExchangeRedisCache(options => {
 });
 ```
 
-::: info
+::: tip
 `GetConnectionString("Redis")`，請在 `appsettings.json` 設定 Redis 的連線字串。
 :::
 

@@ -74,7 +74,7 @@ pdf.Save("document.pdf");
 
 ![pdf generation issue 2](images/%E3%80%8CTheArtOfDev.HtmlRenderer.PdfSharp%E3%80%8D%E7%9A%84%E8%B8%A9%E9%9B%B7%E6%AD%B7%E7%A8%8B/pdf-generation-issue-2.png)
 
-::: info
+::: tip
 
 - 目前預設字型中，僅有「標楷體」和「Malgun Gothic」能夠正確顯示中文。
 - 在 Windows 英文環境中，請將「標楷體」更改為「DFKai-SB」。反之，在中文環境中請勿使用「DFKai-SB」。

@@ -110,7 +110,7 @@ SQL Server 中的索引是基於 B-Tree（平衡樹）結構實現的，它以�
   - 包含索引鍵和指向叢集索引中對應資料的指標。
   - 資料表可以有多個非叢集索引，且索引鍵的值可以重複。
 
-::: info
+::: tip
 依據我的習慣，我會使用以下命名規則：
 主鍵：PK_TableName。
 叢集索引：CX_TableName_Column1_Column2。
@@ -145,7 +145,7 @@ SELECT Column1, Column3, Column4 FROM Table1 WHERE Column1 = 'Value'
 
 假設有一個包含三個欄位（`Column1`、`Column2` 和 `Column3`）的索引，按照 `Column1`、`Column2` 和 `Column3` 的順序建立索引。根據最左前綴規則，當只使用 `Column1` 和 `Column2` 欄位作為查詢條件時，索引的最左邊欄位 `Column1` 和接下來的欄位 `Column2` 都可以被利用，而不需要進一步的掃描。然而，如果查詢條件使用 `Column1` 和 `Column3` 欄位，索引只能利用最左邊的欄位 `Column1`，`Column3` 欄位則無法被有效地利用。如果查詢條件使用 `Column2` 和 `Column3` 欄位，整個索引都無法被有效運用。
 
-::: info
+::: tip
 需要注意的是，當查詢條件中的欄位不符合最左前綴規則時，不同的資料庫或版本可能對於索引的使用情況有所不同。在 SQL Server 中，根據目前官方[文件](https://learn.microsoft.com/en-us/sql/relational-databases/sql-server-index-design-guide?view=sql-server-ver16#column-considerations)的說法，查詢最佳化器是不會使用該索引。
 > Consider the order of the columns if the index contains multiple columns. The column that is used in the WHERE clause in an equal to (=), greater than (>), less than (<), or BETWEEN search condition, or participates in a join, should be placed first. Additional columns should be ordered based on their level of distinctness, that is, from the most distinct to the least distinct.
 >

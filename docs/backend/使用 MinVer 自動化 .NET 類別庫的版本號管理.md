@@ -100,7 +100,7 @@ tags: [".NET","MinVer"]
 
 套件指令產生的檔案為：`MinVerTest.0.0.1-alpha.0.1.nupkg`
 
-::: info
+::: tip
 避免使用如 `0.0.1-alpha.0.0` 的標籤格式，否則下一筆會變成 `0.0.1-alpha.0.0.1`，造成版本號混亂。
 :::
 
@@ -116,7 +116,7 @@ tags: [".NET","MinVer"]
 
 套件指令產生的檔案為：`MinVerTest.0.1.2.nupkg`
 
-::: info
+::: tip
 如果專案安裝 MinVer 出現 `git is not present in PATH.` 錯誤，表示 Git 未設定在環境變數的 `path` 中。需要確保 Git 可以從命令列執行。
 :::
 

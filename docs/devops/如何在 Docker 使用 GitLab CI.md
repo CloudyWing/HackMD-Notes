@@ -54,7 +54,7 @@ networks:
 2. 稍等幾分鐘後，在網頁輸入「<http://127.0.0.1:5080」訪問GitLab> Web，帳號預設為 `root`，密碼則存放至檔案(/srv/gitlab/config/initial_root_password)裡。
 3. 點選右上角頭像 > preferences > password，將密碼改成好記的密碼，並重新登入。
 
-::: info
+::: tip
 
 - `external_url` 不設定雖然可以連到網頁，但會有部分功能找不到網頁，且網域非所設定的 IP，而是一連串的英數字組合，或是在儲存庫上 SSH、http 裡記錄的複製儲存庫網址有這個問題。
 - `external_url` 最好設定成外部 IP 或是 Domain Name，這邊用 `127.0.0.1` 是因為雖然有指定 IP，但是無法使用主機使用設定 IP 連線(不過有時候設定又可能，暫時找不到原因)。
@@ -95,7 +95,7 @@ services:
 #...volumes和networks的內容，這裡先省略...
 ```
 
-::: info
+::: tip
 如果有使用Docker Executor的話需要設定 `/var/run/docker.sock:/var/run/docker.sock`。
 :::
 

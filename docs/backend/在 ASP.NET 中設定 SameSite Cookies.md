@@ -43,7 +43,7 @@ Same-Site 的定義與 Same-Origin 比，較為寬鬆，由於並未查到官網
 | 第一方 Cookie | 當前網站的域名相匹配的 Cookie 被稱為第一方(First-Party) Cookie。 | 記錄登入資訊或偏好模式等內容。 |
 | 第三方 Cookie | 當前網站的域名不匹配的 Cookie 被稱為第三方(Third-Party) Cookie。 | 記錄瀏覽資料供廣告和分析使用。 |
 
-::: info
+::: tip
 第二方指個是 Client，所以沒有第二方 Cookie，另有一個類似的名詞為「第二方資料(Second-Party Data)」是不相關的東西。
 :::
 
@@ -122,7 +122,7 @@ app.Run();
 Response.Cookies.Append("name", "value", new CookieOptions() { SameSite = SameSiteMode.Lax });
 ```
 
-::: info
+::: tip
 
 1. 未設定 SameSiteMode 和指定 `Unspecified`，都不會在 Cookie 設定 Same-Site，交由 Client 決定。
 2. 有關 Same-Site 在 .NET Core 的內部實作可以參閱 [ResponseCookiesWrapper](https://github.com/dotnet/aspnetcore/blob/main/src/Security/CookiePolicy/src/ResponseCookiesWrapper.cs) 這隻程式。
@@ -167,7 +167,7 @@ cookie.SameSite = SameSite.Lax; // 設定Same-Site
 Response.Cookies.Add(cookie);
 ```
 
-::: info
+::: tip
 Cookie Same-Site 會依以下順序取得設定值：
 `HttpCookie.SameSite` => `<httpCookies sameSite />` => 未設定。
 :::

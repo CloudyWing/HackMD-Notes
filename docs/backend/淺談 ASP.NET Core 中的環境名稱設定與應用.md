@@ -121,7 +121,7 @@ ASP.NET Core 可以在「Properties\launchSettings.json」檔案中設定本機�
 </configuration>
 ```
 
-::: info
+::: tip
 過往在 ASP.NET 設定 Publish.xml，可以設定 `<ExcludeFilesFromDeployment>` 或 `<ExcludeFoldersFromDeployment>` 來排除特定檔案或資料夾，但是在 ASP.NET Core 中此設定無效，所以無法用此排除多餘的 appsettings.{環境}.json 檔案。
 :::
 

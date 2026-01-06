@@ -28,7 +28,7 @@ Git 所有的儲存資料都存在於「.git」資料夾裡。刪除「.git」�
 - refs\heads\：存放各分支的變動歷史。
 - \refs\remotes\origin\：存放遠端分支的 `git fetch` 和 `git push` 紀錄。「origin」是本機儲存庫幫連結的遠端儲存庫取得的預設別名，但也可視需要建立其他名稱。
 
-::: info
+::: tip
 
 - Git 指令 `git reflog` 會顯示「logs/HEAD」的內容。如果使用 `git reset --hard` 或 `git rebase -i` 刪除了 Commit 記錄，可以用 `git reflog` 找出操作紀錄，再用 `git reset --hard` 還原 Commit。
 :::
@@ -67,7 +67,7 @@ Git 所有的儲存資料都存在於「.git」資料夾裡。刪除「.git」�
 
 紀錄上一次 Commit 的內容。若使用 `git commit`（沒有 -m），`git commit --amend` 或解衝突過程中出現的訊息編輯，都會開啟此檔案以供編輯。有些 GUI 工具在執行這些指令時，可能會提供 UI 編輯而不開啟此檔案。
 
-::: info
+::: tip
 使用 `git commit --amend` 所帶入的內容和這個檔案無關。而是把上一次 Commit 的內容寫入此檔提供編輯。
 :::
 

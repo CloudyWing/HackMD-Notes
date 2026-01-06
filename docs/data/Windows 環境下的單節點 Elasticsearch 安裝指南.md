@@ -364,7 +364,7 @@ CA（Certificate Authority）憑證是用於簽發其他憑證，例如 SSL 憑�
     xpack.security.http.ssl.keystore.path: "certs/elasticsearch/http.p12"
     ```
 
-::: info
+::: tip
 當設定 SSL 憑證時，有兩個憑證檔案相關設定：
 
 - Keystore：用於存放伺服器的私鑰和憑證。

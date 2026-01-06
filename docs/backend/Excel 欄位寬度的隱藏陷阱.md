@@ -31,7 +31,7 @@ font.FontHeightInPoints = 12;
 
 不同版本的 Office Excel 預設字型可能會有所不同。由於我手邊沒有舊版的 Office，無法進行測試。雖然我詢問了 ChatGPT，其回答是預設字型一致，但經常使用 ChatGPT 的人都知道它很常亂講。
 
-::: info
+::: tip
 NPOI 2.7.1 的版本預設字型為 `Calibri`，字型大小是 `11`。
 :::
 

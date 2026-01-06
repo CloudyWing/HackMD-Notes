@@ -25,7 +25,7 @@ Entity Framework 常見的 Exception 有以下三個：
 - DbEntityValidationException：
 當呼叫 `SaveChanges()` 且 Entity 的驗證失敗時，所拋出的 Exception。這個 Exception 通常用於捕捉 Entity 的資料驗證錯誤，例如屬性值不符合資料註釋（如 `[Required]`、`[MaxLength]`）的要求。已於在 Entity Framework Core 中被移除。
 
-::: info
+::: tip
 之前在處理 Entity Framework 的錯誤訊息時，我發現找不到 `DbEntityValidationException`，剛剛查才發現這個例外已經被移除，說實話有點意外。至於被移除的可能原因，可以參考保哥的「[EF Core 已經不會在 SaveChanges() 的時候對實體模型進行額外驗證](https://blog.miniasp.com/post/2022/04/23/EF-Core-has-no-ValidateOnSaveEnabled-anymore)」。
 雖然我認為 Model Binding 的驗證和 Entity 的驗證應該要分開來看，但仔細想想，Entity 的驗證的好處是在寫入資料庫前進行檢核，這樣可以減少一些開銷。但在實務上 Model Binding 和 Service Layer 的驗證已經能夠擋掉大部分情境，因此用到 Entity 驗證的機會確實不多。
 :::
@@ -55,7 +55,7 @@ Entity Framework 常見的 Exception 有以下三個：
 
 當然 `SaveChanges()` 失敗後保留 Entity 狀態時，這在某些情況下會有幫助的，例如因網路不穩定導致的失敗，允許重試 `SaveChanges()`。我曾見過一些專案中，當 `SaveChanges()` 失敗時會自動重試最多三次，直到成功或放棄。但如果在特定情境下不希望失敗的變更被保留，可以考慮覆寫 `SaveChanges()`，並在捕捉到 `DbUpdateException` 時，還原 Entity 的狀態，以忽略該次異動。
 
-::: info
+::: tip
 在是否應該設定預設值這個問題上，業界有不同的觀點，主要可以分為兩種：
 
 - 支援設定預設值的：

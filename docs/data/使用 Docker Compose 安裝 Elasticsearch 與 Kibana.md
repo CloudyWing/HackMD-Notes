@@ -26,7 +26,7 @@ mkdir -p volumes/elasticsearch/data
 sudo chown -R 1000:1000 volumes
 ```
 
-::: info
+::: tip
 
 - 這裡刻意不建立 logs 的 volume，因為在升級或遷移 Elasticsearch 時，log 檔案的權限問題可能會造成啟動失敗。
 - Kibana 本身不儲存重要資料，所以沒建立 data 的 volume。

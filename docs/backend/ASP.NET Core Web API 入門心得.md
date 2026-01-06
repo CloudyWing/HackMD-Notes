@@ -218,7 +218,7 @@ public class MyController : BasicController {
 
 需要注意的是，過去在 ASP.NET Framework Web API 中，可透過 Action 名稱的開頭來辨識 HTTP 動詞（例如 `GetAll()` 就是對應 GET 請求），但現在變為和 MVC 一樣使用 `HttpGet`、`HttpPost`、`HttpPut`、`HttpPatch`和`HttpDelete` Attribute 來明確辨識。當未設定 Attribute 時，預設為 GET 請求。
 
-::: info
+::: tip
 
 - 當設定 `ApiController` Attribute時，將無法透過 `UseEndpoints()`、`UseMvc()` 或 `UseMvcWithDefaultRoute` 等方法所定義的慣例路由來存取動作。
 - 使用 `UseMvc()` 等方法來設定路由時，慣例路由使用大括號 `{}` 來表示參數，例如："{controller=Home}/{action=Index}/{id?}"；而在 Route 屬性中，則使用中括號 `[]`，例如："[controller]/[action]"。

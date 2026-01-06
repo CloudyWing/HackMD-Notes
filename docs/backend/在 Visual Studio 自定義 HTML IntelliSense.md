@@ -47,7 +47,7 @@ tags: ["Visual Studio","IntelliSense"]
     </schemas>
     ```
 
-::: info
+::: tip
 
 - 更新 Visual Studio 就會造成自定義的 HTML IntelliSense 失效，就是因為檔案「SchemaCatalog.xml」被重置了。
   - 如果你覺得 AngularJS 或 Aria 的 IntelliSense 很礙眼，就把引用的 XML 給註解掉，這樣至少下次更新 Visual Studio 前都不會再出現了。
@@ -240,7 +240,7 @@ tags: ["Visual Studio","IntelliSense"]
 
     ![html intellisense data format](images/%E5%9C%A8%20Visual%20Studio%20%E8%87%AA%E5%AE%9A%E7%BE%A9%20HTML%20IntelliSense/html-intellisense-data-format.png)
 
-::: info
+::: tip
 Unobtrusive JavaScript 可以理解就像是 Bootstrap 或是「jquery.validate.unobtrusive.js」那樣，藉由定義大量的自定義屬性，及針對這些屬性綁定事件或拿屬性值來作為事件會用到的變數值，來達到只要在 HTML 裡設定該些屬性就可以觸發 JavaScript 事件，算是在前端 Framework 流行前的一種主流寫法。
 :::
 

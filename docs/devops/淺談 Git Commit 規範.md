@@ -130,7 +130,7 @@ GitLab 同樣可以使用 `Closes #123` 或 `Fixes #123`，在合併所屬分支
 
 就我個人在實務上來說，由於 PR 或 MR 可能未與 Issue Tracker 關聯，或著希望手動控制關聯，我會用 `issue` 開頭，讓人從語意上就能了解 `#123` 是與 Issue 關聯。
 
-::: info
+::: tip
 `close`  等關鍵字是不分大小寫的，文件中的範例是因為它在句首，所以字首大寫，如果仔細看在句中出現的，則是用小寫。
 :::
 
@@ -215,7 +215,7 @@ git config --global commit.cleanup strip
 
 如果輸入指定未包含 `--global`，此內容則會產生在該儲存庫的 「./.git/config」檔案裡。
 
-::: info
+::: tip
 如果 `template` 設定為 `./.gitmessage.txt`，Git 會使用儲存庫根目錄下的 `.gitmessage.txt` 檔案作為 Commit Template。
 :::
 
@@ -231,7 +231,7 @@ Git 一共有三個 config 設定：
   - `.git\config`
   - 優先度最高。此設定僅對當前專案有效，覆蓋 Global 和 System 的設定。由於它的影響範圍僅限特定儲存庫，因此對於需要針對專案做特殊設定的情況特別有用。
 
-::: info
+::: tip
 三個檔名都不一樣 XD
 :::
 
@@ -271,7 +271,7 @@ Git 一共有三個 config 設定：
   - Mac 版的 4.2.8 有支援（感謝同事友情測試)；Windows 版的 3.4.20 開始支援。
   - 當 `commit.cleanup` 為 `whitespace`，Commit **仍**會忽略 `#` 開頭的行。
 
-::: info
+::: tip
 Sourcetree 3.4.18 版尚未支援 Git Template，但我看在 2024/6/27，官方在把大家喊好幾年的 Jira 單全關閉了，說在 [Commit template message](https://jira.atlassian.com/browse/SRCTREEWIN-3817) 已解決，所以也許後續某個版本有可能會支援了。
 
 Sourcetree 3.4.20 已新增支援，詳見 [Sourcetree release notes](https://product-downloads.atlassian.com/software/sourcetree/windows/ga/ReleaseNotes_3.4.20.html)。

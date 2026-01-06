@@ -99,7 +99,7 @@ Pipeline 執行完，可以在群組或專案的「Deploy」→「Package Regist
 
 3. 新增所需的群組或專案，讓這些群組或專案能夠存取目前專案的 Packages。
 
-::: info
+::: tip
 在未額外設定前，我嘗試使用 `$CI_JOB_TOKEN` 和 Group Access Token，在執行 `dotnet nuget add source` 都沒問題，但是執行到 `dotnet restore` 就無法取得相應套件清單。增加 `--verbosity detailed` 參數後，顯示錯誤訊息「error NU1101: Unable to find package {Your Packages}. No packages exist with this id in source(s):」。直到把相依套件專案的 Job Token 權限調整後才能正常運作。
 :::
 

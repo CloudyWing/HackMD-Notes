@@ -34,7 +34,7 @@ Docker Desktop 的 Linux Containers 大致有以下架構：
     wsl --install -d <DistributionName>
     ```
 
-::: info
+::: tip
 
 - 未指定 Linux 發行版時，預設為 **Ubuntu**。
   - 只有尚未安裝任何 Linux 發行版時，才可不指定 Linux 發行版。
@@ -61,7 +61,7 @@ Docker Desktop 的 Linux Containers 大致有以下架構：
     wsl -s <DistributionName>
     ```
 
-::: info
+::: tip
 
 - 可用 `wsl --list --verbose` 或 `wsl -l -v` 查詢目前已安裝和正在使用的套件為何。
   - 安裝 Docker Desktop 時，如果有勾選「Install required components for WSL 2」，會安裝以下兩個 Linux 發行版：
