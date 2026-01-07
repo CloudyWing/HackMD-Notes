@@ -165,11 +165,32 @@ Claude 模型有時會主動使用此功能；Gemini 目前我沒看過它主動
 因為我這網站是靜態網站，不涉及任何外部介接，所以我是設定 `Always Proceed`；若涉及後端資料寫入或金流，還是建議設為 `Request Review`。
 :::
 
-## 進階技巧：GEMINI.md
+## Agent 記憶體設定
 
-在[官方文件](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer?hl=zh-tw#create-context-file)中發現，Antigravity 支援在根目錄建立一個 `GEMINI.md` 檔案。
+在[官方文件](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer?hl=zh-tw#create-context-file)中發現，可以透過建立 `GEMINI.md` 檔案來提供 Agent 背景資訊。
 
 這個概念就非常像是在使用 Claude Code 的 `CLAUDE.md` 檔案，Agent 在規劃任務時就會強制參考。
+
+::: tip
+雖然連結網址是針對 Gemini Code Assist，但是 Antigravity 也有作用。如果想進行測試，可以嘗試在 `~/.gemini/GEMINI.md` 寫一句「規則：回答時請一律在句尾加上『皮卡皮卡』。」關掉所有開啟視窗，點一下其他檔案（如果開啟 Antigravity 可能會順便讀取目前正開啟檔案，以及工作目錄目前 focus 的檔案），在空白上下文的情況下輸入 Hello，看 Antigravity 回應會不會加上皮卡皮卡。
+:::
+
+### GEMINI.md 的作用範圍與繼承關係
+
+可以在不同位置建立 `GEMINI.md` 檔案，以控制不同的作用範圍：
+
+| 範圍 | 位置 |
+| --- | --- |
+| **所有專案** | `~/.gemini/GEMINI.md` |
+| **特定專案** | 工作目錄或任何上層目錄，直到專案根目錄（以 `.git` 資料夾識別）或主目錄為止 |
+| **專案的特定元件、模組或子區段** | 工作目錄的子目錄 |
+
+Agent 的記憶體系統會**從多個位置載入內容檔案**，並遵循以下繼承規則：
+
+- **更具體的檔案優先**：來自特定元件或模組的 `GEMINI.md` 內容，會**覆寫或補充**來自更一般內容檔案（如全域 `~/.gemini/GEMINI.md`）的內容。
+- **由近到遠載入**：Agent 會從當前工作目錄開始，逐層向上查找並載入所有 `GEMINI.md` 檔案，直到專案根目錄或主目錄。
+
+### 實際應用：鎖定 Commit 規範
 
 我最常用的做法是拿它來鎖定 **Commit 規範**，確保 Agent 寫的 Commit Message 是我想要的內容。
 
@@ -183,8 +204,8 @@ Antigravity 會對檔案進行快照（Snapshot）。如果你在它工作期間
 
 ### 2. 編碼與腳本偏好
 
-* **Gemini**：偏好寫 Python (`.py`) 腳本來批次處理檔案。
-* **Claude**：偏好使用 PowerShell (`.ps1`) 腳本。
+* **Gemini 模型**：偏好寫 Python (`.py`) 腳本來批次處理檔案。
+* **Claude 模型**：偏好使用 PowerShell (`.ps1`) 腳本。
 
 我在調整專案名稱時，Claude 寫的 PowerShell 腳本在處理檔案編碼時發生錯誤，把所有的中文內容都變成了亂碼。更糟的是，它讀取檔案時用的是壞掉的編碼，覺得「沒問題」，但我若有即時檢查 Git Diff 就能發現。但因為在測試，所以沒有過多介入，最後這輪 5 小時的額度就燒完了。
 
@@ -222,4 +243,5 @@ Antigravity 和過往的 Chatbot 聊天相比，更像是直接「指揮」AI �
 
 ## 異動歷程
 
-- 2026-01-07 初版文件建立
+- 2026-01-07 初版文件建立。
+- 2026-01-08 補充 GEMINI.md 的作用範圍、繼承關係說明及測試方法。
