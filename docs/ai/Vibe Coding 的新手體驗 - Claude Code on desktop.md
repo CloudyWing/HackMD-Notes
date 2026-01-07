@@ -42,7 +42,7 @@ Claude Desktop 在 **2025 年 11 月 25 日** 的更新中加入了 **Code** 頁
 
 這是我遇到最嚴重的問題。當太久沒操作時，輸入訊息會出現 **401 Unauthorized** 錯誤，導致一旦連線中斷，舊的 Session 就再也回不去了。更慘的是，若開啟新 Session，它會強制在 `.claude-worktrees` 建立一個**全新**的隨機隔離環境。這導致我無法接續原本的工作進度，一切 Context 歸零，這是我覺得最困擾的點。
 
-::: info
+::: tip
 針對這個問題，我後來測出了一個非正規解法，詳見：[解決 Claude Code on desktop 無法恢復對話工作階段的問題](./%E8%A7%A3%E6%B1%BA%2520Claude%2520Code%2520on%2520desktop%2520%E7%84%A1%E6%B3%95%E6%81%A2%E5%BE%A9%E5%B0%8D%E8%A9%B1%E5%B7%A5%E4%BD%9C%E9%9A%8E%E6%AE%B5%E7%9A%84%E5%95%8F%E9%A1%8C.md)
 :::
 
@@ -58,7 +58,18 @@ Claude Desktop 在 **2025 年 11 月 25 日** 的更新中加入了 **Code** 頁
 
 但後來與 Gemini 討論得知，這類 AI 編輯器（如 GitHub Copilot）通常只會預設讀取特定的配置檔案（如 `CLAUDE.md` 或 `.github/copilot-instructions.md`）。這裡面的「連結」對 AI 來說只是純文字路徑，並不會自動讀取該檔案的內容進入上下文 (Context)。
 
-因此，策略必須調整。雖然建立「中央規範庫」作為唯一的真理來源仍有必要，但應用方式從「引用檔案」轉變為「直接寫入」：開啟新專案時，我從中央庫挑選合適的模組（如 Git 規範、Vue 規範），直接將內容「複製貼上」進 `CLAUDE.md` 本體。這樣雖犧牲了簡潔度，但能確保 AI 100% 讀取到規範，同時維持跨專案的一致性。
+~~因此，策略必須調整。雖然建立「中央規範庫」作為唯一的真理來源仍有必要，但應用方式從「引用檔案」轉變為「直接寫入」：開啟新專案時，我從中央庫挑選合適的模組（如 Git 規範、Vue 規範），直接將內容「複製貼上」進 `CLAUDE.md` 本體。這樣雖犧牲了簡潔度，但能確保 AI 100% 讀取到規範，同時維持跨專案的一致性。~~
+
+#### CLAUDE.md 配置最佳實務
+
+根據 [Determine memory type](https://code.claude.com/docs/en/memory#determine-memory-type) 的說明，建議採用分層方式管理上下文：
+
+* **全域設定 (Global)**：`~/.claude/CLAUDE.md`，電腦全部的 Session 都會讀到這設定。
+* **專案設定 (Project)**：專案根目錄下的 `CLAUDE.md` 或 `.claude/CLAUDE.md`（推薦）。這是專案專用的主要設定，建議統一收納在 `.claude` 資料夾中以保持根目錄整潔。
+* **模組化規則 (Modular Rules)**：`.claude/rules/*.md`。前述提到的「模組化」管理方式，將不同規範拆分（如 `git.md`, `vue.md`），讓 Claude 依據需求讀取。
+* **本地覆寫 (Local Override)**：`./CLAUDE.local.md`。專案專用的本地規則，務必搭配 `.gitignore` 避免不小心提交。
+
+另外根據 [Claude Code: Best practices for agentic coding](https://www.anthropic.com/engineering/claude-code-best-practices) 的說明，我們可以在特定子目錄定義該目錄專屬的規則（例如 `backend/CLAUDE.md`）。Claude Code 具備智慧讀取機制，當 Agent 涉及到該目錄下的檔案時，便會自動讀取並套用這些局部上下文，實現更精準的規範控制。
 
 ### 3. 幻覺與錯誤資訊
 
@@ -99,4 +110,5 @@ AI 工具發展極快，早期 Vibe Coding 還只是一個模糊的概念，一�
 
 ## 異動歷程
 
-- 2026-01-06 初版文件建立
+- 2026-01-06 初版文件建立。
+- 2026-01-07 補充公佈的官方 CLAUDE.md 配置最佳實務與上下文繼承機制說明。
