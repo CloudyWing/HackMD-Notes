@@ -9,7 +9,7 @@
 import { useRoute, useData } from 'vitepress'
 import { computed, watchEffect } from 'vue'
 import ArticleIndex from './ArticleIndex.vue'
-import { getCategoryDisplayName } from '../../categories.mjs'
+import { getCategoryDisplayName } from '../../categories.mts'
 
 const route = useRoute()
 const { frontmatter } = useData()

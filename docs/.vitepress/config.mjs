@@ -1,14 +1,15 @@
 
-import { defineConfig, createContentLoader } from 'vitepress'
+import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
-import { Feed } from 'feed'
+
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { getSortedCategories, getCategoryDisplayName } from './categories.mjs'
-import { genFeed } from './genFeed.js'
-import { SITE } from './theme/constants.ts'
+import { getSortedCategories, getCategoryDisplayName } from './categories.mts'
+import { genFeed } from './gen-feed.mts'
+import { SITE, AUTHOR } from './theme/constants.ts'
 
+// ESM 不提供 __dirname，需從 import.meta.url 建立
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const docsDir = path.resolve(__dirname, '..')
 
@@ -41,6 +42,7 @@ function getNavCategories() {
     }))
 }
 
+// URL rewrites：舊分類→新結構（SEO 和向後相容）
 function generateRewrites() {
     return {
         'dotnet/:slug*': 'backend/:slug*',
@@ -59,12 +61,13 @@ function getSidebar() {
         if (fs.existsSync(dir)) {
             const files = fs.readdirSync(dir).filter(f => f.endsWith('.md') && f !== 'index.md')
             if (files.length > 0) {
-                // Read frontmatter from files to get dates for sorting
+                // 從檔案 frontmatter 讀取日期用於排序
+                // VitePress 沒有提供直接取得 frontmatter 的 API，所以需要手動解析
                 const fileData = files.map(file => {
                     const filePath = path.join(dir, file)
                     const content = fs.readFileSync(filePath, 'utf-8')
                     const frontmatterMatch = content.match(/^---\s*([\s\S]*?)\s*---/)
-                    let date = '1970-01-01'
+                    let date = '1970-01-01'  // 預設日期：沒有日期的文章會排在最後
                     if (frontmatterMatch) {
                         const dateMatch = frontmatterMatch[1].match(/^date:\s*(.+)$/m)
                         if (dateMatch) {
@@ -74,7 +77,7 @@ function getSidebar() {
                     return { file, filePath, date }
                 })
 
-                // Sort by date (newest first)
+                // 依日期降冪排序：最新文章顯示在最上方
                 fileData.sort((a, b) => new Date(b.date) - new Date(a.date))
 
                 sidebar[`/${cat}/`] = [
@@ -94,9 +97,12 @@ function getSidebar() {
     return sidebar
 }
 
+// 使用 withMermaid 包裝配置以啟用 Mermaid 圖表支援
+// 必須在最外層包裝，這樣 Mermaid 插件才能正確攔截和處理 markdown 中的圖表語法
 export default withMermaid(defineConfig({
     title: SITE.title,
     description: `${SITE.navTitle} - ${SITE.summary}`,
+    // 允許失效連結：開發階段某些頁面可能尚未建立，避免 build 失敗
     ignoreDeadLinks: true,
     head: [
         ['link', { rel: 'icon', href: SITE.logo }],
@@ -109,7 +115,7 @@ export default withMermaid(defineConfig({
         }],
         // SEO: Meta tags
         ['meta', { name: 'keywords', content: SITE.keywords }],
-        ['meta', { name: 'author', content: SITE.author }],
+        ['meta', { name: 'author', content: AUTHOR.name }],
 
         // Open Graph / Facebook
         ['meta', { property: 'og:type', content: 'website' }],
@@ -133,26 +139,21 @@ export default withMermaid(defineConfig({
     const workerBaseUrl = 'https://blog-view-counter.yearningwing.workers.dev/';
     const fetchedCounts = new Map();
     
-    // 判斷是否為文章詳情頁
     function isArticlePage() {
         const path = window.location.pathname;
-        // 排除首頁、分類索引頁、標籤頁、about 頁等
         if (path === '/' || path === '/index.html') return false;
         if (path.includes('/tags')) return false;
         if (path === '/about.html' || path === '/about') return false;
-        
-        // 排除以 index 結尾的分類頁
+    
         const segments = path.split('/').filter(Boolean);
         if (segments.length > 0 && segments[segments.length - 1] === 'index') return false;
         
-        // 文章頁通常有至少 2 個路徑段 (分類/文章名)
         return segments.length >= 2;
     }
     
     async function fetchViewCount(articleId, readOnly = false) {
         if (!articleId) return 0;
         
-        // 檢查快取
         if (fetchedCounts.has(articleId)) {
             return fetchedCounts.get(articleId);
         }
@@ -160,7 +161,6 @@ export default withMermaid(defineConfig({
         try {
             let targetUrl = workerBaseUrl + '?id=' + encodeURIComponent(articleId);
             
-            // 根據 readOnly 參數決定是否累加
             if (readOnly) {
                 targetUrl += '&readOnly=true';
             }
@@ -329,7 +329,7 @@ export default withMermaid(defineConfig({
                 datePublished: pageData.frontmatter.date,
                 author: {
                     '@type': 'Person',
-                    name: SITE.author
+                    name: AUTHOR.name
                 }
             }
             if (pageData.frontmatter.lastmod) {

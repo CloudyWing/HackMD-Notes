@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
-import { categoryConfig } from '../../categories.mjs'
-import { SITE } from '../constants.ts'
+import { categoryConfig } from '../../categories.mts'
+import { SITE, AUTHOR } from '../constants.ts'
 
 const navigationLinks = computed(() => {
   return Object.entries(categoryConfig).map(([key, config]) => ({
@@ -43,7 +43,7 @@ const currentYear = new Date().getFullYear()
             <h4 class="section-title">聯絡方式</h4>
             <ul class="footer-links">
               <li><a :href="SITE.repo" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a></li>
-              <li><a href="mailto:yearningwing@gmail.com"><i class="fas fa-envelope"></i> Email</a></li>
+              <li><span style="color: var(--vp-c-text-2); font-size: 0.9rem;"><i class="fas fa-envelope"></i> {{ AUTHOR.emailObfuscated }}</span></li>
               <li><a href="/feed.xml"><i class="fas fa-rss"></i> RSS</a></li>
             </ul>
           </div>

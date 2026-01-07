@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute, useData } from 'vitepress'
 import { computed } from 'vue'
-import { getCategoryDisplayName, getCategoryClass } from '../../categories.mjs'
+import { getCategoryDisplayName, getCategoryClass } from '../../categories.mts'
 
 
 const route = useRoute()

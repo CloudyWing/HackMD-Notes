@@ -142,9 +142,9 @@ outline: false
     </div>
     <div class="hero-name">Wing Chou</div>
     <div class="contact-buttons">
-      <a href="mailto:yearningwing@gmail.com" class="contact-btn">
-        <i class="fas fa-envelope"></i> Email Me
-      </a>
+      <div class="contact-btn" style="cursor: text;">
+        <i class="fas fa-envelope"></i> yearningwing [at] gmail [dot] com
+      </div>
       <a href="https://github.com/CloudyWing" target="_blank" class="contact-btn">
         <i class="fab fa-github"></i> GitHub
       </a>

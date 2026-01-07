@@ -2,12 +2,21 @@ import path from 'path'
 import fs from 'fs'
 import { Feed } from 'feed'
 import { fileURLToPath } from 'url'
-import { SITE } from './theme/constants.ts'
+import { SITE, AUTHOR } from './theme/constants.ts'
+import type { SiteConfig } from 'vitepress'
 
+// ESM 環境需要手動建立 __dirname（同 config.mjs 的原因）
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const docsDir = path.resolve(__dirname, '..')
 
-export async function genFeed(config) {
+interface Frontmatter {
+    title?: string
+    description?: string
+    date?: string
+    image?: string
+}
+
+export async function genFeed(config: SiteConfig) {
     const feed = new Feed({
         title: SITE.title,
         description: SITE.summary,
@@ -16,16 +25,15 @@ export async function genFeed(config) {
         language: "zh-TW",
         image: `${SITE.hostname}${SITE.logo}`,
         favicon: `${SITE.hostname}/favicon.ico`,
-        copyright: SITE.copyright(2024),
+        copyright: SITE.copyright(),
         author: {
-            name: SITE.author,
-            email: "cloudywing@example.com",
-            link: SITE.hostname
+            name: AUTHOR.name,
+            email: AUTHOR.email,
+            link: AUTHOR.homepage
         }
     })
 
-    // Filter for category directories
-    const isContentDir = (f) => {
+    const isContentDir = (f: string): boolean => {
         const p = path.join(docsDir, f)
         if (!fs.existsSync(p)) return false
         const stats = fs.statSync(p)
@@ -33,7 +41,16 @@ export async function genFeed(config) {
     }
 
     const categories = fs.readdirSync(docsDir).filter(isContentDir)
-    const posts = []
+    const posts: Array<{
+        title: string
+        id: string
+        link: string
+        description?: string
+        content?: string
+        author: Array<{ name: string; link: string }>
+        date: Date
+        image?: string
+    }> = []
 
     for (const category of categories) {
         const categoryDir = path.join(docsDir, category)
@@ -45,19 +62,21 @@ export async function genFeed(config) {
             const frontmatter = parseFrontmatter(content)
             const url = `${SITE.hostname}/${category}/${file.replace(/\.md$/, '')}`
 
-            // Skip if no date or draft
-            if (!frontmatter.date) continue
+            if (!frontmatter.date) {
+                console.log(`[RSS Feed] Skipping ${file}: no date found. Title: ${frontmatter.title}`)
+                continue
+            }
 
             posts.push({
-                title: frontmatter.title,
+                title: frontmatter.title || '',
                 id: url,
                 link: url,
                 description: frontmatter.description,
                 content: frontmatter.description,
                 author: [
                     {
-                        name: SITE.author,
-                        link: SITE.hostname
+                        name: AUTHOR.name,
+                        link: AUTHOR.homepage
                     }
                 ],
                 date: new Date(frontmatter.date),
@@ -66,8 +85,7 @@ export async function genFeed(config) {
         }
     }
 
-    // Sort by date desc
-    posts.sort((a, b) => b.date - a.date)
+    posts.sort((a, b) => b.date.getTime() - a.date.getTime())
 
     posts.forEach(post => {
         feed.addItem(post)
@@ -75,16 +93,16 @@ export async function genFeed(config) {
 
     const distDir = config.outDir
     fs.writeFileSync(path.join(distDir, 'feed.xml'), feed.rss2())
-    // fs.writeFileSync(path.join(distDir, 'feed.json'), feed.json1()) 
 }
 
-function parseFrontmatter(content) {
-    const frontmatter = {}
+// VitePress buildEnd 階段沒有提供 frontmatter API，必須手動解析
+function parseFrontmatter(content: string): Frontmatter {
+    const frontmatter: Frontmatter = {}
 
-    // Simple regex for yaml frontmatter
-    const match = content.match(/^---\n([\s\S]+?)\n---/)
+    // 處理 Windows (CRLF) 和 Mac/Linux (LF) 的不同換行符號
+    const match = content.match(/^---\r?\n([\s\S]+?)\r?\n---/)
     if (match) {
-        const lines = match[1].split('\n')
+        const lines = match[1].replace(/\r\n/g, '\n').split('\n')
         lines.forEach(line => {
             const colonIndex = line.indexOf(':')
             if (colonIndex > 0) {
@@ -104,7 +122,7 @@ function parseFrontmatter(content) {
                     // For feed, we might not strictly need array parsing unless managing tags
                 }
 
-                frontmatter[key] = value
+                (frontmatter as any)[key] = value
             }
         })
     }

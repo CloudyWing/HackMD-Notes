@@ -36,7 +36,9 @@ export default {
         onMounted(() => {
             initZoom()
 
-            // Set z-index for lightbox above sidebar
+            // 設定 lightbox z-index 高於 sidebar
+            // medium-zoom 預設 z-index 不夠高，會被 sidebar 遮住
+            // 必須動態注入樣式確保圖片放大時顯示在最上層
             const style = document.createElement('style')
             style.textContent = `
                 .medium-zoom-overlay,

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useFormatters } from '../composables/useFormatters.ts'
 import { useUrlUtils } from '../composables/useUrlUtils.ts'
-import { getCategoryIcon, getCategoryClass, getCategoryDisplayName } from '../../categories.mjs'
+import { getCategoryIcon, getCategoryClass, getCategoryDisplayName } from '../../categories.mts'
 import ViewCount from './ViewCount.vue'
 
 
