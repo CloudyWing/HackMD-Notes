@@ -32,3 +32,9 @@ test-results/
 test-report.html
 junit.xml
 
+# Temporary Scripts
+*.ps1
+*.py
+*.sh
+*.bat
+__pycache__/
