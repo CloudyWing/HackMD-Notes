@@ -5,6 +5,7 @@ import { useUrlUtils } from '../composables/useUrlUtils.ts'
 import { getCategoryIcon, getCategoryClass, getCategoryDisplayName } from '../../categories.mts'
 import ViewCount from './ViewCount.vue'
 import ShareButton from './ShareButton.vue'
+import { APP_CONFIG } from '../constants.ts'
 
 
 const { formatDate } = useFormatters()
@@ -45,7 +46,7 @@ const categoryClass = computed(() => {
         <span class="category-icon" :class="categoryClass" :title="getCategoryDisplayName(getCategoryFromUrl(post.url))">
           <i :class="categoryIcon"></i>
         </span>
-        <span v-if="post.isNew" class="new-badge animate-pulse-glow">
+        <span v-if="post.isNew" class="new-badge animate-pulse-glow" :title="`最近 ${APP_CONFIG.NEW_POST_DAYS} 天內發布`">
           <i class="fa-solid fa-fire"></i> NEW
         </span>
       </div>

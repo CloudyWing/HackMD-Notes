@@ -197,6 +197,7 @@ const prevPage = () => {
       <button 
         class="pin-button"
         :aria-label="pinnedUrls.has(post.url) ? '取消釘選' : '釘選文章'"
+        :title="pinnedUrls.has(post.url) ? '取消釘選' : '釘選文章'"
         @click="togglePin(post.url)"
       >
         <i :class="pinnedUrls.has(post.url) ? 'fa-solid fa-thumbtack' : 'fa-regular fa-thumbtack'"></i>
@@ -205,7 +206,7 @@ const prevPage = () => {
       <a :href="post.url" class="article-link">
         <h3 class="article-title">
           {{ post.title }}
-          <span v-if="post.isNew" class="new-badge animate-pulse-glow">
+          <span v-if="post.isNew" class="new-badge animate-pulse-glow" :title="`最近 ${APP_CONFIG.NEW_POST_DAYS} 天內發布`">
             <i class="fa-solid fa-fire"></i> NEW
           </span>
         </h3>
