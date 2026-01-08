@@ -4,10 +4,11 @@ import { useFormatters } from '../composables/useFormatters.ts'
 import { useUrlUtils } from '../composables/useUrlUtils.ts'
 import { getCategoryIcon, getCategoryClass, getCategoryDisplayName } from '../../categories.mts'
 import ViewCount from './ViewCount.vue'
+import ShareButton from './ShareButton.vue'
 
 
 const { formatDate } = useFormatters()
-const { getCategoryFromUrl, normalizeUrl } = useUrlUtils()
+const { getCategoryFromUrl } = useUrlUtils()
 
 const props = defineProps({
   post: {
@@ -66,6 +67,7 @@ const categoryClass = computed(() => {
           <span class="card-view-count">
             <i class="far fa-eye"></i> 
             <ViewCount :article-id="getArticleId(post.url)" :is-current="false" /> 次
+            <ShareButton :title="post.title" :url="post.url" mode="icon" />
           </span>
         </div>
         

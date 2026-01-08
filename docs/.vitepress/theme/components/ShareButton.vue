@@ -1,15 +1,35 @@
 <script setup>
 import { ref, computed } from 'vue'
-import { useData, useRoute } from 'vitepress'
+import { useData } from 'vitepress'
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: ''
+  },
+  url: {
+    type: String,
+    default: ''
+  },
+  mode: {
+    type: String,
+    default: 'full' // 'full' (icon + text) or 'icon' (icon only)
+  }
+})
 
 const { frontmatter } = useData()
-const route = useRoute()
 
-// 只在文章頁面顯示（有 frontmatter.title 且不是首頁或特殊頁面）
-const isArticlePage = computed(() => {
-  const specialPages = ['/', '/tags', '/about']
-  const isSpecial = specialPages.includes(route.path) || route.path.endsWith('/index')
-  return frontmatter.value.title && !isSpecial
+// 如果沒有傳入 props，則預設使用當前頁面資訊
+const targetTitle = computed(() => props.title || frontmatter.value.title || document.title)
+const targetUrl = computed(() => {
+  if (props.url) {
+    // 確保 url 是完整的 (包含 domain)
+    if (props.url.startsWith('http')) return props.url
+    if (typeof window !== 'undefined') {
+      return `${window.location.origin}${props.url}`
+    }
+  }
+  return typeof window !== 'undefined' ? window.location.href : ''
 })
 
 const canShare = ref(false)
@@ -23,9 +43,9 @@ const shareArticle = async () => {
 
   try {
     await navigator.share({
-      title: frontmatter.value.title || document.title,
-      text: `推薦閱讀：${frontmatter.value.title}`,
-      url: window.location.href
+      title: targetTitle.value,
+      text: `推薦閱讀：${targetTitle.value}`,
+      url: targetUrl.value
     })
   } catch (err) {
     if (err.name !== 'AbortError') {
@@ -37,28 +57,44 @@ const shareArticle = async () => {
 
 <template>
   <button
-    v-if="canShare && isArticlePage"
-    class="share-button share-button-elegant"
-    @click="shareArticle"
-    aria-label="分享文章"
-    title="透過系統原生分享功能分享此文章"
+    v-if="canShare"
+    class="share-button"
+    :class="[`share-button-${mode}`, 'share-button-elegant']"
+    aria-label="分享"
+    :title="`分享：${targetTitle}`"
+    @click.prevent.stop="shareArticle"
   >
-    <i class="fas fa-share-alt"></i> 分享
+    <i class="fas fa-share-alt"></i>
+    <span v-if="mode === 'full'" class="share-text">分享</span>
   </button>
 </template>
 
 <style scoped>
-/* 桌面版和中等螢幕：顯示 */
-@media (min-width: 960px) {
-  .share-button {
-    display: inline-flex !important;
-  }
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  margin-left: 0.75rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
-/* 行動版：隱藏（使用 ArticleFooterMeta） */
-@media (max-width: 959px) {
-  .share-button {
-    display: none !important;
-  }
+.share-button:hover {
+  background-color: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+}
+
+.share-button-icon {
+  padding: 4px;
+}
+
+.share-button-icon .share-text {
+  display: none;
 }
 </style>

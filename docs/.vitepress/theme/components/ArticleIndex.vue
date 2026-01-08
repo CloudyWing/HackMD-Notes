@@ -2,17 +2,22 @@
 import { data as posts } from '../../../posts.data.ts'
 import { computed, ref, onMounted, watch } from 'vue'
 import { useFormatters } from '../composables/useFormatters.ts'
-import { useUrlUtils } from '../composables/useUrlUtils.ts'
 import { APP_CONFIG } from '../constants.ts'
 import ViewCount from './ViewCount.vue'
+import ShareButton from './ShareButton.vue'
 
 
 const { formatDate } = useFormatters()
-const { getCategoryFromUrl } = useUrlUtils()
 
 const props = defineProps({
-  category: String,
-  tags: Array,
+  category: {
+    type: String,
+    default: ''
+  },
+  tags: {
+    type: Array,
+    default: () => []
+  },
   showCategory: {
     type: Boolean,
     default: true
@@ -42,7 +47,7 @@ const toggleSortOrder = () => {
 }
 
 onMounted(() => {
-  const stored = localStorage.getItem('pinnedArticles')
+  const stored = window.localStorage.getItem('pinnedArticles')
   if (stored) {
     try {
       pinnedUrls.value = new Set(JSON.parse(stored))
@@ -58,7 +63,7 @@ const togglePin = (url) => {
   } else {
     pinnedUrls.value.add(url)
   }
-  localStorage.setItem('pinnedArticles', JSON.stringify([...pinnedUrls.value]))
+  window.localStorage.setItem('pinnedArticles', JSON.stringify([...pinnedUrls.value]))
 }
 
 const getSortFunction = () => {
@@ -169,9 +174,9 @@ const prevPage = () => {
           </select>
           <button 
             class="sort-order-toggle btn-base btn-icon" 
-            @click="toggleSortOrder"
             :aria-label="sortOrder === 'desc' ? '降序排列' : '升序排列'"
             :title="sortOrder === 'desc' ? '點擊切換為升序' : '點擊切換為降序'"
+            @click="toggleSortOrder"
           >
             <i :class="sortOrder === 'desc' ? 'fa-solid fa-arrow-down-wide-short' : 'fa-solid fa-arrow-up-short-wide'"></i>
           </button>
@@ -191,8 +196,8 @@ const prevPage = () => {
     >
       <button 
         class="pin-button"
-        @click="togglePin(post.url)"
         :aria-label="pinnedUrls.has(post.url) ? '取消釘選' : '釘選文章'"
+        @click="togglePin(post.url)"
       >
         <i :class="pinnedUrls.has(post.url) ? 'fa-solid fa-thumbtack' : 'fa-regular fa-thumbtack'"></i>
       </button>
@@ -218,6 +223,7 @@ const prevPage = () => {
             <span class="article-view-count">
               <i class="far fa-eye"></i> 
               <ViewCount :article-id="getArticleId(post.url)" :is-current="false" /> 次
+              <ShareButton :title="post.title" :url="post.url" mode="icon" />
             </span>
           </div>
           
@@ -241,9 +247,9 @@ const prevPage = () => {
     <div v-if="totalPages > 1" class="pagination-controls">
       <button 
         class="pagination-button btn-base" 
-        @click="prevPage" 
         :disabled="currentPage === 1"
         :aria-label="'上一頁'"
+        @click="prevPage" 
       >
         <i class="fa-solid fa-chevron-left"></i>
         <span class="btn-text">上一頁</span>
@@ -268,8 +274,8 @@ const prevPage = () => {
           <select 
             v-model="currentPage" 
             class="pagination-select"
-            @change="scrollToTop"
             aria-label="選擇頁碼"
+            @change="scrollToTop"
           >
             <option v-for="page in totalPages" :key="page" :value="page">
               第 {{ page }} 頁 / 共 {{ totalPages }} 頁
@@ -281,9 +287,9 @@ const prevPage = () => {
       
       <button 
         class="pagination-button btn-base" 
-        @click="nextPage" 
         :disabled="currentPage === totalPages"
         :aria-label="'下一頁'"
+        @click="nextPage" 
       >
         <span class="btn-text">下一頁</span>
         <i class="fa-solid fa-chevron-right"></i>
