@@ -1,12 +1,12 @@
 ---
-title: "常用套件整理"
+title: "常用套件整理 - Visual Studio"
 date: 2022-11-10
 lastmod: 2025-12-31
 description: "整理作者常用的 Visual Studio 擴充套件，如 Productivity Power Tools (包含 Double-Click Maximize, Fix Mixed Tabs) 與 Dev Essentials (File Icons, SVG Viewer)，提升開發效率。"
 tags: [".NET","NuGet","Visual Studio"]
 ---
 
-# 常用套件整理
+# 常用套件整理 - Visual Studio
 
 年紀大了，記憶不好，每次安裝 Visual Studio 都要花時間查一下之前安裝了哪些套件，及套件功能是什麼，所以寫一篇文章記錄下來。
 
@@ -151,6 +151,7 @@ tags: [".NET","NuGet","Visual Studio"]
   - GitVersion 功能強大但設定複雜，支援根據分支策略 (GitFlow) 產生版號。
 :::
 
+
 ## 異動歷程
 
 - 2022-11-10 初版文件建立。
@@ -162,3 +163,4 @@ tags: [".NET","NuGet","Visual Studio"]
   - 移除過時以及需商用授權的套件。
   - 更新 Visual Studio 設定建議，推薦改用 Cascadia 系列字型。
   - 新增 YARP、Scrutor 與 MQTTnet 等套件。
+
