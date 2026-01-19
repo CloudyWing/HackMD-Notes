@@ -148,8 +148,6 @@ default = root
 1. 按下 `F1` 或 `Ctrl+Shift+P`。
 2. 輸入並選擇 **Dev Containers: Reopen in Container**。
 
-![Reopen in Container 通知](images/解決%20WSL%202%20Docker%20檔案權限問題/reopen-in-container-notification.png)
-
 VS Code 這時會開始建立 Docker Image (第一次會比較久)，並啟動容器。
 
 ### 步驟 3：體驗成果
