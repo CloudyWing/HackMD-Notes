@@ -133,4 +133,4 @@ dotnet publish -c Release -p:EnvironmentName=Staging
 
 - 2025-03-18 初版文件建立。
 - 2025-04-08 補充升級 .NET 版本造成 Shadow Copying 異常。
-- 2026-01-01 補充使用 Shadow Copying 時需避免在應用程式目錄寫入檔案的注意事項。
+- 2025-06-27 補充使用 Shadow Copying 時需避免在應用程式目錄寫入檔案的注意事項。
