@@ -1,7 +1,7 @@
 ﻿---
 title: "解決 WSL 2 Docker 檔案權限問題"
 date: 2026-01-19
-lastmod: 2026-01-19
+lastmod: 2026-01-22
 description: "分享從 Windows Docker 遷移至 WSL 2 的心路歷程，解決檔案權限問題的暴力解法，以及最終改用 Dev Containers 的優雅方案。"
 tags: ["Docker", "WSL", "Visual Studio Code", "Dev Containers"]
 ---
@@ -55,11 +55,11 @@ default = root
 這解決了什麼問題？
 
 1. **環境一致性**：不再需要先在 WSL 安裝 Node.js, Python 等環境，容器開起來環境就好了。
-2. **自動同步身分 (解決權限問題)**：這是最關鍵的一點。Linux 認的是 UID (數字 ID) 而非帳號名稱，Dev Containers 啟動時會自動將容器內使用者的 UID 修改為與 WSL 外部一致 (例如 1000)。這代表你在容器內建立的檔案，在 Host 上看來也是「你的」，自然就不會有 Permission Denied 的問題。不過要注意，的是，這項機制**無法解決**本案例中「Docker Compose 服務強制以 root 產生檔案」的問題，這也是我們稍後需要特殊設定的原因。
+2. **自動同步身分 (解決權限問題)**：這是最關鍵的一點。Linux 認的是 UID (數字 ID) 而非帳號名稱，Dev Containers 啟動時會自動將容器內使用者的 UID 修改為與 WSL 外部一致 (例如 1000)。這代表你在容器內建立的檔案，在 Host 上看來也是「你的」，自然就不會有 Permission Denied 的問題。不過要注意的是，這項機制**無法解決**本案例中「Docker Compose 服務強制以 root 產生檔案」的問題，這也是我們稍後需要特殊設定的原因。
 
 ## Dev Containers 實戰
 
-接下來簡單講解如何設定一個基本的 Dev Container 環境。
+接下來說明如何設定一個基本的 Dev Container 環境。
 
 ### 建立工作區
 
@@ -200,9 +200,95 @@ services:
 
 ![Dev Container 自動停止](images/解決%20WSL%202%20Docker%20檔案權限問題/dev-container-stopped.png)
 
-### 其他替代方案：Docker Desktop 內建編輯器
+## 另一種選擇：直接將 Dev Container 整合進 Docker Compose
 
-除了 Dev Containers，如果你不介意編輯器功能較陽春的話，現在 Docker Desktop 的 GUI 介面也支援直接編輯容器內的檔案：
+如果覺得要為了 Dev Container 特地產生 `.devcontainer` 資料夾、維護額外的設定檔很麻煩，或者希望這個開發環境能直接寫在專案的 `compose.yml` 裡一目了然，我們可以採用「手動加入工具容器」的方式。
+
+這種做法的概念是：在 `compose.yml` 中多開一個專門用來跑 VS Code 的容器（我們姑且稱它為 `vscode-editor`），把它跟其他服務（如資料庫、Redis）放在同一個網路下，這樣既能解決檔案權限問題，又能直接在容器內連線除錯其他服務。
+
+### 步驟 1：修改 docker-compose.yml
+
+在 `docker-compose.yml` 中加入一個 `vscode-editor` 服務：
+
+```yaml
+services:
+  # ... 原有的服務 (searxng, database, etc.) ...
+
+  vscode-editor:
+    # 使用微軟官方維護的 Dev Container 基底映像檔 (與標準 Dev Container 相同)
+    image: mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+    container_name: vscode-editor
+    # 讓容器保持啟動狀態，隨時待命讓我們連線
+    command: sleep infinity 
+    # 這裡直接用 root 啟動，最暴力解決掛載權限問題
+    user: root 
+    volumes:
+      # 決定掛載進容器的路徑範圍，可以是單一專案 (./) 或多個服務的共同父目錄 (詳見下方 Tip)
+      - ./:/workspace
+    working_dir: /workspace
+    # 確保加入相同的網路，方便 ping 或連線其他容器
+    networks:
+      - default
+```
+
+::: tip
+關於 Workspace 具體要掛載多大的範圍比較適合？其實我目前也沒有標準答案，僅分享我個人的想法：
+- **若同網路的服務眾多**：我會考慮掛載涵蓋這些服務的最小共同父目錄。這樣 `compose.yml` 會比較簡潔，不用列出一長串 volumes 清單，也能在同一個 VS Code 視窗中同時管理多個相關服務。
+- **若同網路的服務較少**：例如只有一兩個容器需要頻繁修改，那麼直接條列式地掛載特定的資料夾即可，這樣能保持環境最單純，也避免在容器內誤動到不相關的檔案。
+:::
+
+啟動專案：
+
+```bash
+docker compose up -d
+```
+
+### 步驟 2：附加至已執行的容器
+
+啟動後，這個 `vscode-editor` 容器會一直在背景待命。接下來我們透過 VS Code 連進去：
+
+1. 按下 `F1` 或 `Ctrl+Shift+P` 開啟指令面板。
+2. 輸入並選擇 **Dev Containers: Attach to Running Container...**。
+
+    ![附加至執行中的容器](images/解決%20WSL%202%20Docker%20檔案權限問題/attach-to-container-command.png)
+
+3. 在選單中選擇我們剛剛建立的 `vscode-editor` 容器。
+
+此時 VS Code 會開啟一個新的視窗並連線到容器內部。接著選擇 **開啟資料夾 (Open Folder)**，路徑輸入我們剛才掛載的 `/workspace`。
+
+### 步驟 3：修正權限設定 (設定 devcontainer.json)
+
+雖然在 YAML 裡已經指定了 `user: root`，但為了確保 VS Code 的擴充功能與終端機行為一致，建議還是為這個容器建立一份設定檔。
+
+1. 在連線後的視窗中，按下 `F1`。
+2. 搜尋並選擇 **Dev Containers: Open Container Configuration File** (開啟容器設定檔)。
+
+    ![開啟附加容器設定檔](images/解決%20WSL%202%20Docker%20檔案權限問題/open-container-config-command.png)
+
+    ![附加映像檔](images/解決%20WSL%202%20Docker%20檔案權限問題/attach-image.png)
+3. 此時 VS Code 會為這個「附加容器」建立一份專屬設定，請在裡面加入 `"remoteUser": "root"`：
+
+```json
+{
+    "workspaceFolder": "/workspace",
+    "remoteUser": "root"
+}
+```
+
+如此一來，你在容器內對 `/workspace` 內所有檔案的修改，都會是以 `root` 身分執行，這就能完美解決 Docker Compose 其他服務產生的權限問題。
+
+::: tip
+**關於「Rebuild」指令不見了？**
+如果你在第一次編輯 `devcontainer.json` 後看過重建提示，但之後在指令面板中卻找不到了，別擔心，這很正常。
+
+若修改了設定（例如切換 `remoteUser`）想要套用，最簡單的做法是按下 `F1` 執行 **Developer: Reload Window (開發者: 重新載入視窗)**，重新連線後設定就會生效。
+:::
+
+這種做法最大的好處是：**開發環境本身就是基礎設施的一部分**，隨開隨用，不需要額外的初始化步驟。
+
+### 替代方案：Docker Desktop 內建編輯器
+
+除了 Dev Containers，若只需要快速修改少量檔案，Docker Desktop 的 GUI 介面現在也支援直接編輯容器內的檔案：
 
 ![Docker Desktop 內建編輯器](images/解決%20WSL%202%20Docker%20檔案權限問題/docker-desktop-editor.png)
 
@@ -213,3 +299,4 @@ services:
 ## 異動歷程
 
 - 2026-01-19 初版文件建立。
+- 2026-01-22 補充將 Dev Container 整合進 Docker Compose 的另一種做法。
