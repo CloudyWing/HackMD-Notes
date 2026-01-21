@@ -1,7 +1,7 @@
 ---
 title: "在 Windows 上使用 WSL 2 安裝 Linux"
 date: 2022-10-24
-lastmod: 2024-10-30
+lastmod: 2026-01-22
 description: "教學如何在 Windows 10/11 上安裝 WSL 2 (Windows Subsystem for Linux)。說明 WSL 2 與 Docker Desktop 的架構關係，以及如何設定預設 Linux 發行版。"
 tags: ["Docker","WSL"]
 ---
@@ -56,7 +56,7 @@ Docker Desktop 的 Linux Containers 大致有以下架構：
 3. 設定預設 Linux 發行版。
 
     ```bash
-    wsl --set-default-version <DistributionName>
+    wsl --set-default <DistributionName>
     # or
     wsl -s <DistributionName>
     ```
@@ -152,3 +152,5 @@ docker: Got permission denied while trying to connect to the Docker daemon socke
   - 將簡寫指令改為完整指令。
   - 補充解除安裝 WSL 的指令。
   - 嘗試提供之前問題的解決方案。
+- 2026-01-22
+  - 修正設定預設 Linux 發行版的指令。
