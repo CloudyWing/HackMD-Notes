@@ -8,6 +8,12 @@ tags: ["Whisper"]
 
 # 簡單測試使用 WhisperDesktop 將語音轉成文字
 
+::: warning
+這篇是之前的測試紀錄，雖然 WhisperDesktop 還是能用，但開發者已許久未更新。
+目前我已改用 **Subtitle Edit 整合 Faster-Whisper**，維護相對活躍且速度更快。
+建議直接參考新文章：[使用 Subtitle Edit 整合 Faster-Whisper 進行本地語音轉文字](./使用%20Subtitle%20Edit%20整合%20Faster-Whisper%20進行本地語音轉文字.md)。
+:::
+
 前段時間在看 ChatRTX 時，我看到 Whisper 這個名詞。經查詢後發現，OpenAI Whisper 是 OpenAI 於 2022 年 9 月發佈的語音轉錄和翻譯 AI 模型。如果想了解更多資訊可以參考 [What is OpenAI Whisper?](https://whisperapi.com/what-is-openai-whisper?utm_source=chatgpt.com) 這篇文章。
 
 對於像我這樣的 AI 新手來說，要自己建立環境來運行這個模型有點困難。不過，有人開發出可以直接使用的離線版工具 [WhisperDesktop](https://github.com/Const-me/Whisper)。
@@ -100,3 +106,4 @@ tags: ["Whisper"]
 ## 異動歷程
 
 - 2025-03-24 初版文件建立。
+- 2026-01-31 新增推薦連結，引導至新版 Faster-Whisper 解決方案。
